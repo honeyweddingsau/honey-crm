@@ -229,6 +229,41 @@ tr:hover td{background:var(--s2)}
 </head>
 <body>
 
+<!-- ██ PASSWORD GATE ██ -->
+<div id="pwGate" style="position:fixed;inset:0;background:#0C0900;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif">
+  <div style="background:#131008;border:1px solid #3D3118;border-radius:14px;padding:40px 36px;width:100%;max-width:360px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.7)">
+    <div style="font-family:'Playfair Display',serif;font-weight:800;font-size:22px;color:#FDF5DC;margin-bottom:4px">Honey Weddings</div>
+    <div style="font-size:11px;color:#7A6030;font-family:'DM Mono',monospace;margin-bottom:28px;letter-spacing:.06em">CRM INTELLIGENCE · PRIVATE</div>
+    <input id="pwInput" type="password" placeholder="Enter password" autocomplete="current-password"
+      style="width:100%;background:#1C1710;border:1px solid #3D3118;border-radius:8px;padding:12px 16px;font-family:'DM Mono',monospace;font-size:14px;color:#FDF5DC;outline:none;text-align:center;box-sizing:border-box;transition:border .2s"
+      onkeydown="if(event.key==='Enter')checkPw()"
+      onfocus="this.style.borderColor='#D4A017'"
+      onblur="this.style.borderColor='#3D3118'">
+    <div id="pwErr" style="font-size:11px;color:#E05C3A;margin-top:8px;min-height:16px;font-family:'DM Mono',monospace"></div>
+    <button onclick="checkPw()" style="width:100%;background:#D4A017;color:#0C0900;border:none;border-radius:8px;padding:12px;font-family:'Syne',sans-serif;font-size:13px;font-weight:800;cursor:pointer;margin-top:12px;transition:background .2s" onmouseover="this.style.background='#B8880F'" onmouseout="this.style.background='#D4A017'">ENTER →</button>
+  </div>
+</div>
+<script>
+(function(){
+  const PW = 'Honeycomb28';
+  const KEY = 'hw_auth';
+  if(sessionStorage.getItem(KEY) === PW) document.getElementById('pwGate').style.display = 'none';
+  window.checkPw = function(){
+    const v = document.getElementById('pwInput').value;
+    if(v === PW){
+      sessionStorage.setItem(KEY, PW);
+      const g = document.getElementById('pwGate');
+      g.style.transition = 'opacity .3s';
+      g.style.opacity = '0';
+      setTimeout(()=> g.remove(), 300);
+    } else {
+      document.getElementById('pwErr').textContent = 'Incorrect password';
+      document.getElementById('pwInput').style.borderColor = '#E05C3A';
+    }
+  };
+})();
+</script>
+
 <aside class="sb">
   <div class="sb-brand">
     <div class="sb-icon" style="font-family:'Playfair Display',serif;font-weight:800">H</div>
