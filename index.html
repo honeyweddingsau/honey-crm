@@ -64,6 +64,9 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--tx);display:
 .btn-th{background:var(--s2);border:1px solid var(--b1);border-radius:var(--rs);padding:7px 9px;color:var(--t2);cursor:pointer;display:flex;align-items:center;font-size:14px;transition:all .15s}
 .btn-th:hover{background:var(--s3);color:var(--tx)}
 
+/* CHART EXPLANATIONS */
+.chelp{font-size:10px;color:var(--t3);margin-top:4px;line-height:1.5;max-width:560px;font-style:italic}
+
 /* QUICK RANGE */
 .qr-wrap{display:flex;gap:4px}
 .qr-btn{background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--t3);font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;transition:all .15s}
@@ -1196,7 +1199,7 @@ function stPL(l) {
   const eff = effectiveStatus(l);
   const c = STA_C[eff] || STA_C.Inquiry;
   const badge = `<span class="sp ${c.cls}">${eff}</span>`;
-  if (eff === 'Lost' && l.status !== 'Lost') return badge + `<span style="font-size:9px;color:#5A6080;margin-left:3px" title="Auto: sem interação por ${STALE_DAYS}+ dias">⏰</span>`;
+  if (eff === 'Lost' && l.status !== 'Lost') return badge + `<span style="font-size:9px;color:#5A6080;margin-left:3px" title="Auto: no interaction for ${STALE_DAYS}+ days">⏰</span>`;
   return badge;
 }
 function fD(d) { if(!d) return '—'; try{ return new Date(d+'T12:00:00').toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'}); }catch{ return d; } }
@@ -3282,7 +3285,51 @@ function renderCalendar() {
 // ════════════════════════════════════════════════════════════
 // BOOT
 // ════════════════════════════════════════════════════════════
+// Plain-English explanations shown under each chart title
+const EXPLAIN = {
+  cSrcBar: 'How many enquiries came from each advertising channel, month by month.',
+  cSrcDonut: 'The share of all enquiries each channel brings in.',
+  cFunnelMini: 'Where every lead currently sits on the path from first enquiry to signed contract.',
+  cPareto: 'Bars: leads per channel. Line: running % of the total — shows which few channels bring most of the leads.',
+  cQuality: 'Of the leads each channel sends, the % that end up booking. A bigger shape = better-quality leads.',
+  cFunnelD: 'Each stage of the sales journey. The drop between bars shows where leads give up.',
+  cStageD: 'The current status mix of all leads in the pipeline.',
+  cCAC: 'CAC = Customer Acquisition Cost: ad money spent ÷ new clients won. What it costs to win one new client.',
+  cTimeline: 'How many new enquiries arrive over time — the demand trend.',
+  cYearInq: 'The wedding years couples are asking about — shows how far ahead people are booking.',
+  cYearBooked: 'Confirmed weddings on the calendar, grouped by when the wedding takes place.',
+  cContractsBySource: 'Signed contracts grouped by the channel that originally brought that client in.',
+  convKpis: 'Of the leads received in this period, the % that turned into a signed contract.',
+  cAvgPrice: 'The average package value clients pay, month by month.',
+  cSignedVsLeads: 'Contracts closed each month vs how many leads were available to close.',
+  cDateConflict: 'Leads we could not take because their wedding date was already booked by another client.',
+  cWeddingMonthAvail: 'For each wedding month: how many leads we can still take vs dates already taken.',
+  cBkClients: 'Number of weddings booked each month, compared across years.',
+  cBkRevenue: 'Money from bookings each month, compared across years.',
+  cBkPkg: 'Which packages generate the most revenue.',
+  cBkCity: 'Revenue split between Melbourne and Adelaide.',
+  cRevAnnual: 'Total revenue per year, side by side.',
+  cRevGrowth: 'How fast revenue is growing from one year to the next, in %.',
+  cRevOverlay: 'Each year\'s monthly revenue on one chart — reveals the busy and quiet seasons.',
+  cRevVsAd: 'Revenue earned vs money spent on ads each month — are the ads paying for themselves?',
+  cRevCPA: 'CPA = Cost Per Acquisition: ad spend ÷ bookings that month. The ad cost of winning one client.',
+  cMktMeta: 'What we actually paid Meta (Facebook/Instagram) each month, straight from the ads platform.',
+  cMktGoogle: 'What we actually paid Google Ads each month, straight from the ads platform.',
+  cMktCPL: 'CPL = Cost Per Lead: what one enquiry costs on each channel. Lower is better.',
+  cAdTotal: 'Everything spent on advertising each month, stacked by channel.',
+  cAdShare: 'How the total ad budget is divided between channels.',
+  cAdROAS: 'ROAS = Return On Ad Spend: revenue ÷ ad spend. A ROAS of 3 means every $1 in ads brought back $3.',
+};
+
 (function boot() {
+  // Plain-English chart explanations
+  Object.entries(EXPLAIN).forEach(([id, txt]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const card = el.closest('.card');
+    const head = card ? card.querySelector('.ch > div') : null;
+    if (head && !head.querySelector('.chelp')) head.insertAdjacentHTML('beforeend', `<div class="chelp">${txt}</div>`);
+  });
   // Generate repeated UI (month options + quick-range buttons) once
   document.querySelectorAll('select[data-months]').forEach(sel => {
     MONTHS.forEach((m,i) => {
@@ -3322,7 +3369,7 @@ function renderCalendar() {
   </button>
   <button class="mbn-btn" onclick="openMobileDrawer()">
     <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    MAIS
+    MORE
   </button>
 </nav>
 
@@ -3330,7 +3377,7 @@ function renderCalendar() {
 <div id="mobileDrawer">
   <div class="mob-drawer-head">
     <div style="font-family:'Playfair Display',serif;font-weight:800;font-size:16px;color:var(--tx)">Honey Weddings</div>
-    <button class="mob-drawer-close" onclick="closeMobileDrawer()">✕ Fechar</button>
+    <button class="mob-drawer-close" onclick="closeMobileDrawer()">✕ Close</button>
   </div>
   <div class="mob-nav-section">MAIN</div>
   <button class="mob-nav-item" onclick="mbnNav('dash');closeMobileDrawer()"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</button>
