@@ -1,33 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="honey">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Honey Weddings — CRM</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Sacramento&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Sacramento&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous"></script>
 <style>
-:root[data-theme="dark"]{--bg:#0E0F14;--s1:#13151C;--s2:#1A1D27;--s3:#22263A;--b1:#252836;--b2:#2F3347;--tx:#E8EAF0;--t2:#8890A8;--t3:#4A5068;--card:#13151C;--inp:#1A1D27;}
-:root[data-theme="light"]{--bg:#F2F4FA;--s1:#FFFFFF;--s2:#F0F2F8;--s3:#E4E8F4;--b1:#E2E6F0;--b2:#CDD3E8;--tx:#1A1D2E;--t2:#5A6080;--t3:#9AA0BE;--card:#FFFFFF;--inp:#F0F2F8;}
+:root[data-theme="light"]{--bg:#F6F1E6;--s1:#FFFCF5;--s2:#F1EBDB;--s3:#E7DFC9;--b1:#E3DAC2;--b2:#CFC2A0;--tx:#2B2517;--t2:#6E6247;--t3:#A29470;--card:#FFFCF5;--inp:#F1EBDB;}
 :root[data-theme="honey"]{
-  --bg:#0C0900;--s1:#131008;--s2:#1C1710;--s3:#26200F;
-  --b1:#3D3118;--b2:#564526;
-  --tx:#FDF5DC;--t2:#C9A84C;--t3:#7A6030;
-  --card:#131008;--inp:#1C1710;
-  --pu:#D4A017;--pudim:rgba(212,160,23,0.2);
-  --gr:#C8A43A;--bl:#E8C460;--am:#F0B429;--rd:#E05C3A;--pk:#E87840;
+  --bg:#121009;--s1:#19160E;--s2:#211D13;--s3:#2B2618;
+  --b1:#332C1B;--b2:#4A4126;
+  --tx:#F5EEDC;--t2:#C7B078;--t3:#8A7A4E;
+  --card:#19160E;--inp:#211D13;
+  --pu:#D4A017;--pudim:rgba(212,160,23,0.16);
+  --gr:#8FA876;--bl:#7C97C9;--am:#E0B15E;--rd:#D96A4A;--pk:#C48A9B;
   --r:10px;--rs:6px;
 }
-:root[data-theme="honey"] .sb-icon { background: #D4A017; }
-:root[data-theme="honey"] .ni.active { background:rgba(212,160,23,.15); color:#D4A017; border-color:rgba(212,160,23,.3); }
-:root[data-theme="honey"] .btn-ref { background: #D4A017; }
-:root[data-theme="honey"] .btn-ref:hover { background: #B8880F; }
-:root[data-theme="honey"] .sdot.ok { background:#D4A017; box-shadow:0 0 6px rgba(212,160,23,.5); }
-:root[data-theme="honey"] .ttip-box { background:#1C1710; border-color:rgba(212,160,23,.3); }
-:root{--pu:#7C6FE0;--pudim:rgba(124,111,224,0.18);--gr:#34D399;--bl:#60A5FA;--am:#F59E0B;--rd:#F87171;--pk:#FB7185;--r:10px;--rs:6px;}
+:root{--pu:#D4A017;--pudim:rgba(212,160,23,0.16);--gr:#8FA876;--bl:#7C97C9;--am:#E0B15E;--rd:#D96A4A;--pk:#C48A9B;--r:10px;--rs:6px;}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
 body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--tx);display:flex;font-size:13px;transition:background .25s,color .25s}
@@ -36,7 +29,7 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--tx);display:
 /* SIDEBAR */
 .sb{width:224px;background:var(--s1);border-right:1px solid var(--b1);display:flex;flex-direction:column;flex-shrink:0}
 .sb-brand{display:flex;align-items:center;gap:11px;padding:18px 16px 14px;border-bottom:1px solid var(--b1)}
-.sb-icon{width:34px;height:34px;background:var(--pu);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;flex-shrink:0}
+.sb-icon{width:34px;height:34px;background:var(--pu);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#1A1408;flex-shrink:0}
 .sb-name{font-size:13px;font-weight:700;line-height:1.1}
 .sb-logo{display:flex;align-items:baseline;gap:5px;font-size:15px}
 .sb-logo-h{font-family:'Playfair Display',serif;font-weight:800;font-size:15px;letter-spacing:.2px}
@@ -48,13 +41,13 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--tx);display:
 .ns{font-size:9px;font-weight:700;letter-spacing:.12em;color:var(--t3);padding:8px 16px 3px;font-family:'DM Mono',monospace}
 .sb-nav{display:flex;flex-direction:column;gap:2px;padding:3px 8px}
 .ni{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:var(--rs);cursor:pointer;color:var(--t2);font-size:12px;font-weight:600;transition:all .15s;border:none;background:transparent;width:100%;text-align:left;font-family:'Syne',sans-serif}
-.ni:hover{background:var(--s2);color:var(--tx)}.ni.active{background:var(--pudim);color:#A89CF5;border:1px solid rgba(124,111,224,.22)}
+.ni:hover{background:var(--s2);color:var(--tx)}.ni.active{background:var(--pudim);color:#E8C460;border:1px solid rgba(212,160,23,.22)}
 .ni svg{flex-shrink:0;opacity:.7}.ni.active svg{opacity:1}
-.nb{margin-left:auto;background:var(--pu);color:#fff;font-size:9px;font-weight:700;padding:1px 6px;border-radius:99px;font-family:'DM Mono',monospace}
+.nb{margin-left:auto;background:var(--pu);color:#1A1408;font-size:9px;font-weight:700;padding:1px 6px;border-radius:99px;font-family:'DM Mono',monospace}
 .sb-foot{margin-top:auto;padding:10px 8px;border-top:1px solid var(--b1)}
 .sync-row{display:flex;align-items:center;gap:7px;padding:6px 8px;font-size:10px;color:var(--t2);font-family:'DM Mono',monospace}
 .sdot{width:6px;height:6px;border-radius:50%;background:var(--t3);flex-shrink:0}
-.sdot.ok{background:var(--gr);box-shadow:0 0 6px rgba(52,211,153,.5)}
+.sdot.ok{background:var(--gr);box-shadow:0 0 6px rgba(143,168,118,.5)}
 .sdot.busy{background:var(--am);animation:pulse 1s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
@@ -65,11 +58,17 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--tx);display:
 .pg-sub{font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:3px}
 .tb-right{display:flex;align-items:center;gap:8px}
 .upd-badge{font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;padding:5px 10px;background:var(--s2);border-radius:var(--rs);border:1px solid var(--b1)}
-.btn-ref{display:flex;align-items:center;gap:6px;background:var(--pu);color:#fff;border:none;border-radius:var(--rs);padding:7px 13px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s}
-.btn-ref:hover{background:#9584F5}.btn-ref.spin svg{animation:spin .8s linear infinite}
+.btn-ref{display:flex;align-items:center;gap:6px;background:var(--pu);color:#1A1408;border:none;border-radius:var(--rs);padding:7px 13px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-ref:hover{background:#B8880F}.btn-ref.spin svg{animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .btn-th{background:var(--s2);border:1px solid var(--b1);border-radius:var(--rs);padding:7px 9px;color:var(--t2);cursor:pointer;display:flex;align-items:center;font-size:14px;transition:all .15s}
 .btn-th:hover{background:var(--s3);color:var(--tx)}
+
+/* QUICK RANGE */
+.qr-wrap{display:flex;gap:4px}
+.qr-btn{background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--t3);font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;transition:all .15s}
+.qr-btn:hover{color:var(--tx);background:var(--s3)}
+.qr-btn.active{background:var(--pu);color:#1A1408;border-color:var(--pu)}
 
 /* TABS */
 .tab{display:none;flex:1;overflow-y:auto;padding:18px 22px}
@@ -116,18 +115,18 @@ tr:hover td{background:var(--s2)}
 
 /* PILLS */
 .sp{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:99px;font-size:9px;font-weight:700;white-space:nowrap}
-.s-inq{background:rgba(245,158,11,.12);color:#F59E0B;border:1px solid rgba(245,158,11,.25)}
-.s-quo{background:rgba(52,211,153,.1);color:#34D399;border:1px solid rgba(52,211,153,.2)}
-.s-fol{background:rgba(251,113,133,.1);color:#FB7185;border:1px solid rgba(251,113,133,.2)}
-.s-cal{background:rgba(96,165,250,.1);color:#60A5FA;border:1px solid rgba(96,165,250,.2)}
-.s-boo{background:rgba(167,139,250,.12);color:#A78BFA;border:1px solid rgba(167,139,250,.25)}
-.s-los{background:rgba(107,114,128,.1);color:#6B7280;border:1px solid rgba(107,114,128,.2)}
+.s-inq{background:rgba(224,177,94,.12);color:#E0B15E;border:1px solid rgba(224,177,94,.25)}
+.s-quo{background:rgba(143,168,118,.1);color:#8FA876;border:1px solid rgba(143,168,118,.2)}
+.s-fol{background:rgba(196,138,155,.1);color:#C48A9B;border:1px solid rgba(196,138,155,.2)}
+.s-cal{background:rgba(111,168,160,.1);color:#6FA8A0;border:1px solid rgba(111,168,160,.25)}
+.s-boo{background:rgba(212,160,23,.12);color:#D4A017;border:1px solid rgba(212,160,23,.28)}
+.s-los{background:rgba(138,128,112,.1);color:#8A8070;border:1px solid rgba(138,128,112,.2)}
 .srcp{display:inline-flex;align-items:center;gap:3px;padding:1px 6px;border-radius:99px;font-size:8px;font-weight:700;font-family:'DM Mono',monospace;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
-.sm{background:rgba(167,139,250,.12);color:#A78BFA;border:1px solid rgba(167,139,250,.25)}
-.sg{background:rgba(96,165,250,.1);color:#60A5FA;border:1px solid rgba(96,165,250,.2)}
-.so{background:rgba(52,211,153,.1);color:#34D399;border:1px solid rgba(52,211,153,.2)}
-.sr{background:rgba(251,113,133,.1);color:#FB7185;border:1px solid rgba(251,113,133,.2)}
-.sx{background:rgba(245,158,11,.1);color:#F59E0B;border:1px solid rgba(245,158,11,.2)}
+.sm{background:rgba(124,151,201,.12);color:#7C97C9;border:1px solid rgba(124,151,201,.25)}
+.sg{background:rgba(201,111,74,.1);color:#C96F4A;border:1px solid rgba(201,111,74,.2)}
+.so{background:rgba(143,168,118,.1);color:#8FA876;border:1px solid rgba(143,168,118,.2)}
+.sr{background:rgba(196,138,155,.1);color:#C48A9B;border:1px solid rgba(196,138,155,.2)}
+.sx{background:rgba(224,177,94,.1);color:#E0B15E;border:1px solid rgba(224,177,94,.2)}
 
 /* RECENT */
 .rl,.tl{display:flex;flex-direction:column;gap:6px;overflow-y:auto;flex:1}
@@ -145,7 +144,7 @@ tr:hover td{background:var(--s2)}
 .src-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-top:12px}
 .srccard{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);padding:14px;position:relative;overflow:hidden}
 .srccard::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px}
-.sc-meta::before{background:#A78BFA}.sc-google::before{background:#60A5FA}.sc-organic::before{background:#34D399}.sc-remark::before{background:#FB7185}.sc-other::before{background:#F59E0B}
+.sc-meta::before{background:#7C97C9}.sc-google::before{background:#C96F4A}.sc-organic::before{background:#8FA876}.sc-remark::before{background:#C48A9B}.sc-other::before{background:#E0B15E}
 .scl{font-size:9px;font-weight:700;color:var(--t2);margin-bottom:6px;letter-spacing:.06em;font-family:'DM Mono',monospace}
 .scn{font-size:30px;font-weight:800;font-family:'DM Mono',monospace;line-height:1;margin-bottom:4px}
 .scp{font-size:11px;color:var(--t2)}
@@ -161,7 +160,7 @@ tr:hover td{background:var(--s2)}
 /* REVENUE */
 .yr-btns{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
 .yr-btn{background:var(--s2);border:1px solid var(--b1);border-radius:var(--rs);color:var(--t2);font-family:'Syne',sans-serif;font-size:11px;font-weight:600;padding:5px 14px;cursor:pointer;transition:all .15s}
-.yr-btn:hover{background:var(--s3);color:var(--tx)}.yr-btn.active{background:var(--pu);color:#fff;border-color:var(--pu)}
+.yr-btn:hover{background:var(--s3);color:var(--tx)}.yr-btn.active{background:var(--pu);color:#1A1408;border-color:var(--pu)}
 .rev-sum{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:12px}
 .rev-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);padding:14px;position:relative;overflow:hidden}
 .rev-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent,var(--pu))}
@@ -179,8 +178,8 @@ tr:hover td{background:var(--s2)}
 .step{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);padding:16px 18px;display:flex;gap:14px}
 .snum{font-size:24px;font-weight:800;color:var(--b2);font-family:'DM Mono',monospace;flex-shrink:0;width:42px;line-height:1}
 .sti{font-size:13px;font-weight:700;margin-bottom:6px}.stb{font-size:11px;color:var(--t2);line-height:1.7;margin-bottom:8px}
-.code{background:#080A12;border:1px solid var(--b1);border-radius:var(--rs);padding:10px 12px;font-family:'DM Mono',monospace;font-size:10px;color:#A89CF5;line-height:1.7;white-space:pre;overflow-x:auto}
-.snote{background:rgba(124,111,224,.08);border:1px solid rgba(124,111,224,.2);border-radius:var(--rs);padding:10px 14px;font-size:11px;color:var(--t2);margin-top:14px;line-height:1.6}
+.code{background:#0D0B06;border:1px solid var(--b1);border-radius:var(--rs);padding:10px 12px;font-family:'DM Mono',monospace;font-size:10px;color:#E8C460;line-height:1.7;white-space:pre;overflow-x:auto}
+.snote{background:rgba(212,160,23,.08);border:1px solid rgba(212,160,23,.2);border-radius:var(--rs);padding:10px 14px;font-size:11px;color:var(--t2);margin-top:14px;line-height:1.6}
 
 @media(max-width:1100px){.r2,.r3,.req{grid-template-columns:1fr}.fn-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:768px){.sb{width:54px}.sb-name,.sb-sub,.sb-search,.ns,.ni span,.nb,.sync-row span{display:none}.ni{justify-content:center;padding:10px}.kpi-grid{grid-template-columns:repeat(2,1fr)}.fn-grid{grid-template-columns:repeat(2,1fr)}}
@@ -235,7 +234,7 @@ tr:hover td{background:var(--s2)}
   font-family:'Syne',sans-serif;font-size:8px;font-weight:700;
   cursor:pointer;transition:color .15s;padding:6px 2px;letter-spacing:.03em
 }
-.mbn-btn.active{color:#A89CF5}
+.mbn-btn.active{color:#E8C460}
 .mbn-btn svg{opacity:.7}.mbn-btn.active svg{opacity:1}
 
 /* Hamburger button — hidden on desktop */
@@ -264,7 +263,7 @@ tr:hover td{background:var(--s2)}
   cursor:pointer;color:var(--t2);font-family:'Syne',sans-serif;
   font-size:13px;font-weight:600;background:transparent;border-left:none;border-right:none;border-top:none;width:100%;text-align:left
 }
-.mob-nav-item:hover,.mob-nav-item.active{background:var(--pudim);color:#A89CF5}
+.mob-nav-item:hover,.mob-nav-item.active{background:var(--pudim);color:#E8C460}
 .mob-nav-section{padding:8px 18px 4px;font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;letter-spacing:.08em}
 
 .calc-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--b1)}
@@ -276,7 +275,7 @@ tr:hover td{background:var(--s2)}
 .calc-inp-wrap span{padding:0 8px;color:var(--t3);font-size:12px;font-family:'DM Mono',monospace;flex-shrink:0}
 .calc-inp-wrap input{background:transparent;border:none;outline:none;font-family:'DM Mono',monospace;font-size:12px;color:var(--tx);padding:6px 8px 6px 0;width:100%;text-align:right}
 .calc-inp-wrap input:focus{outline:none}
-.calc-result-inline{font-family:'DM Mono',monospace;font-size:12px;color:var(--gr);font-weight:700;padding:6px 10px;background:rgba(52,211,153,.06);border-radius:var(--rs);border:1px solid rgba(52,211,153,.15);min-width:100px;text-align:right}
+.calc-result-inline{font-family:'DM Mono',monospace;font-size:12px;color:var(--gr);font-weight:700;padding:6px 10px;background:rgba(143,168,118,.06);border-radius:var(--rs);border:1px solid rgba(143,168,118,.15);min-width:100px;text-align:right}
 .calc-kpi{background:var(--s2);border-radius:var(--r);padding:14px;border:1px solid var(--b1);position:relative;overflow:hidden}
 .calc-kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--kpi-accent,var(--pu))}
 .calc-kpi-lbl{font-size:9px;color:var(--t2);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:5px}
@@ -291,8 +290,8 @@ tr:hover td{background:var(--s2)}
   position:absolute;
   bottom:calc(100% + 6px);
   left:0;
-  background:#1A1D27;
-  border:1px solid rgba(124,111,224,.3);
+  background:#211D13;
+  border:1px solid rgba(212,160,23,.3);
   border-radius:8px;
   padding:10px 12px;
   font-size:11px;
@@ -306,10 +305,14 @@ tr:hover td{background:var(--s2)}
   min-width:180px;
 }
 .ttip:hover .ttip-box { display:block; }
-[data-theme="light"] .ttip-box { background:#1A1D2E; color:#E8EAF0; }
+[data-theme="light"] .ttip-box { background:#2B2517; color:#F5EEDC; }
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-meta" viewBox="0 0 36 36"><path d="M7.5 12.5c-3 0-5.5 3-5.5 7.5s2.5 7.5 5.5 7.5c2 0 3.6-1.2 5.3-3.7 1.2-1.8 2.3-3.9 3.2-5.8.9 1.9 2 4 3.2 5.8 1.7 2.5 3.3 3.7 5.3 3.7 3 0 5.5-3 5.5-7.5s-2.5-7.5-5.5-7.5c-2 0-3.7 1.3-5.4 3.8-1.1 1.7-2.1 3.6-3.1 5.5-1-1.9-2-3.8-3.1-5.5-1.7-2.5-3.4-3.8-5.4-3.8z" fill="#0081FB"/></symbol>
+<symbol id="i-google" viewBox="0 0 48 48"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.95 41.07 15.39 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18A13.96 13.96 0 0 1 11 24c0-1.45.25-2.86.69-4.18v-5.7H4.34A23.93 23.93 0 0 0 2 24c0 3.87.93 7.53 2.34 10.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.39 2 7.95 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></symbol>
+</defs></svg>
 
 <!-- ██ PASSWORD GATE ██ -->
 <div id="pwGate" style="position:fixed;inset:0;background:#0C0900;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif">
@@ -369,8 +372,7 @@ tr:hover td{background:var(--s2)}
     <button class="ni" data-tab="calc"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg><span>Payment Calc</span></button>
     <button class="ni" data-tab="bookings"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><span>Bookings</span></button>
     <button class="ni" data-tab="revenue"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Revenue</span></button>
-    <button class="ni" data-tab="adcost"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><span>Ad Cost</span></button>
-    <button class="ni" data-tab="mktkpi"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="m13 2-2 7h7l-9 13 2-8H4z"/></svg><span>Marketing KPIs</span></button>
+    <button class="ni" data-tab="adcost"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><span>Marketing</span></button>
   </nav>
   <div class="ns">SETUP</div>
   <nav class="sb-nav">
@@ -394,7 +396,7 @@ tr:hover td{background:var(--s2)}
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
         Refresh
       </button>
-      <button class="btn-th" id="btnTh" onclick="toggleTheme()">🌙</button>
+      <button class="btn-th" id="btnTh" onclick="toggleTheme()">🍯</button>
     </div>
   </header>
 
@@ -402,7 +404,7 @@ tr:hover td{background:var(--s2)}
   <div class="tab active" id="tab-dash">
     <div class="kpi-grid" id="kpiGrid"></div>
     <div class="r2">
-      <div class="card"><div class="ch"><div><div class="ct">Lead Volume by Source</div><div class="cs" style="display:flex;align-items:center;gap:5px;flex-wrap:wrap"><svg width="11" height="11" viewBox="0 0 36 36" style="flex-shrink:0"><path d="M7.5 12.5c-3 0-5.5 3-5.5 7.5s2.5 7.5 5.5 7.5c2 0 3.6-1.2 5.3-3.7 1.2-1.8 2.3-3.9 3.2-5.8.9 1.9 2 4 3.2 5.8 1.7 2.5 3.3 3.7 5.3 3.7 3 0 5.5-3 5.5-7.5s-2.5-7.5-5.5-7.5c-2 0-3.7 1.3-5.4 3.8-1.1 1.7-2.1 3.6-3.1 5.5-1-1.9-2-3.8-3.1-5.5-1.7-2.5-3.4-3.8-5.4-3.8z" fill="#0081FB"/></svg>Meta Ads · <svg width="11" height="11" viewBox="0 0 48 48" style="flex-shrink:0"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.95 41.07 15.39 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18A13.96 13.96 0 0 1 11 24c0-1.45.25-2.86.69-4.18v-5.7H4.34A23.93 23.93 0 0 0 2 24c0 3.87.93 7.53 2.34 10.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.39 2 7.95 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>Google · Organic · Remarketing</div></div><div class="leg" id="srcLeg"></div></div><div class="cw"><canvas id="cSrcBar"></canvas></div></div>
+      <div class="card"><div class="ch"><div><div class="ct">Lead Volume by Source</div><div class="cs" style="display:flex;align-items:center;gap:5px;flex-wrap:wrap"><svg width="11" height="11" style="flex-shrink:0"><use href="#i-meta"/></svg>Meta Ads · <svg width="11" height="11" style="flex-shrink:0"><use href="#i-google"/></svg>Google · Organic · Remarketing</div></div><div class="leg" id="srcLeg"></div></div><div class="cw"><canvas id="cSrcBar"></canvas></div></div>
       <div class="card"><div class="ch"><div><div class="ct">Source Split</div><div class="cs">% of total leads</div></div></div><div class="cw"><canvas id="cSrcDonut"></canvas></div></div>
     </div>
     <div class="r3">
@@ -419,27 +421,13 @@ tr:hover td{background:var(--s2)}
     <!-- ═══ Quick-range period filter ═══ -->
     <div class="card" style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
       <div><div class="ct">Period</div><div class="cs" id="leadPeriodLabel">All time · filters leads by date received</div></div>
-      <div id="leadQR" style="display:flex;gap:4px">
-        <button id="leadQR_0" onclick="setQuickRange('lead',0)" style="background:var(--pu);color:#fff;border:none;border-radius:6px;font-size:10px;padding:5px 10px;cursor:pointer;font-family:'Syne',sans-serif">All</button>
-        <button id="leadQR_7" onclick="setQuickRange('lead',7)" style="background:var(--s2);color:var(--t3);border:none;border-radius:6px;font-size:10px;padding:5px 10px;cursor:pointer;font-family:'Syne',sans-serif">7d</button>
-        <button id="leadQR_30" onclick="setQuickRange('lead',30)" style="background:var(--s2);color:var(--t3);border:none;border-radius:6px;font-size:10px;padding:5px 10px;cursor:pointer;font-family:'Syne',sans-serif">30d</button>
-        <button id="leadQR_90" onclick="setQuickRange('lead',90)" style="background:var(--s2);color:var(--t3);border:none;border-radius:6px;font-size:10px;padding:5px 10px;cursor:pointer;font-family:'Syne',sans-serif">90d</button>
-        <button id="leadQR_180" onclick="setQuickRange('lead',180)" style="background:var(--s2);color:var(--t3);border:none;border-radius:6px;font-size:10px;padding:5px 10px;cursor:pointer;font-family:'Syne',sans-serif">180d</button>
-      </div>
+      <div data-qr="lead"></div>
     </div>
     <div class="tb-bar" style="flex-wrap:wrap;gap:8px">
       <div class="fg" style="flex-wrap:wrap;gap:6px">
         <select class="fsel" id="fStatus" onchange="renderTable()"><option value="">All Status</option><option>Inquiry</option><option>Quoted</option><option value="Follow-up" title="Already in contact with the client — waiting on their decision">Follow-up</option><option>Call Booked</option><option>Booked</option><option>Lost</option></select>
         <select class="fsel" id="fSource" onchange="renderTable()"><option value="">All Sources</option><option>Meta Ads</option><option>Google</option><option>Organic</option><option>Remarketing</option><option>Other</option></select>
-        <select class="fsel" id="fMonth" onchange="clearQuickRange('lead');renderTable()" title="Filter by month the lead was received">
-          <option value="">All Lead-Received Months</option>
-          <option value="2026-01">Jan 2026</option><option value="2026-02">Feb 2026</option>
-          <option value="2026-03">Mar 2026</option><option value="2026-04">Apr 2026</option>
-          <option value="2026-05">May 2026</option><option value="2026-06">Jun 2026</option>
-          <option value="2026-07">Jul 2026</option><option value="2026-08">Aug 2026</option>
-          <option value="2026-09">Sep 2026</option><option value="2026-10">Oct 2026</option>
-          <option value="2026-11">Nov 2026</option><option value="2026-12">Dec 2026</option>
-        </select>
+        <select class="fsel" id="fMonth" data-months="ym" onchange="clearQuickRange('lead');renderTable()" title="Filter by month the lead was received"><option value="">All Lead-Received Months</option></select>
         <select class="fsel" id="fAction" onchange="renderTable()">
           <option value="">All</option>
           <option value="urgent">🔥 Urgent (close dates)</option>
@@ -486,7 +474,7 @@ tr:hover td{background:var(--s2)}
         </div>
         <div id="emailModalBody" style="font-size:12px;color:var(--t2);line-height:1.8;white-space:pre-wrap;background:var(--s2);border:1px solid var(--b1);border-radius:var(--rs);padding:14px;margin-bottom:12px;min-height:120px">Generating...</div>
         <div style="display:flex;gap:8px">
-          <button onclick="copyEmailDraft()" style="flex:1;background:var(--pu);color:#fff;border:none;border-radius:var(--rs);padding:9px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;cursor:pointer">📋 Copy to Clipboard</button>
+          <button onclick="copyEmailDraft()" style="flex:1;background:var(--pu);color:#1A1408;border:none;border-radius:var(--rs);padding:9px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;cursor:pointer">📋 Copy to Clipboard</button>
           <button id="btnOpenGmail" onclick="openGmail()" style="flex:1;background:var(--s2);color:var(--t2);border:1px solid var(--b1);border-radius:var(--rs);padding:9px;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;cursor:pointer">✉ Open Gmail</button>
         </div>
         <div id="copyConfirm" style="display:none;text-align:center;font-size:11px;color:var(--gr);margin-top:8px;font-family:'DM Mono',monospace">✓ Copied to clipboard</div>
@@ -506,12 +494,12 @@ tr:hover td{background:var(--s2)}
         <button onclick="calPrev()" style="background:var(--s2);border:1px solid var(--b1);border-radius:var(--rs);padding:6px 12px;color:var(--t2);cursor:pointer;font-size:14px">‹</button>
         <div id="calMonthLabel" style="font-size:14px;font-weight:700;min-width:140px;text-align:center"></div>
         <button onclick="calNext()" style="background:var(--s2);border:1px solid var(--b1);border-radius:var(--rs);padding:6px 12px;color:var(--t2);cursor:pointer;font-size:14px">›</button>
-        <button onclick="calToday()" style="background:var(--pu);color:#fff;border:none;border-radius:var(--rs);padding:6px 12px;font-family:'Syne',sans-serif;font-size:11px;font-weight:600;cursor:pointer">Today</button>
+        <button onclick="calToday()" style="background:var(--pu);color:#1A1408;border:none;border-radius:var(--rs);padding:6px 12px;font-family:'Syne',sans-serif;font-size:11px;font-weight:600;cursor:pointer">Today</button>
       </div>
     </div>
     <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
-      <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--t2);font-family:'DM Mono',monospace"><div style="width:10px;height:10px;border-radius:2px;background:#7C6FE0"></div> Single booking</div>
-      <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--t2);font-family:'DM Mono',monospace"><div style="width:10px;height:10px;border-radius:2px;background:#F87171"></div> Double booked (unavailable)</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--t2);font-family:'DM Mono',monospace"><div style="width:10px;height:10px;border-radius:2px;background:#D4A017"></div> Single booking</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--t2);font-family:'DM Mono',monospace"><div style="width:10px;height:10px;border-radius:2px;background:#D96A4A"></div> Double booked (unavailable)</div>
       <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--t2);font-family:'DM Mono',monospace"><div style="width:10px;height:10px;border-radius:2px;background:rgba(255,255,255,.05);border:1px solid var(--b1)"></div> Available</div>
     </div>
     <!-- Calendar grid -->
@@ -554,20 +542,8 @@ tr:hover td{background:var(--s2)}
           <option value="2025">2025</option>
           <option value="2026">2026</option>
         </select>
-        <select class="fsel" id="fnMonth" onchange="clearQuickRange('fn');renderFunnelAll()" style="font-size:10px;padding:4px 8px">
-          <option value="">All Months</option>
-          <option value="Jan">Jan</option><option value="Feb">Feb</option><option value="Mar">Mar</option>
-          <option value="Apr">Apr</option><option value="May">May</option><option value="Jun">Jun</option>
-          <option value="Jul">Jul</option><option value="Aug">Aug</option><option value="Sep">Sep</option>
-          <option value="Oct">Oct</option><option value="Nov">Nov</option><option value="Dec">Dec</option>
-        </select>
-        <div id="fnQR" style="display:flex;gap:4px">
-          <button id="fnQR_0" onclick="setQuickRange('fn',0)" style="background:var(--pu);border:1px solid var(--b1);border-radius:6px;color:#fff;font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">All</button>
-          <button id="fnQR_7" onclick="setQuickRange('fn',7)" style="background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--t3);font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">7d</button>
-          <button id="fnQR_30" onclick="setQuickRange('fn',30)" style="background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--t3);font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">30d</button>
-          <button id="fnQR_90" onclick="setQuickRange('fn',90)" style="background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--t3);font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">90d</button>
-          <button id="fnQR_180" onclick="setQuickRange('fn',180)" style="background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--t3);font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">180d</button>
-        </div>
+        <select class="fsel" id="fnMonth" data-months="short" onchange="clearQuickRange('fn');renderFunnelAll()" style="font-size:10px;padding:4px 8px"><option value="">All Months</option></select>
+        <div data-qr="fn"></div>
       </div>
     </div>
     <div class="req">
@@ -575,11 +551,6 @@ tr:hover td{background:var(--s2)}
       <div class="card"><div class="ch"><div><div class="ct">Stage Distribution</div><div class="cs">Current lead status mix</div></div></div><div class="cw tall"><canvas id="cStageD"></canvas></div></div>
     </div>
     <div class="fn-grid" id="fnCards"></div>
-    <div class="card" style="margin-top:12px">
-      <div class="ch"><div><div class="ct">Contracts Closed</div><div class="cs">Signed contracts (from Signed Contracts sheet) — same period as funnel above</div></div></div>
-      <div class="kpi-grid" id="fnContractsKpis" style="margin-bottom:12px"></div>
-      <div class="cw"><canvas id="cFnContracts"></canvas></div>
-    </div>
   </div>
 
   <!-- ANALYTICS -->
@@ -593,21 +564,9 @@ tr:hover td{background:var(--s2)}
           <option value="2025">2025</option>
           <option value="2026">2026</option>
         </select>
-        <select class="fsel" id="anaMonth" onchange="clearQuickRange('ana');renderAnalyticsAll()" style="font-size:10px;padding:4px 8px">
-          <option value="">All Months</option>
-          <option value="Jan">Jan</option><option value="Feb">Feb</option><option value="Mar">Mar</option>
-          <option value="Apr">Apr</option><option value="May">May</option><option value="Jun">Jun</option>
-          <option value="Jul">Jul</option><option value="Aug">Aug</option><option value="Sep">Sep</option>
-          <option value="Oct">Oct</option><option value="Nov">Nov</option><option value="Dec">Dec</option>
-        </select>
-        <div id="anaQR" style="display:flex;gap:4px">
-          <button id="anaQR_0" onclick="setQuickRange('ana',0)" style="background:var(--pu);border:1px solid var(--b1);border-radius:6px;color:#fff;font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">All</button>
-          <button id="anaQR_7" onclick="setQuickRange('ana',7)" style="background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--t3);font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">7d</button>
-          <button id="anaQR_30" onclick="setQuickRange('ana',30)" style="background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--t3);font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">30d</button>
-          <button id="anaQR_90" onclick="setQuickRange('ana',90)" style="background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--t3);font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">90d</button>
-          <button id="anaQR_180" onclick="setQuickRange('ana',180)" style="background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--t3);font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">180d</button>
-        </div>
-        <button id="anaExportBtn" onclick="exportAnalyticsStory()" style="background:var(--pu);border:1px solid var(--pu);border-radius:6px;color:#fff;font-size:10px;padding:5px 12px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700">📲 Export 9:16</button>
+        <select class="fsel" id="anaMonth" data-months="short" onchange="clearQuickRange('ana');renderAnalyticsAll()" style="font-size:10px;padding:4px 8px"><option value="">All Months</option></select>
+        <div data-qr="ana"></div>
+        <button id="anaExportBtn" onclick="exportAnalyticsStory()" style="background:var(--pu);border:1px solid var(--pu);border-radius:6px;color:#1A1408;font-size:10px;padding:5px 12px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700">📲 Export 9:16</button>
       </div>
     </div>
     <div class="card" style="margin-bottom:12px">
@@ -628,13 +587,7 @@ tr:hover td{background:var(--s2)}
             <option value="2024">2024</option><option value="2025">2025</option>
             <option value="2026">2026</option><option value="2027">2027</option><option value="2028">2028</option>
           </select>
-          <select class="fsel" id="bkSchMonth" onchange="renderBookingSchedule()" style="font-size:10px;padding:4px 8px">
-            <option value="">All Months</option>
-            <option value="Jan">Jan</option><option value="Feb">Feb</option><option value="Mar">Mar</option>
-            <option value="Apr">Apr</option><option value="May">May</option><option value="Jun">Jun</option>
-            <option value="Jul">Jul</option><option value="Aug">Aug</option><option value="Sep">Sep</option>
-            <option value="Oct">Oct</option><option value="Nov">Nov</option><option value="Dec">Dec</option>
-          </select>
+          <select class="fsel" id="bkSchMonth" data-months="short" onchange="renderBookingSchedule()" style="font-size:10px;padding:4px 8px"><option value="">All Months</option></select>
         </div>
       </div>
       <div class="kpi-grid" id="bkSchKpis" style="margin-bottom:12px"></div>
@@ -648,10 +601,6 @@ tr:hover td{background:var(--s2)}
     <div class="card" style="margin-bottom:12px">
       <div class="ch"><div><div class="ct">Conversion Rate</div><div class="cs">Leads received in period → % that booked (cohort-based)</div></div></div>
       <div class="kpi-grid" id="convKpis"></div>
-    </div>
-    <div class="card" style="margin-bottom:12px">
-      <div class="ch"><div><div class="ct">Leads Blocked by Existing Bookings</div><div class="cs">Leads who wanted a wedding date we're already booked on</div></div></div>
-      <div class="kpi-grid" id="occKpis"></div>
     </div>
     <div class="card">
       <div class="ch"><div><div class="ct">Average Client Price</div><div class="cs">Avg. package value per signed client, by month</div></div></div>
@@ -765,8 +714,8 @@ tr:hover td{background:var(--s2)}
       </div>
 
       <!-- RESULTS -->
-      <div class="card" style="padding:20px;margin-bottom:12px;border:1px solid rgba(124,111,224,.3)">
-        <div class="ct" style="margin-bottom:16px;color:#A89CF5">💰 Payment Split & Profit</div>
+      <div class="card" style="padding:20px;margin-bottom:12px;border:1px solid rgba(212,160,23,.3)">
+        <div class="ct" style="margin-bottom:16px;color:#E8C460">💰 Payment Split & Profit</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px" id="calcResults"></div>
       </div>
 
@@ -786,7 +735,7 @@ tr:hover td{background:var(--s2)}
       </div>
 
       <!-- CASHFLOW NOTE -->
-      <div style="margin-top:10px;padding:12px 14px;background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.2);border-radius:var(--rs)">
+      <div style="margin-top:10px;padding:12px 14px;background:rgba(143,168,118,.06);border:1px solid rgba(143,168,118,.2);border-radius:var(--rs)">
         <div style="font-size:10px;color:var(--gr);font-weight:700;margin-bottom:4px;font-family:'DM Mono',monospace">CASHFLOW TIMELINE</div>
         <div style="font-size:11px;color:var(--t2);line-height:1.7" id="cashflowNote">—</div>
       </div>
@@ -807,20 +756,8 @@ tr:hover td{background:var(--s2)}
           <option value="2025">2025</option>
           <option value="2026">2026</option>
         </select>
-        <select class="fsel" id="bkMonth" onchange="clearQuickRange('bk');renderBkAll()" style="font-size:10px;padding:4px 8px">
-          <option value="">All Months</option>
-          <option value="Jan">Jan</option><option value="Feb">Feb</option><option value="Mar">Mar</option>
-          <option value="Apr">Apr</option><option value="May">May</option><option value="Jun">Jun</option>
-          <option value="Jul">Jul</option><option value="Aug">Aug</option><option value="Sep">Sep</option>
-          <option value="Oct">Oct</option><option value="Nov">Nov</option><option value="Dec">Dec</option>
-        </select>
-        <div id="bkQR" style="display:flex;gap:4px">
-          <button id="bkQR_0" onclick="setQuickRange('bk',0)" style="background:var(--pu);border:1px solid var(--b1);border-radius:6px;color:#fff;font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">All</button>
-          <button id="bkQR_7" onclick="setQuickRange('bk',7)" style="background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--t3);font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">7d</button>
-          <button id="bkQR_30" onclick="setQuickRange('bk',30)" style="background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--t3);font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">30d</button>
-          <button id="bkQR_90" onclick="setQuickRange('bk',90)" style="background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--t3);font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">90d</button>
-          <button id="bkQR_180" onclick="setQuickRange('bk',180)" style="background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--t3);font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">180d</button>
-        </div>
+        <select class="fsel" id="bkMonth" data-months="short" onchange="clearQuickRange('bk');renderBkAll()" style="font-size:10px;padding:4px 8px"><option value="">All Months</option></select>
+        <div data-qr="bk"></div>
       </div>
     </div>
 
@@ -847,21 +784,7 @@ tr:hover td{background:var(--s2)}
             <div class="ct">Date Conflicts — Current Pipeline</div>
             <div class="cs">Filter by month the lead was received</div>
           </div>
-          <select class="fsel" id="conflictMonthFilter" onchange="renderPipelineAnalysis()" style="font-size:10px;padding:4px 8px" title="Filter by month the lead was received">
-            <option value="">All months</option>
-            <option value="2026-01">Jan 2026</option>
-            <option value="2026-02">Feb 2026</option>
-            <option value="2026-03">Mar 2026</option>
-            <option value="2026-04">Apr 2026</option>
-            <option value="2026-05">May 2026</option>
-            <option value="2026-06">Jun 2026</option>
-            <option value="2026-07">Jul 2026</option>
-            <option value="2026-08">Aug 2026</option>
-            <option value="2026-09">Sep 2026</option>
-            <option value="2026-10">Oct 2026</option>
-            <option value="2026-11">Nov 2026</option>
-            <option value="2026-12">Dec 2026</option>
-          </select>
+          <select class="fsel" id="conflictMonthFilter" data-months="ym" onchange="renderPipelineAnalysis()" style="font-size:10px;padding:4px 8px" title="Filter by month the lead was received"><option value="">All months</option></select>
         </div>
         <div class="cw tall" style="position:relative">
           <canvas id="cDateConflict"></canvas>
@@ -873,9 +796,9 @@ tr:hover td{background:var(--s2)}
             <div style="font-size:22px;font-weight:800;font-family:'DM Mono',monospace;color:var(--pu)" id="convRateAll">—</div>
             <div style="font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px" id="convRateAllSub">— booked / — leads</div>
           </div>
-          <div style="background:var(--s2);border-radius:var(--rs);padding:10px 12px;border-left:3px solid #34D399">
+          <div style="background:var(--s2);border-radius:var(--rs);padding:10px 12px;border-left:3px solid #8FA876">
             <div style="font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;font-weight:700;margin-bottom:4px">CONV. RATE (NO CONFLICTS)</div>
-            <div style="font-size:22px;font-weight:800;font-family:'DM Mono',monospace;color:#34D399" id="convRateClean">—</div>
+            <div style="font-size:22px;font-weight:800;font-family:'DM Mono',monospace;color:#8FA876" id="convRateClean">—</div>
             <div style="font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px" id="convRateCleanSub">excl. date conflicts</div>
           </div>
         </div>
@@ -953,35 +876,28 @@ tr:hover td{background:var(--s2)}
     <div class="rev-sum" id="revSum"></div>
   </div>
 
-  <!-- AD COST -->
+  <!-- MARKETING (live ad-platform + accounting) -->
   <div class="tab" id="tab-adcost">
-    <div class="kpi-grid" id="adKpis"></div>
-    <div class="card" style="margin-bottom:12px">
-      <div class="ch"><div><div class="ct">Total Ad Spend by Channel</div><div class="cs" style="display:flex;align-items:center;gap:5px;flex-wrap:wrap"><svg width="11" height="11" viewBox="0 0 36 36" style="flex-shrink:0"><path d="M7.5 12.5c-3 0-5.5 3-5.5 7.5s2.5 7.5 5.5 7.5c2 0 3.6-1.2 5.3-3.7 1.2-1.8 2.3-3.9 3.2-5.8.9 1.9 2 4 3.2 5.8 1.7 2.5 3.3 3.7 5.3 3.7 3 0 5.5-3 5.5-7.5s-2.5-7.5-5.5-7.5c-2 0-3.7 1.3-5.4 3.8-1.1 1.7-2.1 3.6-3.1 5.5-1-1.9-2-3.8-3.1-5.5-1.7-2.5-3.4-3.8-5.4-3.8z" fill="#0081FB"/></svg>Meta · <svg width="11" height="11" viewBox="0 0 48 48" style="flex-shrink:0"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.95 41.07 15.39 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18A13.96 13.96 0 0 1 11 24c0-1.45.25-2.86.69-4.18v-5.7H4.34A23.93 23.93 0 0 0 2 24c0 3.87.93 7.53 2.34 10.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.39 2 7.95 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>Google · Cself · EasyWeddings — stacked monthly</div></div><div class="leg" id="adLeg"></div></div>
-      <div class="cw tall"><canvas id="cAdTotal"></canvas></div>
-    </div>
-    <div class="r3">
-      <div class="card"><div class="ch"><div><div class="ct" style="display:flex;align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 36 36"><path d="M7.5 12.5c-3 0-5.5 3-5.5 7.5s2.5 7.5 5.5 7.5c2 0 3.6-1.2 5.3-3.7 1.2-1.8 2.3-3.9 3.2-5.8.9 1.9 2 4 3.2 5.8 1.7 2.5 3.3 3.7 5.3 3.7 3 0 5.5-3 5.5-7.5s-2.5-7.5-5.5-7.5c-2 0-3.7 1.3-5.4 3.8-1.1 1.7-2.1 3.6-3.1 5.5-1-1.9-2-3.8-3.1-5.5-1.7-2.5-3.4-3.8-5.4-3.8z" fill="#0081FB"/></svg>Meta Ads Spend</div><div class="cs">Monthly trend Sep 2024 → May 2026</div></div></div><div class="cw"><canvas id="cAdMeta"></canvas></div></div>
-      <div class="card"><div class="ch"><div><div class="ct" style="display:flex;align-items:center;gap:6px"><svg width="14" height="14" viewBox="0 0 48 48"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.95 41.07 15.39 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18A13.96 13.96 0 0 1 11 24c0-1.45.25-2.86.69-4.18v-5.7H4.34A23.93 23.93 0 0 0 2 24c0 3.87.93 7.53 2.34 10.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.39 2 7.95 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>Google Ads Spend</div><div class="cs">Monthly trend</div></div></div><div class="cw"><canvas id="cAdGoogle"></canvas></div></div>
-      <div class="card"><div class="ch"><div><div class="ct">Cself Spend</div><div class="cs">Monthly trend Dec 2025 → Apr 2026</div></div></div><div class="cw"><canvas id="cAdCself"></canvas></div></div>
-    </div>
-    <div class="req" style="margin-top:12px">
-      <div class="card"><div class="ch"><div><div class="ct">Channel Budget Share</div><div class="cs">% of total all-time ad spend</div></div></div><div class="cw"><canvas id="cAdShare"></canvas></div></div>
-      <div class="card"><div class="ch"><div><div class="ct">ROAS by Channel — 2026</div><div class="cs">Revenue ÷ Ad Spend (Jan–Jun 2026)</div></div></div><div class="cw"><canvas id="cAdROAS"></canvas></div></div>
-    </div>
-  </div>
-
-  <!-- MARKETING KPIs (live ad-platform data, separate from accounting Ad Cost) -->
-  <div class="tab" id="tab-mktkpi">
+    <div style="margin-bottom:12px"><div style="font-size:13px;font-weight:800">Live Ad Platforms — 2026</div><div class="cs">Direct from Meta Ads Manager &amp; Google Ads</div></div>
     <div class="kpi-grid" id="mktKpis"></div>
     <div class="r3" style="margin-top:12px">
-      <div class="card"><div class="ch"><div><div class="ct" style="display:flex;align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 36 36"><path d="M7.5 12.5c-3 0-5.5 3-5.5 7.5s2.5 7.5 5.5 7.5c2 0 3.6-1.2 5.3-3.7 1.2-1.8 2.3-3.9 3.2-5.8.9 1.9 2 4 3.2 5.8 1.7 2.5 3.3 3.7 5.3 3.7 3 0 5.5-3 5.5-7.5s-2.5-7.5-5.5-7.5c-2 0-3.7 1.3-5.4 3.8-1.1 1.7-2.1 3.6-3.1 5.5-1-1.9-2-3.8-3.1-5.5-1.7-2.5-3.4-3.8-5.4-3.8z" fill="#0081FB"/></svg>Meta Ads Spend (live)</div><div class="cs">Direct from Ads Manager — Jan→Jun 2026</div></div></div><div class="cw"><canvas id="cMktMeta"></canvas></div></div>
-      <div class="card"><div class="ch"><div><div class="ct" style="display:flex;align-items:center;gap:6px"><svg width="14" height="14" viewBox="0 0 48 48"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.95 41.07 15.39 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18A13.96 13.96 0 0 1 11 24c0-1.45.25-2.86.69-4.18v-5.7H4.34A23.93 23.93 0 0 0 2 24c0 3.87.93 7.53 2.34 10.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.39 2 7.95 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>Google Ads Spend (live)</div><div class="cs">Direct from Google Ads — Jan→Jun 2026</div></div></div><div class="cw"><canvas id="cMktGoogle"></canvas></div></div>
+      <div class="card"><div class="ch"><div><div class="ct" style="display:flex;align-items:center;gap:6px"><svg width="15" height="15"><use href="#i-meta"/></svg>Meta Ads Spend</div><div class="cs">Direct from Ads Manager — Jan→Jun 2026</div></div></div><div class="cw"><canvas id="cMktMeta"></canvas></div></div>
+      <div class="card"><div class="ch"><div><div class="ct" style="display:flex;align-items:center;gap:6px"><svg width="14" height="14"><use href="#i-google"/></svg>Google Ads Spend</div><div class="cs">Direct from Google Ads — Jan→Jun 2026</div></div></div><div class="cw"><canvas id="cMktGoogle"></canvas></div></div>
       <div class="card"><div class="ch"><div><div class="ct">Lead Cost by Channel</div><div class="cs">Cost per lead, monthly — Meta vs Google</div></div></div><div class="cw"><canvas id="cMktCPL"></canvas></div></div>
     </div>
     <div class="card" style="margin-top:12px">
       <div class="ch"><div><div class="ct">💡 Insights &amp; Opportunities</div><div class="cs">Auto-generated from live ad-platform, lead and conversion data</div></div></div>
       <div id="adInsights" style="display:flex;flex-direction:column;gap:10px;margin-top:10px"></div>
+    </div>
+    <div style="margin:20px 0 12px;padding-top:16px;border-top:1px solid var(--b1)"><div style="font-size:13px;font-weight:800">Accounting — All Channels</div><div class="cs">From bookkeeping · Meta · Google · Cself · EasyWeddings</div></div>
+    <div class="kpi-grid" id="adKpis"></div>
+    <div class="card" style="margin:12px 0">
+      <div class="ch"><div><div class="ct">Total Ad Spend by Channel</div><div class="cs">Stacked monthly — all channels</div></div><div class="leg" id="adLeg"></div></div>
+      <div class="cw tall"><canvas id="cAdTotal"></canvas></div>
+    </div>
+    <div class="req">
+      <div class="card"><div class="ch"><div><div class="ct">Channel Budget Share</div><div class="cs">% of total all-time ad spend</div></div></div><div class="cw"><canvas id="cAdShare"></canvas></div></div>
+      <div class="card"><div class="ch"><div><div class="ct">ROAS by Channel — 2026</div><div class="cs">Revenue ÷ Ad Spend (Jan–Jun 2026)</div></div></div><div class="cw"><canvas id="cAdROAS"></canvas></div></div>
     </div>
   </div>
 
@@ -994,7 +910,7 @@ tr:hover td{background:var(--s2)}
           <div style="font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px">Powered by Claude — analyses your live pipeline and recommends actions</div>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button onclick="genSuggestions('pipeline')" style="background:var(--pu);color:#fff;border:none;border-radius:var(--rs);padding:8px 14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;cursor:pointer">⚡ Pipeline Actions</button>
+          <button onclick="genSuggestions('pipeline')" style="background:var(--pu);color:#1A1408;border:none;border-radius:var(--rs);padding:8px 14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;cursor:pointer">⚡ Pipeline Actions</button>
           <button onclick="genSuggestions('growth')" style="background:var(--s2);color:var(--t2);border:1px solid var(--b1);border-radius:var(--rs);padding:8px 14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;cursor:pointer">📈 Growth Strategy</button>
           <button onclick="genSuggestions('costs')" style="background:var(--s2);color:var(--t2);border:1px solid var(--b1);border-radius:var(--rs);padding:8px 14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;cursor:pointer">💰 Cost Reduction</button>
           <button onclick="genSuggestions('followup')" style="background:var(--s2);color:var(--t2);border:1px solid var(--b1);border-radius:var(--rs);padding:8px 14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;cursor:pointer">📨 Follow-up Targets</button>
@@ -1005,7 +921,7 @@ tr:hover td{background:var(--s2)}
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:16px" id="aiContextKpis"></div>
 
       <!-- AI Output area -->
-      <div class="card" style="padding:20px;min-height:300px;border:1px solid rgba(124,111,224,.2)" id="suggestionsCard">
+      <div class="card" style="padding:20px;min-height:300px;border:1px solid rgba(212,160,23,.2)" id="suggestionsCard">
         <div style="text-align:center;padding:60px 20px;color:var(--t3)">
           <div style="font-size:32px;margin-bottom:12px">🤖</div>
           <div style="font-size:14px;font-weight:700;color:var(--t2);margin-bottom:6px">Claude is ready to analyse your pipeline</div>
@@ -1125,12 +1041,10 @@ Chart.defaults.font.family = "'DM Mono', monospace";
 Chart.defaults.font.size = 11;
 Chart.defaults.plugins.legend.display = false;
 function gc() {
-  if (currentTheme === 'honey') return '#2A2210';
-  return isDark ? '#1E2130' : '#E4E8F4';
+  return isDark ? '#2E2716' : '#E7DFC9';
 }
 function tc() {
-  if (currentTheme === 'honey') return '#7A6030';
-  return isDark ? '#8890A8' : '#5A6080';
+  return isDark ? '#8A7A4E' : '#6E6247';
 }
 function mk(id, cfg) {
   const el = document.getElementById(id);
@@ -1144,25 +1058,25 @@ function mk(id, cfg) {
 // COLOR MAPS
 // ════════════════════════════════════════════════════════════
 const SRC_C = {
-  'Meta Ads':    {bg:'rgba(167,139,250,.65)',bd:'#A78BFA',cls:'sm'},
-  'Google':      {bg:'rgba(96,165,250,.65)', bd:'#60A5FA',cls:'sg'},
-  'Organic':     {bg:'rgba(52,211,153,.65)', bd:'#34D399',cls:'so'},
-  'Remarketing': {bg:'rgba(251,113,133,.65)',bd:'#FB7185',cls:'sr'},
-  'Other':       {bg:'rgba(245,158,11,.65)', bd:'#F59E0B',cls:'sx'},
+  'Meta Ads':    {bg:'rgba(124,151,201,.65)',bd:'#7C97C9',cls:'sm'},
+  'Google':      {bg:'rgba(201,111,74,.65)', bd:'#C96F4A',cls:'sg'},
+  'Organic':     {bg:'rgba(143,168,118,.65)', bd:'#8FA876',cls:'so'},
+  'Remarketing': {bg:'rgba(196,138,155,.65)',bd:'#C48A9B',cls:'sr'},
+  'Other':       {bg:'rgba(224,177,94,.65)', bd:'#E0B15E',cls:'sx'},
 };
 // ── Pre-form URL — update this to your actual questionnaire link ──
 const PRE_FORM_URL = 'https://forms.gle/SEU_FORMULARIO_AQUI';
 
 const STA_C = {
-  'Inquiry':    {bg:'rgba(245,158,11,.55)', bd:'#F59E0B',cls:'s-inq'},
-  'Quoted':     {bg:'rgba(52,211,153,.55)', bd:'#34D399',cls:'s-quo'},
-  'Follow-up':  {bg:'rgba(251,113,133,.55)',bd:'#FB7185',cls:'s-fol'},
-  'Call Booked':{bg:'rgba(96,165,250,.55)', bd:'#60A5FA',cls:'s-cal'},
-  'Booked':     {bg:'rgba(167,139,250,.55)',bd:'#A78BFA',cls:'s-boo'},
-  'Lost':       {bg:'rgba(107,114,128,.45)',bd:'#6B7280',cls:'s-los'},
+  'Inquiry':    {bg:'rgba(224,177,94,.55)', bd:'#E0B15E',cls:'s-inq'},
+  'Quoted':     {bg:'rgba(143,168,118,.55)', bd:'#8FA876',cls:'s-quo'},
+  'Follow-up':  {bg:'rgba(196,138,155,.55)',bd:'#C48A9B',cls:'s-fol'},
+  'Call Booked':{bg:'rgba(111,168,160,.55)', bd:'#6FA8A0',cls:'s-cal'},
+  'Booked':     {bg:'rgba(212,160,23,.55)',bd:'#D4A017',cls:'s-boo'},
+  'Lost':       {bg:'rgba(138,128,112,.45)',bd:'#8A8070',cls:'s-los'},
 };
 const SRC_SC = {'Meta Ads':'sc-meta','Google':'sc-google','Organic':'sc-organic','Remarketing':'sc-remark','Other':'sc-other'};
-const AVC = ['#7C6FE0','#34D399','#60A5FA','#F59E0B','#FB7185','#A78BFA','#6EE7B7'];
+const AVC = ['#D4A017','#8FA876','#7C97C9','#E0B15E','#C48A9B','#6FA8A0','#B5C99A'];
 function avc(n) { let h=0; for(let c of n) h=(h*31+c.charCodeAt(0))%AVC.length; return AVC[h]; }
 
 // ════════════════════════════════════════════════════════════
@@ -1255,18 +1169,12 @@ let timelineGroup = 'monthly'; // 'daily' | 'monthly' | 'annual'
 const QR_DAYS = [0, 7, 30, 90, 180];
 function qrBtnsHTML(prefix) {
   const lbl = { 0: 'All', 7: '7d', 30: '30d', 90: '90d', 180: '180d' };
-  return `<div id="${prefix}QR" style="display:flex;gap:4px">` + QR_DAYS.map(d =>
-    `<button id="${prefix}QR_${d}" onclick="setQuickRange('${prefix}',${d})" style="background:${d===0?'var(--pu)':'var(--s2)'};border:1px solid var(--b1);border-radius:6px;color:${d===0?'#fff':'var(--t3)'};font-size:10px;padding:4px 9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">${lbl[d]}</button>`
+  return `<div id="${prefix}QR" class="qr-wrap">` + QR_DAYS.map(d =>
+    `<button id="${prefix}QR_${d}" class="qr-btn${d===0?' active':''}" onclick="setQuickRange('${prefix}',${d})">${lbl[d]}</button>`
   ).join('') + `</div>`;
 }
 function paintQR(prefix, activeDays) {
-  QR_DAYS.forEach(d => {
-    const b = document.getElementById(prefix + 'QR_' + d);
-    if (!b) return;
-    const isOn = activeDays === d;
-    b.style.background = isOn ? 'var(--pu)' : 'var(--s2)';
-    b.style.color = isOn ? '#fff' : 'var(--t3)';
-  });
+  QR_DAYS.forEach(d => { const b = document.getElementById(prefix+'QR_'+d); if (b) b.classList.toggle('active', activeDays===d); });
 }
 function setQuickRange(prefix, days) {
   QUICK_RANGE[prefix] = days;
@@ -1299,7 +1207,7 @@ function fmt(n) { return '$'+Math.round(n).toLocaleString(); }
 // ════════════════════════════════════════════════════════════
 // NAVIGATION
 // ════════════════════════════════════════════════════════════
-const TITLES = {dash:'Dashboard',leads:'Leads',sources:'Sources',funnel:'Funnel',analytics:'Analytics',calendar:'Booking Calendar',calc:'Payment Calculator',bookings:'Bookings',revenue:'Revenue',adcost:'Ad Cost',mktkpi:'Marketing KPIs',suggestions:'AI Suggestions',setup:'Deploy Setup'};
+const TITLES = {dash:'Dashboard',leads:'Leads',sources:'Sources',funnel:'Funnel',analytics:'Analytics',calendar:'Booking Calendar',calc:'Payment Calculator',bookings:'Bookings',revenue:'Revenue',adcost:'Marketing',suggestions:'AI Suggestions',setup:'Deploy Setup'};
 
 document.querySelectorAll('.ni[data-tab]').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -1330,7 +1238,6 @@ function renderTabCharts(tab) {
   if (tab==='bookings')    { renderBkAll(); }
   if (tab==='revenue')     { renderRevAll(); }
   if (tab==='adcost')      { renderAdAll(); }
-  if (tab==='mktkpi')      { renderMktAll(); }
   if (tab==='suggestions') { renderAIContextKpis(); }
 }
 
@@ -1346,10 +1253,10 @@ function renderAIContextKpis() {
   const meta = LEADS.filter(l=>l.source==='Meta Ads').length;
   const conv = (bkd/(tot||1)*100).toFixed(1);
   const kpis = [
-    {v:tot,l:'Total Leads',a:'#7C6FE0'},{v:fol,l:'Need Follow-up',a:'#FB7185'},
-    {v:cal,l:'Calls Booked',a:'#60A5FA'},{v:bkd,l:'Booked / Won',a:'#34D399'},
-    {v:lost,l:'Lost',a:'#F87171'},{v:meta,l:'Meta Leads',a:'#A78BFA'},
-    {v:conv+'%',l:'Conv. Rate',a:'#F59E0B'},
+    {v:tot,l:'Total Leads',a:'#D4A017'},{v:fol,l:'Need Follow-up',a:'#C48A9B'},
+    {v:cal,l:'Calls Booked',a:'#C96F4A'},{v:bkd,l:'Booked / Won',a:'#8FA876'},
+    {v:lost,l:'Lost',a:'#D96A4A'},{v:meta,l:'Meta Leads',a:'#7C97C9'},
+    {v:conv+'%',l:'Conv. Rate',a:'#E0B15E'},
   ];
   const el = document.getElementById('aiContextKpis');
   if (el) el.innerHTML = kpis.map(k=>`
@@ -1417,9 +1324,9 @@ function getManualInsights(type) {
 // THEME
 // ════════════════════════════════════════════════════════════
 // Theme cycle: dark → honey → light → dark
-const THEMES = ['dark', 'honey', 'light'];
+const THEMES = ['honey', 'light'];
 const THEME_ICONS = { dark: '🌙', honey: '🍯', light: '☀️' };
-let currentTheme = 'dark';
+let currentTheme = 'honey';
 
 function toggleTheme() {
   const idx = THEMES.indexOf(currentTheme);
@@ -1482,15 +1389,15 @@ function renderKPIs() {
   const paidSpend2026=Object.keys(META_SPEND_LIVE).reduce((s,m)=>s+META_SPEND_LIVE[m],0)+Object.keys(GOOGLE_SPEND_LIVE).reduce((s,m)=>s+GOOGLE_SPEND_LIVE[m],0);
   const costPerLead=paidSpend2026/(paidLeads2026.length||1);
   const kpis=[
-    {val:tot,  lbl:'Total Leads (All Time)',accent:'#7C6FE0',ico:'👥',delta:'since Sep 2024',dc:'',   tab:'leads',sf:'',sf2:''},
-    {val:meta, lbl:'Meta Ads',         accent:'#A78BFA',ico:'⚡',delta:`${Math.round(meta/tot*100)}% of leads`,dc:'',tab:'leads',sf:'',sf2:'Meta Ads'},
-    {val:goog, lbl:'Google',           accent:'#60A5FA',ico:'🌐',delta:`${Math.round(goog/tot*100)}% of leads`,dc:'',tab:'leads',sf:'',sf2:'Google'},
-    {val:org,  lbl:'Organic',          accent:'#34D399',ico:'🌿',delta:`${Math.round(org/tot*100)}% of leads`, dc:'',tab:'leads',sf:'',sf2:'Organic'},
-    {val:fol,  lbl:'Need Follow-up',   accent:'#FB7185',ico:'⏰',delta:'↑ urgent',         dc:'neg',tab:'leads',sf:'Follow-up',sf2:''},
-    {val:cal,  lbl:'Calls Booked',     accent:'#60A5FA',ico:'📅',delta:'scheduled',         dc:'pos',tab:'leads',sf:'Call Booked',sf2:''},
-    {val:bkd,  lbl:'Booked / Won',     accent:'#A78BFA',ico:'🎉',delta:'confirmed',          dc:'pos',tab:'leads',sf:'Booked',sf2:''},
-    {val:lost, lbl:'Lost',             accent:'#F87171',ico:'❌',delta:`${Math.round(lost/tot*100)}% loss rate`,dc:'neg',tab:'leads',sf:'Lost',sf2:''},
-    {val:fmt(costPerLead),lbl:'Cost / Lead (Meta+Google, 2026)',accent:'#F59E0B',ico:'💵',delta:'live ad spend ÷ paid leads',dc:'',tab:'mktkpi',sf:'',sf2:''},
+    {val:tot,  lbl:'Total Leads (All Time)',accent:'#D4A017',ico:'👥',delta:'since Sep 2024',dc:'',   tab:'leads',sf:'',sf2:''},
+    {val:meta, lbl:'Meta Ads',         accent:'#7C97C9',ico:'⚡',delta:`${Math.round(meta/tot*100)}% of leads`,dc:'',tab:'leads',sf:'',sf2:'Meta Ads'},
+    {val:goog, lbl:'Google',           accent:'#C96F4A',ico:'🌐',delta:`${Math.round(goog/tot*100)}% of leads`,dc:'',tab:'leads',sf:'',sf2:'Google'},
+    {val:org,  lbl:'Organic',          accent:'#8FA876',ico:'🌿',delta:`${Math.round(org/tot*100)}% of leads`, dc:'',tab:'leads',sf:'',sf2:'Organic'},
+    {val:fol,  lbl:'Need Follow-up',   accent:'#C48A9B',ico:'⏰',delta:'↑ urgent',         dc:'neg',tab:'leads',sf:'Follow-up',sf2:''},
+    {val:cal,  lbl:'Calls Booked',     accent:'#C96F4A',ico:'📅',delta:'scheduled',         dc:'pos',tab:'leads',sf:'Call Booked',sf2:''},
+    {val:bkd,  lbl:'Booked / Won',     accent:'#7C97C9',ico:'🎉',delta:'confirmed',          dc:'pos',tab:'leads',sf:'Booked',sf2:''},
+    {val:lost, lbl:'Lost',             accent:'#D96A4A',ico:'❌',delta:`${Math.round(lost/tot*100)}% loss rate`,dc:'neg',tab:'leads',sf:'Lost',sf2:''},
+    {val:fmt(costPerLead),lbl:'Cost / Lead (Meta+Google, 2026)',accent:'#E0B15E',ico:'💵',delta:'live ad spend ÷ paid leads',dc:'',tab:'mktkpi',sf:'',sf2:''},
   ];
   document.getElementById('kpiGrid').innerHTML = kpis.map(k=>`
     <div class="kpi clickable" style="--accent:${k.accent}" onclick="switchTab('${k.tab}','${k.sf}','${k.sf2}')">
@@ -1515,7 +1422,7 @@ function renderSrcDonut() {
 
 function renderFunnelMini() {
   const d=getSta().filter(x=>x.n>0);
-  mk('cFunnelMini',{type:'bar',data:{labels:d.map(x=>x.s),datasets:[{data:d.map(x=>x.n),backgroundColor:d.map(x=>STA_C[x.s]?.bg||'rgba(107,114,128,.5)'),borderColor:d.map(x=>STA_C[x.s]?.bd||'#6B7280'),borderWidth:1.5,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{tooltip:{callbacks:{label:c=>` ${c.raw} leads`}}},scales:{x:{grid:{color:gc()},ticks:{color:tc(),stepSize:1},beginAtZero:true},y:{grid:{display:false},ticks:{color:tc(),font:{size:10}}}}}});
+  mk('cFunnelMini',{type:'bar',data:{labels:d.map(x=>x.s),datasets:[{data:d.map(x=>x.n),backgroundColor:d.map(x=>STA_C[x.s]?.bg||'rgba(138,128,112,.5)'),borderColor:d.map(x=>STA_C[x.s]?.bd||'#8A8070'),borderWidth:1.5,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{tooltip:{callbacks:{label:c=>` ${c.raw} leads`}}},scales:{x:{grid:{color:gc()},ticks:{color:tc(),stepSize:1},beginAtZero:true},y:{grid:{display:false},ticks:{color:tc(),font:{size:10}}}}}});
 }
 
 function renderRecent() {
@@ -1529,9 +1436,9 @@ function renderRecent() {
 
 function renderTasks() {
   const tasks=[];
-  LEADS.filter(l=>l.notes&&l.notes.toLowerCase().includes('urgent')).forEach(l=>tasks.push({t:`⚡ URGENT: ${l.name}`,w:`Wedding: ${fD(l.date)}`,c:'#FB7185'}));
-  LEADS.filter(l=>effectiveStatus(l)==='Follow-up').slice(0,4).forEach(l=>tasks.push({t:`Follow-up: ${l.name}`,w:l.venue||'TBC',c:'#F59E0B'}));
-  LEADS.filter(l=>effectiveStatus(l)==='Call Booked'&&l.notes.toLowerCase().includes('missed')).forEach(l=>tasks.push({t:`Missed: ${l.name}`,w:l.notes.slice(0,40),c:'#FB7185'}));
+  LEADS.filter(l=>l.notes&&l.notes.toLowerCase().includes('urgent')).forEach(l=>tasks.push({t:`⚡ URGENT: ${l.name}`,w:`Wedding: ${fD(l.date)}`,c:'#C48A9B'}));
+  LEADS.filter(l=>effectiveStatus(l)==='Follow-up').slice(0,4).forEach(l=>tasks.push({t:`Follow-up: ${l.name}`,w:l.venue||'TBC',c:'#E0B15E'}));
+  LEADS.filter(l=>effectiveStatus(l)==='Call Booked'&&l.notes.toLowerCase().includes('missed')).forEach(l=>tasks.push({t:`Missed: ${l.name}`,w:l.notes.slice(0,40),c:'#C48A9B'}));
   document.getElementById('taskList').innerHTML=tasks.slice(0,6).map(t=>`<div class="ti"><div class="tdot" style="background:${t.c}"></div><div class="t-body"><div class="t-text">${t.t}</div><div class="t-when">${t.w}</div></div></div>`).join('')||'<div style="color:var(--t3);font-size:12px;padding:10px">All clear 🎉</div>';
 }
 
@@ -1543,7 +1450,7 @@ function callBadge(l) {
     const dt = l.callDate ? ` ${l.callDate}` : '';
     return `<span class="sp s-cal" style="font-size:9px">📅 Booked${dt}</span>`;
   }
-  return `<span class="sp" style="background:rgba(107,114,128,.1);color:#6B7280;border:1px solid rgba(107,114,128,.2);font-size:9px">Not yet</span>`;
+  return `<span class="sp" style="background:rgba(138,128,112,.1);color:#8A8070;border:1px solid rgba(138,128,112,.2);font-size:9px">Not yet</span>`;
 }
 function getBookedOnDate(dateStr) {
   if (!dateStr || !CAL_EVENTS) return [];
@@ -1557,18 +1464,18 @@ function dateAvailBadge(l) {
   if (v === 'Double Booked') {
     const clients = getBookedOnDate(l.date);
     const tip = clients.map(c=>c.name).join(' & ');
-    return `<span class="sp ttip" style="background:rgba(248,113,113,.18);color:#F87171;border:2px solid #F87171;font-size:9px;font-weight:800;cursor:help">⚡ DOUBLE BOOKED<span class="ttip-box">📅 ${l.date}<br>${clients.map(c=>`• ${c.name}${c.city?' ('+c.city+')':''}`).join('<br>')}</span></span>`;
+    return `<span class="sp ttip" style="background:rgba(217,106,74,.18);color:#D96A4A;border:2px solid #D96A4A;font-size:9px;font-weight:800;cursor:help">⚡ DOUBLE BOOKED<span class="ttip-box">📅 ${l.date}<br>${clients.map(c=>`• ${c.name}${c.city?' ('+c.city+')':''}`).join('<br>')}</span></span>`;
   }
   if (v === 'NOT YET') {
     // Only show Unavailable if there's actually a booking on that date in CAL_EVENTS
     const clients = getBookedOnDate(l.date);
     if (clients.length > 0) {
-      return `<span class="sp ttip" style="background:rgba(248,113,113,.1);color:#F87171;border:1px solid rgba(248,113,113,.35);font-size:9px;cursor:help">✕ Unavailable<span class="ttip-box">📅 ${l.date}<br>${clients.map(c=>`• ${c.name}${c.city?' ('+c.city+')':''}`).join('<br>')}<br><span style="opacity:.7;font-size:10px">Date already booked</span></span></span>`;
+      return `<span class="sp ttip" style="background:rgba(217,106,74,.1);color:#D96A4A;border:1px solid rgba(217,106,74,.35);font-size:9px;cursor:help">✕ Unavailable<span class="ttip-box">📅 ${l.date}<br>${clients.map(c=>`• ${c.name}${c.city?' ('+c.city+')':''}`).join('<br>')}<br><span style="opacity:.7;font-size:10px">Date already booked</span></span></span>`;
     }
-    return `<span class="sp" style="background:rgba(107,114,128,.1);color:#6B7280;border:1px solid rgba(107,114,128,.2);font-size:9px">TBC</span>`;
+    return `<span class="sp" style="background:rgba(138,128,112,.1);color:#8A8070;border:1px solid rgba(138,128,112,.2);font-size:9px">TBC</span>`;
   }
-  if (v === 'Available') return `<span class="sp" style="background:rgba(52,211,153,.1);color:#34D399;border:1px solid rgba(52,211,153,.2);font-size:9px">✓ Available</span>`;
-  return `<span class="sp" style="background:rgba(107,114,128,.1);color:#6B7280;border:1px solid rgba(107,114,128,.2);font-size:9px">TBC</span>`;
+  if (v === 'Available') return `<span class="sp" style="background:rgba(143,168,118,.1);color:#8FA876;border:1px solid rgba(143,168,118,.2);font-size:9px">✓ Available</span>`;
+  return `<span class="sp" style="background:rgba(138,128,112,.1);color:#8A8070;border:1px solid rgba(138,128,112,.2);font-size:9px">TBC</span>`;
 }
 
 // ── Sort state ──
@@ -1603,9 +1510,9 @@ function daysIdle(l) {
 function idleBadge(l) {
   const n = daysIdle(l);
   if (n === null) return '<span style="color:var(--t3);font-size:10px">—</span>';
-  let color = '#34D399';
-  if (n >= 14) color = '#FB7185';
-  else if (n >= 7) color = '#F59E0B';
+  let color = '#8FA876';
+  if (n >= 14) color = '#C48A9B';
+  else if (n >= 7) color = '#E0B15E';
   return `<span style="font-family:'DM Mono',monospace;font-size:10px;font-weight:700;color:${color}">${n}d${n>=14?' ⚠':''}</span>`;
 }
 function renderTable(data) {
@@ -1645,10 +1552,10 @@ function renderTable(data) {
   const kpiEl = document.getElementById('leadKpis');
   if (kpiEl) {
     const kpis = [
-      { val: String(totalLeads), lbl: 'Total Leads', acc: '#7C6FE0', ico: '📥' },
-      { val: String(availDates), lbl: 'Available Dates', acc: '#34D399', ico: '✓' },
-      { val: String(occupiedDates), lbl: 'Occupied Dates (Double Booked + Unavailable)', acc: '#FB7185', ico: '⚡' },
-      { val: String(dormantCount), lbl: 'Dormant 14+ days (no contact progress)', acc: '#F59E0B', ico: '😴' },
+      { val: String(totalLeads), lbl: 'Total Leads', acc: '#D4A017', ico: '📥' },
+      { val: String(availDates), lbl: 'Available Dates', acc: '#8FA876', ico: '✓' },
+      { val: String(occupiedDates), lbl: 'Occupied Dates (Double Booked + Unavailable)', acc: '#C48A9B', ico: '⚡' },
+      { val: String(dormantCount), lbl: 'Dormant 14+ days (no contact progress)', acc: '#E0B15E', ico: '😴' },
     ];
     kpiEl.innerHTML = kpis.map(k => `<div class="card" style="padding:14px;border-left:3px solid ${k.acc}"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:16px">${k.ico}</span><div><div style="font-size:18px;font-weight:800;font-family:'DM Mono',monospace">${k.val}</div><div style="font-size:9px;color:var(--t3);margin-top:1px">${k.lbl}</div></div></div></div>`).join('');
   }
@@ -1685,8 +1592,8 @@ function renderTable(data) {
       </div>
       <div class="ce">${l.email}</div>
       <div style="display:flex;gap:4px;margin-top:4px;flex-wrap:wrap">
-        <button onclick="openEmailModal(${idStr})" style="background:rgba(124,111,224,.12);border:1px solid rgba(124,111,224,.3);border-radius:4px;padding:2px 8px;color:#A89CF5;font-size:9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">✉ Reply</button>
-        <button onclick="sendPreForm(${idStr})" title="Envia pré-questionário e marca como Quoted" style="background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);border-radius:4px;padding:2px 8px;color:#34D399;font-size:9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">📋 Pré-Form</button>
+        <button onclick="openEmailModal(${idStr})" style="background:rgba(212,160,23,.12);border:1px solid rgba(212,160,23,.3);border-radius:4px;padding:2px 8px;color:#E8C460;font-size:9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">✉ Reply</button>
+        <button onclick="sendPreForm(${idStr})" title="Envia pré-questionário e marca como Quoted" style="background:rgba(143,168,118,.1);border:1px solid rgba(143,168,118,.3);border-radius:4px;padding:2px 8px;color:#8FA876;font-size:9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">📋 Pré-Form</button>
       </div>
     </td>
     <td>${stPL(l)}</td>
@@ -1811,16 +1718,16 @@ function renderPareto() {
   const cp=d.map(x=>{cum+=x.n;return Math.round(cum/tot*100);});
   mk('cPareto',{type:'bar',data:{labels:d.map(x=>x.s),datasets:[
     {type:'bar',label:'Leads',data:d.map(x=>x.n),backgroundColor:d.map(x=>SRC_C[x.s]?.bg||SRC_C.Other.bg),borderColor:d.map(x=>SRC_C[x.s]?.bd||SRC_C.Other.bd),borderWidth:1.5,borderRadius:6,yAxisID:'y'},
-    {type:'line',label:'Cumulative %',data:cp,borderColor:'#F59E0B',backgroundColor:'rgba(245,158,11,.06)',borderWidth:2.5,pointBackgroundColor:'#F59E0B',pointRadius:5,tension:.35,fill:false,yAxisID:'y2'}
+    {type:'line',label:'Cumulative %',data:cp,borderColor:'#E0B15E',backgroundColor:'rgba(224,177,94,.06)',borderWidth:2.5,pointBackgroundColor:'#E0B15E',pointRadius:5,tension:.35,fill:false,yAxisID:'y2'}
   ]},options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:true,labels:{font:{size:9},usePointStyle:true,color:tc()}}},
-    scales:{x:{grid:{color:gc()},ticks:{color:tc()}},y:{grid:{color:gc()},beginAtZero:true,position:'left',ticks:{color:tc(),stepSize:1}},y2:{beginAtZero:true,max:100,position:'right',grid:{display:false},ticks:{callback:v=>v+'%',color:'#F59E0B',font:{size:9}}}}}});
+    scales:{x:{grid:{color:gc()},ticks:{color:tc()}},y:{grid:{color:gc()},beginAtZero:true,position:'left',ticks:{color:tc(),stepSize:1}},y2:{beginAtZero:true,max:100,position:'right',grid:{display:false},ticks:{callback:v=>v+'%',color:'#E0B15E',font:{size:9}}}}}});
 }
 
 function renderQuality() {
   const srcs=['Meta Ads','Google','Organic','Remarketing'].filter(s=>LEADS.filter(l=>l.source===s).length>0);
   const rates=srcs.map(s=>{const sl=LEADS.filter(l=>l.source===s);const cv=sl.filter(l=>['Booked','Call Booked','Quoted'].includes(l.status)).length;return sl.length?Math.round(cv/sl.length*100):0;});
-  mk('cQuality',{type:'radar',data:{labels:srcs,datasets:[{label:'Conv %',data:rates,backgroundColor:'rgba(124,111,224,.15)',borderColor:'#7C6FE0',borderWidth:2,pointBackgroundColor:'#7C6FE0',pointRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{r:{beginAtZero:true,max:100,ticks:{callback:v=>v+'%',font:{size:9},stepSize:25,color:tc()},grid:{color:gc()},angleLines:{color:gc()},pointLabels:{font:{size:10},color:tc()}}}}});
+  mk('cQuality',{type:'radar',data:{labels:srcs,datasets:[{label:'Conv %',data:rates,backgroundColor:'rgba(212,160,23,.15)',borderColor:'#D4A017',borderWidth:2,pointBackgroundColor:'#D4A017',pointRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{r:{beginAtZero:true,max:100,ticks:{callback:v=>v+'%',font:{size:9},stepSize:25,color:tc()},grid:{color:gc()},angleLines:{color:gc()},pointLabels:{font:{size:10},color:tc()}}}}});
 }
 
 function renderSrcCards() {
@@ -1850,15 +1757,15 @@ function renderSrcCards() {
 function renderFunnelD(leads) {
   const d=getSta(leads);
   const tot=(leads||LEADS).length || 1;
-  mk('cFunnelD',{type:'bar',data:{labels:d.map(x=>x.s),datasets:[{data:d.map(x=>x.n),backgroundColor:d.map(x=>STA_C[x.s]?.bg||'rgba(107,114,128,.5)'),borderColor:d.map(x=>STA_C[x.s]?.bd||'#6B7280'),borderWidth:1.5,borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:c=>` ${c.raw} leads (${Math.round(c.raw/tot*100)}%)`}}},scales:{x:{grid:{color:gc()},ticks:{color:tc()}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),stepSize:1}}}}});
+  mk('cFunnelD',{type:'bar',data:{labels:d.map(x=>x.s),datasets:[{data:d.map(x=>x.n),backgroundColor:d.map(x=>STA_C[x.s]?.bg||'rgba(138,128,112,.5)'),borderColor:d.map(x=>STA_C[x.s]?.bd||'#8A8070'),borderWidth:1.5,borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:c=>` ${c.raw} leads (${Math.round(c.raw/tot*100)}%)`}}},scales:{x:{grid:{color:gc()},ticks:{color:tc()}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),stepSize:1}}}}});
 }
 function renderStageD(leads) {
   const d=getSta(leads).filter(x=>x.n>0);
-  mk('cStageD',{type:'doughnut',data:{labels:d.map(x=>x.s),datasets:[{data:d.map(x=>x.n),backgroundColor:d.map(x=>STA_C[x.s]?.bg||'rgba(107,114,128,.5)'),borderColor:d.map(x=>STA_C[x.s]?.bd||'#6B7280'),borderWidth:2,hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:false,cutout:'58%',plugins:{legend:{display:true,position:'bottom',labels:{font:{size:9},padding:10,usePointStyle:true,color:tc()}}}}});
+  mk('cStageD',{type:'doughnut',data:{labels:d.map(x=>x.s),datasets:[{data:d.map(x=>x.n),backgroundColor:d.map(x=>STA_C[x.s]?.bg||'rgba(138,128,112,.5)'),borderColor:d.map(x=>STA_C[x.s]?.bd||'#8A8070'),borderWidth:2,hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:false,cutout:'58%',plugins:{legend:{display:true,position:'bottom',labels:{font:{size:9},padding:10,usePointStyle:true,color:tc()}}}}});
 }
 function renderFnCards(leads) {
   const d=getSta(leads),tot=(leads||LEADS).length || 1;
-  document.getElementById('fnCards').innerHTML=d.map(x=>{const bd=STA_C[x.s]?.bd||'#6B7280';return`<div class="fnc" style="border-top:2px solid ${bd}"><div class="fnn" style="color:${bd}">${x.n}</div><div class="fnl">${x.s}</div><div class="fnp">${Math.round(x.n/tot*100)}%</div></div>`;}).join('');
+  document.getElementById('fnCards').innerHTML=d.map(x=>{const bd=STA_C[x.s]?.bd||'#8A8070';return`<div class="fnc" style="border-top:2px solid ${bd}"><div class="fnn" style="color:${bd}">${x.n}</div><div class="fnl">${x.s}</div><div class="fnp">${Math.round(x.n/tot*100)}%</div></div>`;}).join('');
 }
 function renderFunnelAll() {
   const fy = document.getElementById('fnYear')?.value || '';
@@ -1870,45 +1777,7 @@ function renderFunnelAll() {
   renderFunnelD(filtered);
   renderStageD(filtered);
   renderFnCards(filtered);
-  renderFnContracts(fy, fm, days);
 }
-function renderFnContracts(fy, fm, days) {
-  const bookings = bookingsInPeriod(fy, fm, days);
-  const kpis = [
-    { val: String(bookings.length), lbl: 'Contracts closed — ' + periodLabel(fy, fm, days), acc: '#34D399', ico: '✅' },
-  ];
-  const kpiEl = document.getElementById('fnContractsKpis');
-  if (kpiEl) kpiEl.innerHTML = kpis.map(k => `
-    <div class="kpi" style="--accent:${k.acc}">
-      <div class="kpi-ico" style="background:${k.acc}18">${k.ico}</div>
-      <div class="kpi-val" style="color:${k.acc}">${k.val}</div>
-      <div class="kpi-lbl">${k.lbl}</div>
-    </div>`).join('');
-
-  let labels, data;
-  if (days) {
-    const byDate = {};
-    bookings.forEach(b => { const d = bkDateObj(b.date); if (!d) return; const key = d.toISOString().slice(0,10); byDate[key] = (byDate[key]||0)+1; });
-    const sorted = Object.entries(byDate).sort(([a],[b2]) => a.localeCompare(b2));
-    labels = sorted.map(([d]) => d); data = sorted.map(([,n]) => n);
-  } else if (fy) {
-    labels = MONTHS;
-    data = MONTHS.map(mo => bookingsInPeriod(fy, mo).length);
-  } else {
-    const years = ['2024','2025','2026'];
-    labels = years;
-    data = years.map(y => bookingsInPeriod(y, fm).length);
-  }
-  mk('cFnContracts', {
-    type: 'bar',
-    data: { labels, datasets: [{ label: 'Contracts Closed', data, backgroundColor: 'rgba(52,211,153,.65)', borderColor: '#34D399', borderWidth: 1.5, borderRadius: 6, borderSkipped: false }] },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { tooltip: { callbacks: { label: c => ` ${c.raw} contracts` } } }, scales: { x: { grid: { color: gc() }, ticks: { color: tc(), maxRotation: 45, font: { size: 9 } } }, y: { grid: { color: gc() }, beginAtZero: true, ticks: { color: tc(), stepSize: 1 } } } }
-  });
-}
-
-// ════════════════════════════════════════════════════════════
-// ── ANALYTICS ──
-// ════════════════════════════════════════════════════════════
 function setTimelineGroup(g) {
   timelineGroup = g;
   renderTimeline();
@@ -1935,7 +1804,7 @@ function renderTimeline(fy, fm, days) {
   const fmtLabel = d => timelineGroup==='monthly' ? d.replace('-',' ') : d;
   const subEl = document.getElementById('timelineSub');
   if (subEl) subEl.textContent = timelineGroup==='annual' ? 'Annual inquiries' : timelineGroup==='monthly' ? 'Monthly inquiries' : 'Daily inquiries';
-  mk('cTimeline',{type:'line',data:{labels:s.map(([d])=>fmtLabel(d)),datasets:[{label:'Leads',data:s.map(([,n])=>n),borderColor:'#7C6FE0',backgroundColor:'rgba(124,111,224,.08)',borderWidth:2.5,pointBackgroundColor:'#7C6FE0',pointRadius:4,tension:.4,fill:true}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{color:gc()},ticks:{color:tc(),maxRotation:45,font:{size:9}}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),stepSize:1}}}}});
+  mk('cTimeline',{type:'line',data:{labels:s.map(([d])=>fmtLabel(d)),datasets:[{label:'Leads',data:s.map(([,n])=>n),borderColor:'#D4A017',backgroundColor:'rgba(212,160,23,.08)',borderWidth:2.5,pointBackgroundColor:'#D4A017',pointRadius:4,tension:.4,fill:true}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{color:gc()},ticks:{color:tc(),maxRotation:45,font:{size:9}}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),stepSize:1}}}}});
 }
 function renderYear(fy, fm, days) {
   if (fy===undefined) fy = document.getElementById('anaYear')?.value || '';
@@ -1949,7 +1818,7 @@ function renderYear(fy, fm, days) {
   const inqYears = Object.keys(inqByYear).sort();
   mk('cYearInq', {
     type: 'bar',
-    data: { labels: inqYears, datasets: [{ label: 'Inquiries', data: inqYears.map(y => inqByYear[y]), backgroundColor: 'rgba(124,111,224,.6)', borderColor: '#7C6FE0', borderWidth: 1, borderRadius: 6, borderSkipped: false }] },
+    data: { labels: inqYears, datasets: [{ label: 'Inquiries', data: inqYears.map(y => inqByYear[y]), backgroundColor: 'rgba(212,160,23,.6)', borderColor: '#D4A017', borderWidth: 1, borderRadius: 6, borderSkipped: false }] },
     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: gc() }, ticks: { color: tc() } }, y: { grid: { color: gc() }, beginAtZero: true, ticks: { color: tc(), stepSize: 1 } } } }
   });
 
@@ -1972,9 +1841,9 @@ function renderBookingSchedule() {
   const avgRev = count ? Math.round(rev / count) : 0;
 
   const kpis = [
-    { val: String(count), lbl: 'Booked weddings' + (fy ? ' — ' + fy : '') + (fm ? ' · ' + fm : ''), acc: '#34D399', ico: '🎉' },
-    { val: fmt(rev), lbl: 'Total revenue', acc: '#60A5FA', ico: '💰' },
-    { val: fmt(avgRev), lbl: 'Avg. package value', acc: '#F59E0B', ico: '📊' }
+    { val: String(count), lbl: 'Booked weddings' + (fy ? ' — ' + fy : '') + (fm ? ' · ' + fm : ''), acc: '#8FA876', ico: '🎉' },
+    { val: fmt(rev), lbl: 'Total revenue', acc: '#C96F4A', ico: '💰' },
+    { val: fmt(avgRev), lbl: 'Avg. package value', acc: '#E0B15E', ico: '📊' }
   ];
   const kpiEl = document.getElementById('bkSchKpis');
   if (kpiEl) kpiEl.innerHTML = kpis.map(k => `
@@ -1992,7 +1861,7 @@ function renderBookingSchedule() {
     bks.forEach(b => { const { mon } = bkYM(b.date); if (mon) byMonth[mon] = (byMonth[mon]||0)+1; });
     mk('cYearBooked', {
       type: 'bar',
-      data: { labels: MONTHS, datasets: [{ label: fy + ' — booked per month', data: MONTHS.map(m => byMonth[m]||0), backgroundColor: 'rgba(52,211,153,.65)', borderColor: '#34D399', borderWidth: 1, borderRadius: 6, borderSkipped: false }] },
+      data: { labels: MONTHS, datasets: [{ label: fy + ' — booked per month', data: MONTHS.map(m => byMonth[m]||0), backgroundColor: 'rgba(143,168,118,.65)', borderColor: '#8FA876', borderWidth: 1, borderRadius: 6, borderSkipped: false }] },
       options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: gc() }, ticks: { color: tc() } }, y: { grid: { color: gc() }, beginAtZero: true, ticks: { color: tc(), stepSize: 1 } } } }
     });
   } else {
@@ -2003,7 +1872,7 @@ function renderBookingSchedule() {
     const years = Object.keys(byYear).sort();
     mk('cYearBooked', {
       type: 'bar',
-      data: { labels: years, datasets: [{ label: fm ? fm + ' — booked per year' : 'Booked weddings by year', data: years.map(y => byYear[y]||0), backgroundColor: 'rgba(52,211,153,.65)', borderColor: '#34D399', borderWidth: 1, borderRadius: 6, borderSkipped: false }] },
+      data: { labels: years, datasets: [{ label: fm ? fm + ' — booked per year' : 'Booked weddings by year', data: years.map(y => byYear[y]||0), backgroundColor: 'rgba(143,168,118,.65)', borderColor: '#8FA876', borderWidth: 1, borderRadius: 6, borderSkipped: false }] },
       options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: gc() }, ticks: { color: tc() } }, y: { grid: { color: gc() }, beginAtZero: true, ticks: { color: tc(), stepSize: 1 } } } }
     });
   }
@@ -2016,7 +1885,7 @@ function renderContractsBySource(fy, fm, days) {
 
   const bks = bookingsInPeriod(fy, fm, days);
   const normSrc = s => { if (!s) return 'No source'; if (s.toUpperCase()==='META') return 'Meta Ads'; if (s==='Google') return 'Google Ads'; return s; };
-  const srcColors = { 'Meta Ads':'#A78BFA','Google Ads':'#60A5FA','Referral':'#34D399','Organic':'#6EE7B7','No source':'#4B5563' };
+  const srcColors = { 'Meta Ads':'#7C97C9','Google Ads':'#C96F4A','Referral':'#8FA876','Organic':'#B5C99A','No source':'#4B5563' };
 
   const bySource = {};
   bks.forEach(b => { const s = normSrc(b.source); if (!bySource[s]) bySource[s] = {count:0,rev:0}; bySource[s].count++; bySource[s].rev += b.price||0; });
@@ -2024,12 +1893,12 @@ function renderContractsBySource(fy, fm, days) {
   const sorted = Object.entries(bySource).sort(([,a],[,b]) => b.count - a.count);
 
   const srcLogos = {
-    'Meta Ads': `<svg width="14" height="14" viewBox="0 0 36 36" style="vertical-align:middle;flex-shrink:0"><path d="M7.5 12.5c-3 0-5.5 3-5.5 7.5s2.5 7.5 5.5 7.5c2 0 3.6-1.2 5.3-3.7 1.2-1.8 2.3-3.9 3.2-5.8.9 1.9 2 4 3.2 5.8 1.7 2.5 3.3 3.7 5.3 3.7 3 0 5.5-3 5.5-7.5s-2.5-7.5-5.5-7.5c-2 0-3.7 1.3-5.4 3.8-1.1 1.7-2.1 3.6-3.1 5.5-1-1.9-2-3.8-3.1-5.5-1.7-2.5-3.4-3.8-5.4-3.8z" fill="#0081FB"/></svg>`,
-    'Google Ads': `<svg width="14" height="14" viewBox="0 0 48 48" style="vertical-align:middle;flex-shrink:0"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.89 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7z"/></svg>`,
+    'Meta Ads': `<svg width="14" height="14" style="flex-shrink:0"><use href="#i-meta"/></svg>`,
+    'Google Ads': `<svg width="14" height="14" style="flex-shrink:0"><use href="#i-google"/></svg>`,
   };
   const el = document.getElementById('contractsBySourceKpis');
   if (el) el.innerHTML = sorted.map(([s, d]) => {
-    const color = srcColors[s] || '#7C6FE0';
+    const color = srcColors[s] || '#D4A017';
     const logo = srcLogos[s] || '';
     return `<div class="kpi" style="--accent:${color}">
       <div class="kpi-ico" style="background:${color}18;display:flex;align-items:center;justify-content:center">${logo || '🤝'}</div>
@@ -2046,8 +1915,8 @@ function renderContractsBySource(fy, fm, days) {
     data: {
       labels: sorted.map(([s]) => s),
       datasets: [
-        { label: 'Contratos', data: sorted.map(([,d]) => d.count), backgroundColor: sorted.map(([s]) => (srcColors[s]||'#7C6FE0')+'BB'), borderColor: sorted.map(([s]) => srcColors[s]||'#7C6FE0'), borderWidth: 1, borderRadius: 6, borderSkipped: false, yAxisID: 'y' },
-        { label: 'Receita (÷100)', data: sorted.map(([,d]) => Math.round(d.rev/100)), backgroundColor: 'transparent', borderColor: '#F59E0B', borderWidth: 2, type: 'line', yAxisID: 'y2', pointBackgroundColor: '#F59E0B', pointRadius: 4 }
+        { label: 'Contratos', data: sorted.map(([,d]) => d.count), backgroundColor: sorted.map(([s]) => (srcColors[s]||'#D4A017')+'BB'), borderColor: sorted.map(([s]) => srcColors[s]||'#D4A017'), borderWidth: 1, borderRadius: 6, borderSkipped: false, yAxisID: 'y' },
+        { label: 'Receita (÷100)', data: sorted.map(([,d]) => Math.round(d.rev/100)), backgroundColor: 'transparent', borderColor: '#E0B15E', borderWidth: 2, type: 'line', yAxisID: 'y2', pointBackgroundColor: '#E0B15E', pointRadius: 4 }
       ]
     },
     options: {
@@ -2088,33 +1957,14 @@ function renderConversionRate(fy, fm, days) {
   const contractCount = bookings.length;
   const lbl = periodLabel(fy, fm, days);
   const kpis = [
-    { val: cohortRate+'%', lbl: 'Conversion Rate — leads who inquired '+lbl+' → booked', acc: '#7C6FE0', ico: '📈' },
-    { val: String(leadCount), lbl: 'Leads received — '+lbl, acc: '#60A5FA', ico: '📥' },
-    { val: String(bookedFromCohort), lbl: 'Booked from this cohort', acc: '#A78BFA', ico: '🎉' },
+    { val: cohortRate+'%', lbl: 'Conversion Rate — leads who inquired '+lbl+' → booked', acc: '#D4A017', ico: '📈' },
+    { val: String(leadCount), lbl: 'Leads received — '+lbl, acc: '#C96F4A', ico: '📥' },
+    { val: String(bookedFromCohort), lbl: 'Booked from this cohort', acc: '#7C97C9', ico: '🎉' },
     { val: String(callCount), lbl: 'Calls held (Calendly) — '+lbl, acc: '#F472B6', ico: '📞' },
     { val: callToContractRate+'%', lbl: 'Call → Booked rate', acc: '#FB923C', ico: '🤝' },
-    { val: String(contractCount), lbl: 'Signed contracts with weddings in '+lbl+' (from Contracts sheet)', acc: '#34D399', ico: '✅' },
+    { val: String(contractCount), lbl: 'Signed contracts with weddings in '+lbl+' (from Contracts sheet)', acc: '#8FA876', ico: '✅' },
   ];
   const el = document.getElementById('convKpis');
-  if (el) el.innerHTML = kpis.map(k => `
-    <div class="kpi" style="--accent:${k.acc}">
-      <div class="kpi-ico" style="background:${k.acc}18">${k.ico}</div>
-      <div class="kpi-val" style="color:${k.acc}">${k.val}</div>
-      <div class="kpi-lbl">${k.lbl}</div>
-    </div>`).join('');
-}
-function renderOccupiedConflicts(fy, fm, days) {
-  if (days===undefined) days = QUICK_RANGE.ana;
-  const leads = leadsInPeriod(fy, fm, days);
-  const blocked = leads.filter(l => l.dateAvailable === 'NOT YET' || l.dateAvailable === 'Double Booked');
-  const dbl = leads.filter(l => l.dateAvailable === 'Double Booked').length;
-  const pct = leads.length ? Math.round(blocked.length/leads.length*100) : 0;
-  const kpis = [
-    { val: String(blocked.length), lbl: 'Blocked by existing bookings — '+periodLabel(fy,fm), acc: '#F87171', ico: '🚫' },
-    { val: String(dbl), lbl: 'Double booked (fully unavailable)', acc: '#FB7185', ico: '⚡' },
-    { val: pct+'%', lbl: 'of period leads affected', acc: '#F59E0B', ico: '📊' },
-  ];
-  const el = document.getElementById('occKpis');
   if (el) el.innerHTML = kpis.map(k => `
     <div class="kpi" style="--accent:${k.acc}">
       <div class="kpi-ico" style="background:${k.acc}18">${k.ico}</div>
@@ -2128,9 +1978,9 @@ function renderAvgPrice(fy, fm, days) {
   const total = bookings.reduce((a,b)=>a+b.price,0);
   const avg = bookings.length ? Math.round(total/bookings.length) : 0;
   const kpis = [
-    { val: fmt(avg), lbl: 'Avg. client price — '+periodLabel(fy,fm,days), acc: '#7C6FE0', ico: '💰' },
-    { val: String(bookings.length), lbl: 'Clients (period)', acc: '#34D399', ico: '🤝' },
-    { val: fmt(total), lbl: 'Total revenue (period)', acc: '#60A5FA', ico: '💵' },
+    { val: fmt(avg), lbl: 'Avg. client price — '+periodLabel(fy,fm,days), acc: '#D4A017', ico: '💰' },
+    { val: String(bookings.length), lbl: 'Clients (period)', acc: '#8FA876', ico: '🤝' },
+    { val: fmt(total), lbl: 'Total revenue (period)', acc: '#C96F4A', ico: '💵' },
   ];
   const kpiEl = document.getElementById('avgPriceKpis');
   if (kpiEl) kpiEl.innerHTML = kpis.map(k => `
@@ -2163,7 +2013,7 @@ function renderAvgPrice(fy, fm, days) {
   }
   mk('cAvgPrice', {
     type: 'bar',
-    data: { labels, datasets: [{ label: 'Avg price', data, backgroundColor: 'rgba(124,111,224,.65)', borderColor: '#7C6FE0', borderWidth: 1.5, borderRadius: 6, borderSkipped: false }] },
+    data: { labels, datasets: [{ label: 'Avg price', data, backgroundColor: 'rgba(212,160,23,.65)', borderColor: '#D4A017', borderWidth: 1.5, borderRadius: 6, borderSkipped: false }] },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: { tooltip: { callbacks: { label: c => c.raw != null ? fmt(c.raw) : 'No clients' } } },
@@ -2186,7 +2036,6 @@ function renderAnalyticsAll() {
   renderBookingSchedule();
   renderConversionRate(fy, fm, days);
   renderContractsBySource(fy, fm, days);
-  renderOccupiedConflicts(fy, fm, days);
   renderAvgPrice(fy, fm, days);
 }
 
@@ -2229,13 +2078,13 @@ function _exNewCanvas() {
   bg.addColorStop(0, '#171327'); bg.addColorStop(1, '#0B0A12');
   ctx.fillStyle = bg; ctx.fillRect(0, 0, _exW, _exH);
   const glow = ctx.createRadialGradient(_exW / 2, 260, 30, _exW / 2, 260, 780);
-  glow.addColorStop(0, 'rgba(124,111,224,0.36)'); glow.addColorStop(1, 'rgba(124,111,224,0)');
+  glow.addColorStop(0, 'rgba(212,160,23,0.36)'); glow.addColorStop(1, 'rgba(212,160,23,0)');
   ctx.fillStyle = glow; ctx.fillRect(0, 0, _exW, _exH);
   return { canvas, ctx };
 }
 function _exHeader(ctx, eyebrow, title, sub) {
   ctx.textAlign = 'center';
-  ctx.fillStyle = '#A89CF5';
+  ctx.fillStyle = '#E8C460';
   ctx.font = '700 25px sans-serif';
   ctx.fillText(eyebrow, _exW / 2, 86);
   ctx.fillStyle = '#FFFFFF';
@@ -2257,7 +2106,7 @@ function _exFooter(ctx, page, total) {
 }
 function _exSectionLabel(ctx, y, text) {
   ctx.textAlign = 'left';
-  ctx.fillStyle = '#7C6FE0';
+  ctx.fillStyle = '#D4A017';
   ctx.font = '700 21px sans-serif';
   ctx.fillText(text.toUpperCase(), _exPadX, y);
   return y + 34;
@@ -2272,7 +2121,7 @@ function _exKpiGrid(ctx, y, items, cols) {
     _exRoundRect(ctx, x, cy, cardW, cardH, 20); ctx.fill();
     ctx.strokeStyle = 'rgba(255,255,255,0.09)'; ctx.lineWidth = 1.5;
     _exRoundRect(ctx, x, cy, cardW, cardH, 20); ctx.stroke();
-    ctx.fillStyle = k.acc || '#7C6FE0';
+    ctx.fillStyle = k.acc || '#D4A017';
     _exRoundRect(ctx, x, cy, 8, cardH, 4); ctx.fill();
     ctx.textAlign = 'left';
     _exFitText(ctx, k.val, x + 28, cy + 80, cardW - 50, 42);
@@ -2303,7 +2152,7 @@ function _exBarList(ctx, y, items) {
 }
 function _exTable(ctx, y, headers, rows, widths) {
   const headerH = 50, rowH = 46;
-  ctx.fillStyle = 'rgba(124,111,224,0.28)';
+  ctx.fillStyle = 'rgba(212,160,23,0.28)';
   ctx.fillRect(_exPadX, y, _exContentW, headerH);
   let cx = _exPadX;
   ctx.fillStyle = '#FFFFFF'; ctx.font = '700 19px sans-serif';
@@ -2412,16 +2261,16 @@ async function exportAnalyticsStory() {
       const { canvas, ctx } = _exNewCanvas();
       let y = _exHeader(ctx, '🐝 HONEY WEDDINGS', 'Analytics Report', pLbl + ' · Generated ' + dateStr);
       y = _exKpiGrid(ctx, y, [
-        { val: String(totalLeadsAllTime), lbl: 'Total Leads — all time, all leads in the database', acc: '#7C6FE0' },
-        { val: conversionAllTime + '%', lbl: 'Conversion Rate — all time (' + bookedAllTime + ' booked ÷ ' + totalLeadsAllTime + ' leads)', acc: '#34D399' }
+        { val: String(totalLeadsAllTime), lbl: 'Total Leads — all time, all leads in the database', acc: '#D4A017' },
+        { val: conversionAllTime + '%', lbl: 'Conversion Rate — all time (' + bookedAllTime + ' booked ÷ ' + totalLeadsAllTime + ' leads)', acc: '#8FA876' }
       ], 1);
       y += 20;
       y = _exSectionLabel(ctx, y, 'This period — ' + pLbl);
       _exKpiGrid(ctx, y, [
-        { val: fmt(revP), lbl: 'Revenue', acc: '#60A5FA' },
-        { val: String(clientsP), lbl: 'New clients', acc: '#34D399' },
+        { val: fmt(revP), lbl: 'Revenue', acc: '#C96F4A' },
+        { val: String(clientsP), lbl: 'New clients', acc: '#8FA876' },
         { val: fmt(avgPriceP), lbl: 'Avg. client price', acc: '#F472B6' },
-        { val: '$' + cac.toLocaleString(), lbl: 'CAC (ad spend ÷ new clients)', acc: '#F59E0B' }
+        { val: '$' + cac.toLocaleString(), lbl: 'CAC (ad spend ÷ new clients)', acc: '#E0B15E' }
       ], 2);
       pageObjs.push({ canvas, ctx });
     }
@@ -2432,9 +2281,9 @@ async function exportAnalyticsStory() {
       let y = _exHeader(ctx, 'ACQUISITION', 'Ad Spend & CAC', pLbl + ' · accounting figures');
       y = _exSectionLabel(ctx, y, 'Ad spend by channel');
       const chans = [
-        { label: 'Meta Ads', value: metaCh, display: fmt(metaCh), color: '#A78BFA' },
-        { label: 'Google Ads', value: googCh, display: fmt(googCh), color: '#60A5FA' },
-        { label: 'Cself', value: cselfCh, display: fmt(cselfCh), color: '#34D399' },
+        { label: 'Meta Ads', value: metaCh, display: fmt(metaCh), color: '#7C97C9' },
+        { label: 'Google Ads', value: googCh, display: fmt(googCh), color: '#C96F4A' },
+        { label: 'Cself', value: cselfCh, display: fmt(cselfCh), color: '#8FA876' },
         { label: 'EasyWeddings', value: ewCh, display: fmt(ewCh), color: '#FB923C' },
         { label: 'Dose de MKT', value: doseCh, display: fmt(doseCh), color: '#F472B6' }
       ].filter(c => c.value > 0);
@@ -2442,9 +2291,9 @@ async function exportAnalyticsStory() {
       y += 16;
       y = _exSectionLabel(ctx, y, 'Summary');
       _exKpiGrid(ctx, y, [
-        { val: fmt(totalAdSpend), lbl: 'Total ad spend', acc: '#FB7185' },
-        { val: roas + 'x', lbl: 'ROAS (revenue ÷ ad spend)', acc: '#F59E0B' },
-        { val: '$' + cac.toLocaleString(), lbl: 'CAC', acc: '#7C6FE0' }
+        { val: fmt(totalAdSpend), lbl: 'Total ad spend', acc: '#C48A9B' },
+        { val: roas + 'x', lbl: 'ROAS (revenue ÷ ad spend)', acc: '#E0B15E' },
+        { val: '$' + cac.toLocaleString(), lbl: 'CAC', acc: '#D4A017' }
       ], 1);
       pageObjs.push({ canvas, ctx });
     }
@@ -2471,17 +2320,17 @@ async function exportAnalyticsStory() {
       let y = _exHeader(ctx, 'PERFORMANCE', 'Cost per Lead & Pipeline', 'Live ad data 2026 YTD · Pipeline ' + pLbl);
       y = _exSectionLabel(ctx, y, 'Cost per lead — live Meta & Google (2026 YTD)');
       y = _exKpiGrid(ctx, y, [
-        { val: '$' + metaCPL.toFixed(0), lbl: 'Meta — cost/lead', acc: '#FB7185', cap: metaLeadsLive + ' leads · ' + fmt(mTLive) },
-        { val: '$' + googCPL.toFixed(0), lbl: 'Google — cost/lead', acc: '#34D399', cap: googLeadsLive + ' leads · ' + fmt(gTLive) },
-        { val: '$' + blendedCPL.toFixed(0), lbl: 'Blended cost/lead', acc: '#F59E0B', cap: (metaLeadsLive + googLeadsLive) + ' leads total' }
+        { val: '$' + metaCPL.toFixed(0), lbl: 'Meta — cost/lead', acc: '#C48A9B', cap: metaLeadsLive + ' leads · ' + fmt(mTLive) },
+        { val: '$' + googCPL.toFixed(0), lbl: 'Google — cost/lead', acc: '#8FA876', cap: googLeadsLive + ' leads · ' + fmt(gTLive) },
+        { val: '$' + blendedCPL.toFixed(0), lbl: 'Blended cost/lead', acc: '#E0B15E', cap: (metaLeadsLive + googLeadsLive) + ' leads total' }
       ], 1);
       y += 16;
       y = _exSectionLabel(ctx, y, 'Pipeline — ' + pLbl);
       _exKpiGrid(ctx, y, [
-        { val: String(clientsP), lbl: 'Contracts closed', acc: '#34D399' },
+        { val: String(clientsP), lbl: 'Contracts closed', acc: '#8FA876' },
         { val: String(callsP), lbl: 'Calls held (Calendly)', acc: '#F472B6' },
         { val: callToContractP + '%', lbl: 'Call → contract rate', acc: '#FB923C' },
-        { val: String(blocked.length), lbl: 'Blocked by existing bookings (' + blockedPct + '%)', acc: '#F87171' }
+        { val: String(blocked.length), lbl: 'Blocked by existing bookings (' + blockedPct + '%)', acc: '#D96A4A' }
       ], 2);
       pageObjs.push({ canvas, ctx });
     }
@@ -2504,7 +2353,7 @@ async function exportAnalyticsStory() {
       });
       _exTable(ctx, y, ['Year', 'Revenue', 'Clients', 'YoY'], annRows, [_exContentW * 0.22, _exContentW * 0.32, _exContentW * 0.22, _exContentW * 0.24]);
       ctx.textAlign = 'left'; ctx.fillStyle = '#5A6080'; ctx.font = '500 17px sans-serif';
-      _exWrapText(ctx, 'Ad spend reflects accounting figures (Ad Cost tab); live platform pulls (Marketing KPIs tab) may differ slightly due to GST, billing-cycle timing or currency rounding.', _exPadX, _exH - 130, _exContentW, 23);
+      _exWrapText(ctx, 'Ad spend reflects accounting figures (Marketing tab); live platform pulls (Marketing tab) may differ slightly due to GST, billing-cycle timing or currency rounding.', _exPadX, _exH - 130, _exContentW, 23);
       pageObjs.push({ canvas, ctx });
     }
 
@@ -2549,13 +2398,13 @@ function renderPipelineAnalysis(fy, fm, days) {
   const conflictPct = total ? Math.round(conflictTotal / total * 100) : 0;
 
   const kpis = [
-    {v: total,          l: 'Total Pipeline',        a: '#7C6FE0', sub: 'active leads'},
-    {v: avail,          l: 'Closeable',              a: '#34D399', sub: `${Math.round(avail/total*100)}% of pipeline`},
-    {v: conflictTotal,  l: 'Date Conflicts',         a: '#F87171', sub: `${conflictPct}% blocked by bookings`},
-    {v: dbl,            l: 'Double Booked',          a: '#FB7185', sub: 'fully unavailable'},
-    {v: noDate,         l: 'No Date Yet',            a: '#F59E0B', sub: 'still exploring'},
-    {v: booked,         l: 'Won (Ours)',             a: '#A78BFA', sub: 'confirmed clients'},
-    {v: lostNotDate,    l: 'Lost (Not Date)',        a: '#6B7280', sub: 'real conversion loss'},
+    {v: total,          l: 'Total Pipeline',        a: '#D4A017', sub: 'active leads'},
+    {v: avail,          l: 'Closeable',              a: '#8FA876', sub: `${Math.round(avail/total*100)}% of pipeline`},
+    {v: conflictTotal,  l: 'Date Conflicts',         a: '#D96A4A', sub: `${conflictPct}% blocked by bookings`},
+    {v: dbl,            l: 'Double Booked',          a: '#C48A9B', sub: 'fully unavailable'},
+    {v: noDate,         l: 'No Date Yet',            a: '#E0B15E', sub: 'still exploring'},
+    {v: booked,         l: 'Won (Ours)',             a: '#7C97C9', sub: 'confirmed clients'},
+    {v: lostNotDate,    l: 'Lost (Not Date)',        a: '#8A8070', sub: 'real conversion loss'},
   ];
 
   const kpiEl = document.getElementById('pipelineKpis');
@@ -2594,8 +2443,8 @@ function renderPipelineAnalysis(fy, fm, days) {
         {
           label: 'Contracts Signed',
           data: chartSigned,
-          backgroundColor: 'rgba(124,111,224,.7)',
-          borderColor: '#7C6FE0',
+          backgroundColor: 'rgba(212,160,23,.7)',
+          borderColor: '#D4A017',
           borderWidth: 1.5,
           borderRadius: 5,
           order: 2
@@ -2604,10 +2453,10 @@ function renderPipelineAnalysis(fy, fm, days) {
           label: 'New Leads (CRM)',
           data: chartLeadsCreated,
           type: 'line',
-          borderColor: '#34D399',
-          backgroundColor: 'rgba(52,211,153,.08)',
+          borderColor: '#8FA876',
+          backgroundColor: 'rgba(143,168,118,.08)',
           borderWidth: 2.5,
-          pointBackgroundColor: '#34D399',
+          pointBackgroundColor: '#8FA876',
           pointRadius: 5,
           tension: .4,
           fill: false,
@@ -2652,12 +2501,12 @@ function renderPipelineAnalysis(fy, fm, days) {
       datasets: [{
         data: [fAvail, fUnavail, fDbl, fNoDate, fBooked, fLost],
         backgroundColor: [
-          'rgba(52,211,153,.7)',
-          'rgba(248,113,113,.65)',
-          'rgba(251,113,133,.9)',
-          'rgba(245,158,11,.6)',
-          'rgba(167,139,250,.75)',
-          'rgba(107,114,128,.5)'
+          'rgba(143,168,118,.7)',
+          'rgba(217,106,74,.65)',
+          'rgba(196,138,155,.9)',
+          'rgba(224,177,94,.6)',
+          'rgba(124,151,201,.75)',
+          'rgba(138,128,112,.5)'
         ],
         borderColor: isDark ? '#13151C' : '#fff',
         borderWidth: 2,
@@ -2719,10 +2568,10 @@ function renderPipelineAnalysis(fy, fm, days) {
     data: {
       labels: wLabels,
       datasets: [
-        { label: 'Available', data: weddingMonths.map(m => wCount(m,'Available')), backgroundColor: 'rgba(52,211,153,.7)', borderColor: '#34D399', borderWidth: 1, borderRadius: 3, stack: 's' },
-        { label: 'Unavailable', data: weddingMonths.map(m => wCount(m,'NOT YET')), backgroundColor: 'rgba(248,113,113,.65)', borderColor: '#F87171', borderWidth: 1, borderRadius: 3, stack: 's' },
-        { label: 'Double Booked', data: weddingMonths.map(m => wCount(m,'Double Booked')), backgroundColor: 'rgba(251,113,133,.9)', borderColor: '#FB7185', borderWidth: 1.5, borderRadius: 3, stack: 's' },
-        { label: 'Booked (Ours)', data: weddingMonths.map(m => wBooked(m)), backgroundColor: 'rgba(167,139,250,.75)', borderColor: '#A78BFA', borderWidth: 1, borderRadius: 3, stack: 's' },
+        { label: 'Available', data: weddingMonths.map(m => wCount(m,'Available')), backgroundColor: 'rgba(143,168,118,.7)', borderColor: '#8FA876', borderWidth: 1, borderRadius: 3, stack: 's' },
+        { label: 'Unavailable', data: weddingMonths.map(m => wCount(m,'NOT YET')), backgroundColor: 'rgba(217,106,74,.65)', borderColor: '#D96A4A', borderWidth: 1, borderRadius: 3, stack: 's' },
+        { label: 'Double Booked', data: weddingMonths.map(m => wCount(m,'Double Booked')), backgroundColor: 'rgba(196,138,155,.9)', borderColor: '#C48A9B', borderWidth: 1.5, borderRadius: 3, stack: 's' },
+        { label: 'Booked (Ours)', data: weddingMonths.map(m => wBooked(m)), backgroundColor: 'rgba(124,151,201,.75)', borderColor: '#7C97C9', borderWidth: 1, borderRadius: 3, stack: 's' },
       ]
     },
     options: {
@@ -2741,7 +2590,7 @@ function renderPipelineAnalysis(fy, fm, days) {
   // Legend for stacked chart
   const legEl = document.getElementById('avLeg');
   if (legEl) legEl.innerHTML = [
-    {l:'Available',c:'#34D399'},{l:'Unavailable',c:'#F87171'},{l:'Double Booked',c:'#FB7185'},{l:'Booked (Ours)',c:'#A78BFA'}
+    {l:'Available',c:'#8FA876'},{l:'Unavailable',c:'#D96A4A'},{l:'Double Booked',c:'#C48A9B'},{l:'Booked (Ours)',c:'#7C97C9'}
   ].map(x=>`<div class="leg-i"><div class="leg-d" style="background:${x.c}"></div>${x.l}</div>`).join('');
 
   // ── Conflict table ──
@@ -2756,8 +2605,8 @@ function renderPipelineAnalysis(fy, fm, days) {
       <td style="font-family:'DM Mono',monospace;font-size:10px">${l.date ? l.date.split('-').reverse().join('/') : '—'}</td>
       <td>${stPL(l)}</td>
       <td>${isDouble
-        ? `<span class="sp" style="background:rgba(248,113,113,.18);color:#F87171;border:2px solid #F87171;font-size:9px;font-weight:800">⚡ DOUBLE BOOKED</span>`
-        : `<span class="sp" style="background:rgba(248,113,113,.1);color:#F87171;border:1px solid rgba(248,113,113,.35);font-size:9px">✕ Unavailable</span>`
+        ? `<span class="sp" style="background:rgba(217,106,74,.18);color:#D96A4A;border:2px solid #D96A4A;font-size:9px;font-weight:800">⚡ DOUBLE BOOKED</span>`
+        : `<span class="sp" style="background:rgba(217,106,74,.1);color:#D96A4A;border:1px solid rgba(217,106,74,.35);font-size:9px">✕ Unavailable</span>`
       }</td>
       <td style="font-size:10px;color:var(--t2)">${conflictNames}</td>
     </tr>`;
@@ -2772,12 +2621,12 @@ function renderBkClients(fy, fm, days) {
     const bk = bookingsInPeriod('', '', days);
     const byDate = {}; bk.forEach(b=>{ const d=bkDateObj(b.date); if(!d) return; const k=d.toISOString().slice(0,10); byDate[k]=(byDate[k]||0)+1; });
     const sorted = Object.entries(byDate).sort(([a],[b2])=>a.localeCompare(b2));
-    mk('cBkClients',{type:'bar',data:{labels:sorted.map(([d])=>d),datasets:[{label:'Clients',data:sorted.map(([,n])=>n),backgroundColor:'rgba(124,111,224,.7)',borderColor:'#7C6FE0',borderWidth:1.5,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:gc()},ticks:{color:tc(),maxRotation:45,font:{size:9}}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),stepSize:1}}}}});
+    mk('cBkClients',{type:'bar',data:{labels:sorted.map(([d])=>d),datasets:[{label:'Clients',data:sorted.map(([,n])=>n),backgroundColor:'rgba(212,160,23,.7)',borderColor:'#D4A017',borderWidth:1.5,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:gc()},ticks:{color:tc(),maxRotation:45,font:{size:9}}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),stepSize:1}}}}});
     return;
   }
   const years = fy ? [fy] : ['2024','2025','2026'];
   const months = fm ? [fm] : MONTHS;
-  const cols = {'2024':{bg:'rgba(107,114,128,.5)',bd:'#6B7280'},'2025':{bg:'rgba(96,165,250,.6)',bd:'#60A5FA'},'2026':{bg:'rgba(124,111,224,.7)',bd:'#7C6FE0'}};
+  const cols = {'2024':{bg:'rgba(138,128,112,.5)',bd:'#8A8070'},'2025':{bg:'rgba(201,111,74,.6)',bd:'#C96F4A'},'2026':{bg:'rgba(212,160,23,.7)',bd:'#D4A017'}};
   mk('cBkClients',{type:'bar',data:{labels:months,datasets:years.map(y=>({label:y,data:months.map(m=>(CLIENTS[y]&&CLIENTS[y][m])||0),backgroundColor:cols[y].bg,borderColor:cols[y].bd,borderWidth:1.5,borderRadius:4}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'top',labels:{font:{size:10},usePointStyle:true,color:tc()}}},scales:{x:{grid:{color:gc()},ticks:{color:tc()}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),stepSize:1}}}}});
 }
 function renderBkRevenue(fy, fm, days) {
@@ -2788,12 +2637,12 @@ function renderBkRevenue(fy, fm, days) {
     const bk = bookingsInPeriod('', '', days);
     const byDate = {}; bk.forEach(b=>{ const d=bkDateObj(b.date); if(!d) return; const k=d.toISOString().slice(0,10); byDate[k]=(byDate[k]||0)+b.price; });
     const sorted = Object.entries(byDate).sort(([a],[b2])=>a.localeCompare(b2));
-    mk('cBkRevenue',{type:'bar',data:{labels:sorted.map(([d])=>d),datasets:[{label:'Revenue',data:sorted.map(([,v])=>v),backgroundColor:'rgba(52,211,153,.6)',borderColor:'#34D399',borderWidth:1.5,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:gc()},ticks:{color:tc(),maxRotation:45,font:{size:9}}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),callback:v=>fmt(v)}}}}});
+    mk('cBkRevenue',{type:'bar',data:{labels:sorted.map(([d])=>d),datasets:[{label:'Revenue',data:sorted.map(([,v])=>v),backgroundColor:'rgba(143,168,118,.6)',borderColor:'#8FA876',borderWidth:1.5,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:gc()},ticks:{color:tc(),maxRotation:45,font:{size:9}}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),callback:v=>fmt(v)}}}}});
     return;
   }
   const years = fy ? [fy] : ['2024','2025','2026'];
   const months = fm ? [fm] : MONTHS;
-  const cols = {'2024':{bg:'rgba(107,114,128,.5)',bd:'#6B7280'},'2025':{bg:'rgba(52,211,153,.6)',bd:'#34D399'},'2026':{bg:'rgba(124,111,224,.7)',bd:'#7C6FE0'}};
+  const cols = {'2024':{bg:'rgba(138,128,112,.5)',bd:'#8A8070'},'2025':{bg:'rgba(143,168,118,.6)',bd:'#8FA876'},'2026':{bg:'rgba(212,160,23,.7)',bd:'#D4A017'}};
   mk('cBkRevenue',{type:'bar',data:{labels:months,datasets:years.map(y=>({label:y,data:months.map(m=>(REV[y]&&REV[y][m])||0),backgroundColor:cols[y].bg,borderColor:cols[y].bd,borderWidth:1.5,borderRadius:4}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'top',labels:{font:{size:10},usePointStyle:true,color:tc()}}},scales:{x:{grid:{color:gc()},ticks:{color:tc()}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),callback:v=>fmt(v)}}}}});
 }
 function renderBkPkg(fy, fm, days) {
@@ -2803,7 +2652,7 @@ function renderBkPkg(fy, fm, days) {
   const BK = bookingsInPeriod(fy, fm, days);
   const pm={};BK.forEach(b=>{pm[b.pkg]=(pm[b.pkg]||0)+b.price;});
   const s=Object.entries(pm).sort(([,a],[,b])=>b-a);
-  const cols=['rgba(124,111,224,.7)','rgba(52,211,153,.65)','rgba(96,165,250,.65)','rgba(245,158,11,.65)','rgba(251,113,133,.65)'];
+  const cols=['rgba(212,160,23,.7)','rgba(143,168,118,.65)','rgba(201,111,74,.65)','rgba(224,177,94,.65)','rgba(196,138,155,.65)'];
   mk('cBkPkg',{type:'doughnut',data:{labels:s.map(([k])=>k),datasets:[{data:s.map(([,v])=>v),backgroundColor:s.map((_,i)=>cols[i%cols.length]),borderColor:isDark?'#13151C':'#fff',borderWidth:2,hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10},padding:10,usePointStyle:true,color:tc()}},tooltip:{callbacks:{label:c=>` ${c.label}: ${fmt(c.raw)}`}}}}});
 }
 function renderBkCity(fy, fm, days) {
@@ -2813,7 +2662,7 @@ function renderBkCity(fy, fm, days) {
   const BK = bookingsInPeriod(fy, fm, days);
   const melb=BK.filter(b=>b.city.toLowerCase().includes('melb')).length;
   const adel=BK.filter(b=>b.city.toLowerCase().includes('adel')).length;
-  mk('cBkCity',{type:'pie',data:{labels:['Melbourne','Adelaide'],datasets:[{data:[melb,adel],backgroundColor:['rgba(124,111,224,.7)','rgba(52,211,153,.65)'],borderColor:isDark?'#13151C':'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10},padding:10,usePointStyle:true,color:tc()}}}}});
+  mk('cBkCity',{type:'pie',data:{labels:['Melbourne','Adelaide'],datasets:[{data:[melb,adel],backgroundColor:['rgba(212,160,23,.7)','rgba(143,168,118,.65)'],borderColor:isDark?'#13151C':'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10},padding:10,usePointStyle:true,color:tc()}}}}});
 }
 function renderBkAll() {
   const fy = document.getElementById('bkYear')?.value || '';
@@ -2855,7 +2704,7 @@ function renderBkTable() {
     <td style="font-size:11px;color:var(--t2)">${b.city}</td>
     <td><span class="sp s-boo" style="font-size:9px">${b.pkg}</span></td>
     <td>${b.source?`<span class="srcp ${scmap[b.source.trim()]||'sx'}">${b.source.trim()}</span>`:'<span style="color:var(--t3);font-size:9px">—</span>'}</td>
-    <td style="font-family:'DM Mono',monospace;font-size:11px;color:#34D399;font-weight:700">${fmt(b.price)}</td>
+    <td style="font-family:'DM Mono',monospace;font-size:11px;color:#8FA876;font-weight:700">${fmt(b.price)}</td>
   </tr>`).join('');
 }
 
@@ -2891,11 +2740,11 @@ function renderCAC(fy, fm, days) {
   const cac = totalClients ? Math.round(totalSpend / totalClients) : 0;
   const periodLbl = (fy || 'All years') + (fm ? ' · ' + fm : '');
   const kpis = [
-    { val: '$' + cac.toLocaleString(), lbl: 'CAC — ' + periodLbl, acc: '#7C6FE0', ico: '🎯' },
-    { val: fmt(totalSpend), lbl: 'Total ad spend (filtered)', acc: '#FB7185', ico: '💸' },
-    { val: String(totalClients), lbl: 'New clients (filtered)', acc: '#34D399', ico: '🤝' },
+    { val: '$' + cac.toLocaleString(), lbl: 'CAC — ' + periodLbl, acc: '#D4A017', ico: '🎯' },
+    { val: fmt(totalSpend), lbl: 'Total ad spend (filtered)', acc: '#C48A9B', ico: '💸' },
+    { val: String(totalClients), lbl: 'New clients (filtered)', acc: '#8FA876', ico: '🤝' },
   ];
-  if (rollingNote) kpis.unshift({ val: 'ℹ️', lbl: 'Ad spend is tracked monthly, not daily — showing all-time CAC instead of a '+days+'-day window', acc: '#6B7280', ico: 'ℹ️' });
+  if (rollingNote) kpis.unshift({ val: 'ℹ️', lbl: 'Ad spend is tracked monthly, not daily — showing all-time CAC instead of a '+days+'-day window', acc: '#8A8070', ico: 'ℹ️' });
   const kpiEl = document.getElementById('cacKpis');
   if (kpiEl) kpiEl.innerHTML = kpis.map(k => `
     <div class="kpi" style="--accent:${k.acc}">
@@ -2905,7 +2754,7 @@ function renderCAC(fy, fm, days) {
     </div>`).join('');
   mk('cCAC', {
     type: 'bar',
-    data: { labels: chartLabels, datasets: [{ label: 'CAC', data: chartData, backgroundColor: 'rgba(124,111,224,.6)', borderColor: '#7C6FE0', borderWidth: 1.5, borderRadius: 6 }] },
+    data: { labels: chartLabels, datasets: [{ label: 'CAC', data: chartData, backgroundColor: 'rgba(212,160,23,.6)', borderColor: '#D4A017', borderWidth: 1.5, borderRadius: 6 }] },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: { tooltip: { callbacks: { label: c => c.raw != null ? `CAC: $${c.raw}` : 'No clients' } } },
@@ -2941,20 +2790,20 @@ function getRevYears() {
 function renderRevAnnual() {
   const ann={'2024':44095,'2025':85741,'2026':233105};
   const yrs=getRevYears();
-  const cols={'2024':'rgba(107,114,128,.65)','2025':'rgba(52,211,153,.65)','2026':'rgba(124,111,224,.7)'};
-  const bds={'2024':'#6B7280','2025':'#34D399','2026':'#7C6FE0'};
+  const cols={'2024':'rgba(138,128,112,.65)','2025':'rgba(143,168,118,.65)','2026':'rgba(212,160,23,.7)'};
+  const bds={'2024':'#8A8070','2025':'#8FA876','2026':'#D4A017'};
   mk('cRevAnnual',{type:'bar',data:{labels:yrs,datasets:[{data:yrs.map(y=>ann[y]),backgroundColor:yrs.map(y=>cols[y]),borderColor:yrs.map(y=>bds[y]),borderWidth:2,borderRadius:8,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:c=>fmt(c.raw)}}},scales:{x:{grid:{color:gc()},ticks:{color:tc()}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),callback:v=>fmt(v)}}}}});
 }
 
 function renderRevGrowth() {
-  const growth=[{y:'2024',g:0,col:'rgba(107,114,128,.65)',bd:'#6B7280'},{y:'2025',g:94.4,col:'rgba(52,211,153,.65)',bd:'#34D399'},{y:'2026',g:171.9,col:'rgba(124,111,224,.7)',bd:'#7C6FE0'}];
+  const growth=[{y:'2024',g:0,col:'rgba(138,128,112,.65)',bd:'#8A8070'},{y:'2025',g:94.4,col:'rgba(143,168,118,.65)',bd:'#8FA876'},{y:'2026',g:171.9,col:'rgba(212,160,23,.7)',bd:'#D4A017'}];
   const vis=activeRevYear==='all'?growth:growth.filter(d=>d.y===activeRevYear);
   mk('cRevGrowth',{type:'bar',data:{labels:vis.map(d=>d.y),datasets:[{data:vis.map(d=>d.g),backgroundColor:vis.map(d=>d.col),borderColor:vis.map(d=>d.bd),borderWidth:2,borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:c=>`${c.raw}% growth`}}},scales:{x:{grid:{color:gc()},ticks:{color:tc()}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),callback:v=>v+'%'}}}}});
 }
 
 function renderRevOverlay() {
   const yrs=getRevYears();
-  const cols={'2024':['rgba(107,114,128,.3)','#6B7280'],'2025':['rgba(52,211,153,.15)','#34D399'],'2026':['rgba(124,111,224,.15)','#7C6FE0']};
+  const cols={'2024':['rgba(138,128,112,.3)','#8A8070'],'2025':['rgba(143,168,118,.15)','#8FA876'],'2026':['rgba(212,160,23,.15)','#D4A017']};
   mk('cRevOverlay',{type:'line',data:{labels:MONTHS,datasets:yrs.map(y=>({label:y,data:MONTHS.map(m=>REV[y][m]||0),borderColor:cols[y][1],backgroundColor:cols[y][0],borderWidth:2.5,pointBackgroundColor:cols[y][1],pointRadius:4,tension:.4,fill:false}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'top',labels:{font:{size:10},usePointStyle:true,color:tc()}}},scales:{x:{grid:{color:gc()},ticks:{color:tc()}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),callback:v=>fmt(v)}}}}});
 }
 
@@ -2963,8 +2812,8 @@ function renderRevVsAd() {
   const adSpend=months.map(m=>(META_SPEND[m]||0)+(GOOGLE_SPEND[m]||0)+(CSELF_SPEND[m]||0)+(EW_SPEND[m]||0)+(DOSE_SPEND[m]||0));
   const revByMonth={'2024-Sep':925,'2024-Oct':31960,'2024-Nov':11210,'2024-Dec':0,'2025-Jan':2200,'2025-Feb':0,'2025-Mar':5220,'2025-Apr':6770,'2025-May':400,'2025-Jun':8200,'2025-Jul':0,'2025-Aug':4420,'2025-Sep':14610,'2025-Oct':14405,'2025-Nov':8516,'2025-Dec':21000,'2026-Jan':19205,'2026-Feb':77250,'2026-Mar':62250,'2026-Apr':24400,'2026-May':35000,'2026-Jun':15000};
   mk('cRevVsAd',{type:'bar',data:{labels:months.map(m=>m.replace('-',' ')),datasets:[
-    {label:'Revenue',data:months.map(m=>revByMonth[m]||0),backgroundColor:'rgba(52,211,153,.6)',borderColor:'#34D399',borderWidth:1.5,borderRadius:4},
-    {label:'Ad Spend',data:adSpend,backgroundColor:'rgba(251,113,133,.55)',borderColor:'#FB7185',borderWidth:1.5,borderRadius:4}
+    {label:'Revenue',data:months.map(m=>revByMonth[m]||0),backgroundColor:'rgba(143,168,118,.6)',borderColor:'#8FA876',borderWidth:1.5,borderRadius:4},
+    {label:'Ad Spend',data:adSpend,backgroundColor:'rgba(196,138,155,.55)',borderColor:'#C48A9B',borderWidth:1.5,borderRadius:4}
   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'top',labels:{font:{size:9},usePointStyle:true,color:tc()}}},scales:{x:{grid:{color:gc()},ticks:{color:tc(),font:{size:8},maxRotation:45}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),callback:v=>fmt(v),font:{size:8}}}}}});
 }
 
@@ -2975,14 +2824,14 @@ function renderRevCPA() {
   const adSpend26=months26.map(m=>(META_SPEND[m]||0)+(GOOGLE_SPEND[m]||0)+(CSELF_SPEND[m]||0)+(EW_SPEND[m]||0)+(DOSE_SPEND[m]||0));
   const bk26=[5,17,13,6,7,4];
   const cpa=adSpend26.map((s,i)=>bk26[i]?Math.round(s/bk26[i]):0);
-  mk('cRevCPA',{type:'bar',data:{labels,datasets:[{data:cpa,backgroundColor:cpa.map(v=>v>800?'rgba(251,113,133,.65)':v>600?'rgba(245,158,11,.65)':'rgba(52,211,153,.65)'),borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:c=>`CPA: $${c.raw}`}}},scales:{x:{grid:{color:gc()},ticks:{color:tc()}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),callback:v=>'$'+v}}}}});
+  mk('cRevCPA',{type:'bar',data:{labels,datasets:[{data:cpa,backgroundColor:cpa.map(v=>v>800?'rgba(196,138,155,.65)':v>600?'rgba(224,177,94,.65)':'rgba(143,168,118,.65)'),borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:c=>`CPA: $${c.raw}`}}},scales:{x:{grid:{color:gc()},ticks:{color:tc()}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),callback:v=>'$'+v}}}}});
 }
 
 function renderRevSummary() {
   const data=[
-    {yr:'2024',rev:44095,clients:16,growth:null,acc:'#6B7280'},
-    {yr:'2025',rev:85741,clients:28,growth:94.4,acc:'#34D399'},
-    {yr:'2026',rev:233105,clients:52,growth:171.9,acc:'#7C6FE0'},
+    {yr:'2024',rev:44095,clients:16,growth:null,acc:'#8A8070'},
+    {yr:'2025',rev:85741,clients:28,growth:94.4,acc:'#8FA876'},
+    {yr:'2026',rev:233105,clients:52,growth:171.9,acc:'#D4A017'},
   ];
   const vis=activeRevYear==='all'?data:data.filter(d=>d.yr===activeRevYear);
   document.getElementById('revSum').innerHTML=vis.map(d=>`
@@ -2998,16 +2847,13 @@ function renderRevSummary() {
 // ── AD COST ──
 // ════════════════════════════════════════════════════════════
 function renderAdAll() {
-  renderAdKPIs(); renderAdTotal(); renderAdMeta(); renderAdGoogle(); renderAdCself();
-  renderAdShare(); renderAdROAS();
+  renderMktKPIs(); renderMktMeta(); renderMktGoogle(); renderMktCPL(); renderMktInsights();
+  renderAdKPIs(); renderAdTotal(); renderAdShare(); renderAdROAS();
 }
 
 // ════════════════════════════════════════════════════════════
 // ── MARKETING KPIs (live ad-platform data — separate from Ad Cost accounting) ──
 // ════════════════════════════════════════════════════════════
-function renderMktAll() {
-  renderMktKPIs(); renderMktMeta(); renderMktGoogle(); renderMktCPL(); renderMktInsights();
-}
 
 function renderMktKPIs() {
   const months=['2026-Jan','2026-Feb','2026-Mar','2026-Apr','2026-May','2026-Jun'];
@@ -3019,13 +2865,13 @@ function renderMktKPIs() {
   const metaCPL=mT/(metaLeads.length||1);
   const googCPL=gT/(googLeads.length||1);
   const kpis=[
-    {val:fmt(mT+gT),lbl:'Live Ad Spend (Jan–Jun 2026)',acc:'#7C6FE0',ico:'💰'},
-    {val:fmt(mT),   lbl:'Meta Ads (live, Jan–Jun)',     acc:'#A78BFA',ico:'<svg width="16" height="16" viewBox="0 0 36 36"><path d="M7.5 12.5c-3 0-5.5 3-5.5 7.5s2.5 7.5 5.5 7.5c2 0 3.6-1.2 5.3-3.7 1.2-1.8 2.3-3.9 3.2-5.8.9 1.9 2 4 3.2 5.8 1.7 2.5 3.3 3.7 5.3 3.7 3 0 5.5-3 5.5-7.5s-2.5-7.5-5.5-7.5c-2 0-3.7 1.3-5.4 3.8-1.1 1.7-2.1 3.6-3.1 5.5-1-1.9-2-3.8-3.1-5.5-1.7-2.5-3.4-3.8-5.4-3.8z" fill="#0081FB"/></svg>'},
-    {val:fmt(gT),   lbl:'Google Ads (live, Jan–Jun)',   acc:'#60A5FA',ico:'<svg width="16" height="16" viewBox="0 0 48 48"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.95 41.07 15.39 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18A13.96 13.96 0 0 1 11 24c0-1.45.25-2.86.69-4.18v-5.7H4.34A23.93 23.93 0 0 0 2 24c0 3.87.93 7.53 2.34 10.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.39 2 7.95 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>'},
-    {val:fmt(metaCPL),lbl:'Meta cost/lead (live)',     acc:'#FB7185',ico:'👥'},
-    {val:fmt(googCPL),lbl:'Google cost/lead (live)',    acc:'#34D399',ico:'👥'},
-    {val:metaLeads.length+'',lbl:'Meta leads (Jan–Jun)', acc:'#A78BFA',ico:'📥'},
-    {val:googLeads.length+'',lbl:'Google leads (Jan–Jun)',acc:'#60A5FA',ico:'📥'},
+    {val:fmt(mT+gT),lbl:'Live Ad Spend (Jan–Jun 2026)',acc:'#D4A017',ico:'💰'},
+    {val:fmt(mT),   lbl:'Meta Ads (live, Jan–Jun)',     acc:'#7C97C9',ico:'<svg width="16" height="16" style="flex-shrink:0"><use href="#i-meta"/></svg>'},
+    {val:fmt(gT),   lbl:'Google Ads (live, Jan–Jun)',   acc:'#C96F4A',ico:'<svg width="16" height="16" style="flex-shrink:0"><use href="#i-google"/></svg>'},
+    {val:fmt(metaCPL),lbl:'Meta cost/lead (live)',     acc:'#C48A9B',ico:'👥'},
+    {val:fmt(googCPL),lbl:'Google cost/lead (live)',    acc:'#8FA876',ico:'👥'},
+    {val:metaLeads.length+'',lbl:'Meta leads (Jan–Jun)', acc:'#7C97C9',ico:'📥'},
+    {val:googLeads.length+'',lbl:'Google leads (Jan–Jun)',acc:'#C96F4A',ico:'📥'},
   ];
   document.getElementById('mktKpis').innerHTML=kpis.map(k=>`
     <div class="kpi" style="--accent:${k.acc}">
@@ -3035,8 +2881,8 @@ function renderMktKPIs() {
     </div>`).join('');
 }
 
-function renderMktMeta()  { spendLine('cMktMeta',  META_SPEND_LIVE,  '#A78BFA','Meta Ads (live)'); }
-function renderMktGoogle(){ spendLine('cMktGoogle', GOOGLE_SPEND_LIVE,'#60A5FA','Google Ads (live)'); }
+function renderMktMeta()  { spendLine('cMktMeta',  META_SPEND_LIVE,  '#7C97C9','Meta Ads (live)'); }
+function renderMktGoogle(){ spendLine('cMktGoogle', GOOGLE_SPEND_LIVE,'#C96F4A','Google Ads (live)'); }
 
 function renderMktCPL() {
   const months=['2026-Jan','2026-Feb','2026-Mar','2026-Apr','2026-May','2026-Jun'];
@@ -3052,8 +2898,8 @@ function renderMktCPL() {
   const metaCPL=months.map(m=>{const n=leadsByMonth[m]?.meta||0;return n?+( (META_SPEND_LIVE[m]||0)/n).toFixed(0):0;});
   const googCPL=months.map(m=>{const n=leadsByMonth[m]?.goog||0;return n?+( (GOOGLE_SPEND_LIVE[m]||0)/n).toFixed(0):0;});
   mk('cMktCPL',{type:'line',data:{labels,datasets:[
-    {label:'Meta $/lead',  data:metaCPL,borderColor:'#A78BFA',backgroundColor:'rgba(167,139,250,.15)',tension:.35,fill:true},
-    {label:'Google $/lead',data:googCPL,borderColor:'#60A5FA',backgroundColor:'rgba(96,165,250,.15)', tension:.35,fill:true},
+    {label:'Meta $/lead',  data:metaCPL,borderColor:'#7C97C9',backgroundColor:'rgba(124,151,201,.15)',tension:.35,fill:true},
+    {label:'Google $/lead',data:googCPL,borderColor:'#C96F4A',backgroundColor:'rgba(201,111,74,.15)', tension:.35,fill:true},
   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'top',labels:{font:{size:9},usePointStyle:true,color:tc()}}},scales:{x:{grid:{color:gc()},ticks:{color:tc()}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),callback:v=>'$'+v}}}}});
 }
 
@@ -3096,28 +2942,28 @@ function renderMktInsights() {
 
   const insights=[
     {
-      color:'#34D399', ico:'🎯',
+      color:'#8FA876', ico:'🎯',
       title:'Google leads convert to bookings ~'+cpbGapPct+'% cheaper than Meta',
       body:`Jan–Jun 2026 (live platform data): Google spent ${fmt(googSpendTot)} across ${googLeads.length} leads (${fmt(googCPL)}/lead) and booked ${googBooked} clients — ${fmt(googCPB)}/booking. Meta spent ${fmt(metaSpendTot)} across ${metaLeads.length} leads (${fmt(metaCPL)}/lead) but booked only ${metaBooked} clients — ${fmt(metaCPB)}/booking — because Google leads close at ${googRate.toFixed(1)}% vs Meta's ${metaRate.toFixed(1)}%. Shifting incremental budget toward Google should lower blended cost-per-client.`
     },
     {
-      color:'#FB7185', ico:'📉',
+      color:'#C48A9B', ico:'📉',
       title:`Meta's cost-per-lead is wildly inconsistent month to month`,
       body: bestMeta ? `${bestMeta.m.replace('-',' ')} 2026 was Meta's most efficient month — ${fmt(bestMeta.cpl)}/lead (${bestMeta.leads} leads, ${fmt(META_SPEND_LIVE[bestMeta.m])} spend) — vs an average of ${fmt(avgOtherCPL)}/lead every other month this year. Whatever changed in targeting or creative that month is worth re-testing.` : 'Not enough monthly data to compare yet.'
     },
     {
-      color:'#FB7185', ico:'⚠️',
+      color:'#C48A9B', ico:'⚠️',
       title:'One Google keyword campaign runs ~17x less efficient than its peers',
       body:`In the live Google Ads account (June): "[CSELF] Institucional (CPC-m)" converts at ~$7.91/conversion and the (CPA-D) non-branded campaign at ~$21.78/conversion, while "[CSELF] Leads non-branded (CPC-m) KW Exata (win)" costs ~$136.92/conversion. Pausing or re-bidding that one campaign would free budget for the cheaper ones without losing volume.`
     },
     {
-      color:'#6B7280', ico:'🔍',
+      color:'#8A8070', ico:'🔍',
       title:'Cself and EasyWeddings spend can\'t be tied to actual leads',
       body:`${fmt(cselfTot)} (Cself, all-time) and ${fmt(ewTot)} (EasyWeddings, all-time) in spend has no matching source tag in the leads database — only Meta Ads, Google, Organic and Remarketing are tracked. Tagging inquiries from these channels would let CAC and booking-rate be measured for them too.`
     },
     {
-      color:'#F59E0B', ico:'🧾',
-      title:'Google\'s live platform spend doesn\'t match the Ad Cost accounting figures',
+      color:'#E0B15E', ico:'🧾',
+      title:'Google\'s live platform spend doesn\'t match the accounting figures',
       body:`${recoLines}. These gaps (likely GST, billing-cycle timing, or currency rounding between the Google Ads account and Darlan's bookkeeping) are worth reconciling directly with the accounting record — this tab uses live platform numbers, the Ad Cost tab uses the accounting numbers, and they're expected to diverge slightly.`
     },
   ];
@@ -3140,14 +2986,14 @@ function renderAdKPIs() {
   const adv2026=adv2026Months.reduce((s,m)=>s+(META_SPEND[m]||0)+(GOOGLE_SPEND[m]||0)+(CSELF_SPEND[m]||0)+(EW_SPEND[m]||0)+(DOSE_SPEND[m]||0),0);
   const roas=(233105/adv2026).toFixed(1);
   const kpis=[
-    {val:fmt(tot),     lbl:'Total Ad Spend (all time)',  acc:'#7C6FE0',ico:'💰'},
-    {val:fmt(mT),      lbl:'Meta Ads — all time',        acc:'#A78BFA',ico:'<svg width="16" height="16" viewBox="0 0 36 36"><path d="M7.5 12.5c-3 0-5.5 3-5.5 7.5s2.5 7.5 5.5 7.5c2 0 3.6-1.2 5.3-3.7 1.2-1.8 2.3-3.9 3.2-5.8.9 1.9 2 4 3.2 5.8 1.7 2.5 3.3 3.7 5.3 3.7 3 0 5.5-3 5.5-7.5s-2.5-7.5-5.5-7.5c-2 0-3.7 1.3-5.4 3.8-1.1 1.7-2.1 3.6-3.1 5.5-1-1.9-2-3.8-3.1-5.5-1.7-2.5-3.4-3.8-5.4-3.8z" fill="#0081FB"/></svg>'},
-    {val:fmt(gT),      lbl:'Google Ads — all time',      acc:'#60A5FA',ico:'<svg width="16" height="16" viewBox="0 0 48 48"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.95 41.07 15.39 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18A13.96 13.96 0 0 1 11 24c0-1.45.25-2.86.69-4.18v-5.7H4.34A23.93 23.93 0 0 0 2 24c0 3.87.93 7.53 2.34 10.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.39 2 7.95 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>'},
-    {val:fmt(cT),      lbl:'Cself — all time',           acc:'#34D399',ico:'🔧'},
-    {val:roas+'x',     lbl:'ROAS 2026 (Jan–Jun)',        acc:'#F59E0B',ico:'📈'},
-    {val:fmt(adv2026/6),lbl:'Avg monthly spend 2026',   acc:'#FB7185',ico:'📊'},
-    {val:fmt(adv2026), lbl:'Total ad spend 2026',        acc:'#F87171',ico:'💸'},
-    {val:fmt(eT),      lbl:'EasyWeddings spend',         acc:'#6B7280',ico:'💼'},
+    {val:fmt(tot),     lbl:'Total Ad Spend (all time)',  acc:'#D4A017',ico:'💰'},
+    {val:fmt(mT),      lbl:'Meta Ads — all time',        acc:'#7C97C9',ico:'<svg width="16" height="16" style="flex-shrink:0"><use href="#i-meta"/></svg>'},
+    {val:fmt(gT),      lbl:'Google Ads — all time',      acc:'#C96F4A',ico:'<svg width="16" height="16" style="flex-shrink:0"><use href="#i-google"/></svg>'},
+    {val:fmt(cT),      lbl:'Cself — all time',           acc:'#8FA876',ico:'🔧'},
+    {val:roas+'x',     lbl:'ROAS 2026 (Jan–Jun)',        acc:'#E0B15E',ico:'📈'},
+    {val:fmt(adv2026/6),lbl:'Avg monthly spend 2026',   acc:'#C48A9B',ico:'📊'},
+    {val:fmt(adv2026), lbl:'Total ad spend 2026',        acc:'#D96A4A',ico:'💸'},
+    {val:fmt(eT),      lbl:'EasyWeddings spend',         acc:'#8A8070',ico:'💼'},
   ];
   document.getElementById('adKpis').innerHTML=kpis.map(k=>`
     <div class="kpi" style="--accent:${k.acc}">
@@ -3159,10 +3005,10 @@ function renderAdKPIs() {
 
 function renderAdTotal() {
   mk('cAdTotal',{type:'bar',data:{labels:ALL_MONTHS.map(m=>m.replace('-',' ')),datasets:[
-    {label:'Meta',     data:ALL_MONTHS.map(m=>META_SPEND[m]||0),  backgroundColor:'rgba(167,139,250,.7)',borderColor:'#A78BFA',borderWidth:1,borderRadius:3,stack:'s'},
-    {label:'Google',   data:ALL_MONTHS.map(m=>GOOGLE_SPEND[m]||0),backgroundColor:'rgba(96,165,250,.7)', borderColor:'#60A5FA',borderWidth:1,borderRadius:3,stack:'s'},
-    {label:'Cself',    data:ALL_MONTHS.map(m=>CSELF_SPEND[m]||0), backgroundColor:'rgba(52,211,153,.65)',borderColor:'#34D399',borderWidth:1,borderRadius:3,stack:'s'},
-    {label:'EasyWeddings',data:ALL_MONTHS.map(m=>EW_SPEND[m]||0),backgroundColor:'rgba(245,158,11,.6)', borderColor:'#F59E0B',borderWidth:1,borderRadius:3,stack:'s'},
+    {label:'Meta',     data:ALL_MONTHS.map(m=>META_SPEND[m]||0),  backgroundColor:'rgba(124,151,201,.7)',borderColor:'#7C97C9',borderWidth:1,borderRadius:3,stack:'s'},
+    {label:'Google',   data:ALL_MONTHS.map(m=>GOOGLE_SPEND[m]||0),backgroundColor:'rgba(201,111,74,.7)', borderColor:'#C96F4A',borderWidth:1,borderRadius:3,stack:'s'},
+    {label:'Cself',    data:ALL_MONTHS.map(m=>CSELF_SPEND[m]||0), backgroundColor:'rgba(143,168,118,.65)',borderColor:'#8FA876',borderWidth:1,borderRadius:3,stack:'s'},
+    {label:'EasyWeddings',data:ALL_MONTHS.map(m=>EW_SPEND[m]||0),backgroundColor:'rgba(224,177,94,.6)', borderColor:'#E0B15E',borderWidth:1,borderRadius:3,stack:'s'},
     {label:'Dose de MKT',data:ALL_MONTHS.map(m=>DOSE_SPEND[m]||0),backgroundColor:'rgba(244,114,182,.6)', borderColor:'#F472B6',borderWidth:1,borderRadius:3,stack:'s'},
   ]},options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:true,position:'top',labels:{font:{size:9},usePointStyle:true,color:tc()}}},
@@ -3173,9 +3019,9 @@ function renderAdTotal() {
   const eT=Object.values(EW_SPEND).reduce((s,v)=>s+v,0);
   const dT=Object.values(DOSE_SPEND).reduce((s,v)=>s+v,0);
   document.getElementById('adLeg').innerHTML=[
-    {l:'Meta',v:mT,c:'#A78BFA',ico:'<svg width="11" height="11" viewBox="0 0 36 36" style="vertical-align:-2px;margin-right:2px"><path d="M7.5 12.5c-3 0-5.5 3-5.5 7.5s2.5 7.5 5.5 7.5c2 0 3.6-1.2 5.3-3.7 1.2-1.8 2.3-3.9 3.2-5.8.9 1.9 2 4 3.2 5.8 1.7 2.5 3.3 3.7 5.3 3.7 3 0 5.5-3 5.5-7.5s-2.5-7.5-5.5-7.5c-2 0-3.7 1.3-5.4 3.8-1.1 1.7-2.1 3.6-3.1 5.5-1-1.9-2-3.8-3.1-5.5-1.7-2.5-3.4-3.8-5.4-3.8z" fill="#0081FB"/></svg>'},
-    {l:'Google',v:gT,c:'#60A5FA',ico:'<svg width="11" height="11" viewBox="0 0 48 48" style="vertical-align:-2px;margin-right:2px"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.95 41.07 15.39 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18A13.96 13.96 0 0 1 11 24c0-1.45.25-2.86.69-4.18v-5.7H4.34A23.93 23.93 0 0 0 2 24c0 3.87.93 7.53 2.34 10.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.39 2 7.95 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>'},
-    {l:'Cself',v:cT,c:'#34D399',ico:''},{l:'EasyWeddings',v:eT,c:'#F59E0B',ico:''},{l:'Dose de MKT',v:dT,c:'#F472B6',ico:''}
+    {l:'Meta',v:mT,c:'#7C97C9',ico:'<svg width="11" height="11" style="flex-shrink:0"><use href="#i-meta"/></svg>'},
+    {l:'Google',v:gT,c:'#C96F4A',ico:'<svg width="11" height="11" style="flex-shrink:0"><use href="#i-google"/></svg>'},
+    {l:'Cself',v:cT,c:'#8FA876',ico:''},{l:'EasyWeddings',v:eT,c:'#E0B15E',ico:''},{l:'Dose de MKT',v:dT,c:'#F472B6',ico:''}
   ].map(x=>`<div class="leg-i">${x.ico||`<div class="leg-d" style="background:${x.c}"></div>`}${x.l}: <strong>${fmt(x.v)}</strong></div>`).join('');
 }
 
@@ -3184,9 +3030,6 @@ function spendLine(id, obj, color, label) {
   if(!months.length)return;
   mk(id,{type:'line',data:{labels:months.map(m=>m.replace('-',' ')),datasets:[{label,data:months.map(m=>obj[m]),borderColor:color,backgroundColor:color.replace(/[\d.]+\)$/,'0.08)'),borderWidth:2.5,pointBackgroundColor:color,pointRadius:4,tension:.4,fill:true}]},options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:c=>fmt(c.raw)}}},scales:{x:{grid:{color:gc()},ticks:{color:tc(),font:{size:8},maxRotation:45}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),callback:v=>fmt(v),font:{size:8}}}}}});
 }
-function renderAdMeta()   { spendLine('cAdMeta',   META_SPEND,   '#A78BFA','Meta Ads'); }
-function renderAdGoogle() { spendLine('cAdGoogle', GOOGLE_SPEND, '#60A5FA','Google Ads'); }
-function renderAdCself()  { spendLine('cAdCself',  CSELF_SPEND,  '#34D399','Cself'); }
 
 function renderAdShare() {
   const mT=Object.values(META_SPEND).reduce((s,v)=>s+v,0);
@@ -3194,7 +3037,7 @@ function renderAdShare() {
   const cT=Object.values(CSELF_SPEND).reduce((s,v)=>s+v,0);
   const eT=Object.values(EW_SPEND).reduce((s,v)=>s+v,0);
   const dT=Object.values(DOSE_SPEND).reduce((s,v)=>s+v,0);
-  mk('cAdShare',{type:'doughnut',data:{labels:['Meta','Google','Cself','EasyWeddings','Dose de MKT'],datasets:[{data:[mT,gT,cT,eT,dT],backgroundColor:['rgba(167,139,250,.7)','rgba(96,165,250,.65)','rgba(52,211,153,.65)','rgba(245,158,11,.6)','rgba(244,114,182,.6)'],borderColor:isDark?'#13151C':'#fff',borderWidth:2,hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10},padding:10,usePointStyle:true,color:tc()}},tooltip:{callbacks:{label:c=>`${c.label}: ${fmt(c.raw)} (${Math.round(c.raw/(mT+gT+cT+eT+dT)*100)}%)`}}}}});
+  mk('cAdShare',{type:'doughnut',data:{labels:['Meta','Google','Cself','EasyWeddings','Dose de MKT'],datasets:[{data:[mT,gT,cT,eT,dT],backgroundColor:['rgba(124,151,201,.7)','rgba(201,111,74,.65)','rgba(143,168,118,.65)','rgba(224,177,94,.6)','rgba(244,114,182,.6)'],borderColor:isDark?'#13151C':'#fff',borderWidth:2,hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10},padding:10,usePointStyle:true,color:tc()}},tooltip:{callbacks:{label:c=>`${c.label}: ${fmt(c.raw)} (${Math.round(c.raw/(mT+gT+cT+eT+dT)*100)}%)`}}}}});
 }
 
 function renderAdROAS() {
@@ -3204,8 +3047,8 @@ function renderAdROAS() {
   const metaROAS=months.map(m=>{const s=META_SPEND[m]||0;return s>0?+(revByMonth[m]/s).toFixed(1):0;});
   const gROAS=months.map(m=>{const s=GOOGLE_SPEND[m]||0;return s>0?+(revByMonth[m]/s).toFixed(1):0;});
   mk('cAdROAS',{type:'bar',data:{labels,datasets:[
-    {label:'Meta ROAS',  data:metaROAS,backgroundColor:'rgba(167,139,250,.7)',borderColor:'#A78BFA',borderWidth:1.5,borderRadius:4},
-    {label:'Google ROAS',data:gROAS,   backgroundColor:'rgba(96,165,250,.65)', borderColor:'#60A5FA',borderWidth:1.5,borderRadius:4},
+    {label:'Meta ROAS',  data:metaROAS,backgroundColor:'rgba(124,151,201,.7)',borderColor:'#7C97C9',borderWidth:1.5,borderRadius:4},
+    {label:'Google ROAS',data:gROAS,   backgroundColor:'rgba(201,111,74,.65)', borderColor:'#C96F4A',borderWidth:1.5,borderRadius:4},
   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'top',labels:{font:{size:9},usePointStyle:true,color:tc()}},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.raw}x`}}},scales:{x:{grid:{color:gc()},ticks:{color:tc()}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),callback:v=>v+'x'}}}}});
 }
 
@@ -3294,13 +3137,13 @@ function calcUpdate() {
 
   // ── KPI cards ──
   const kpis = [
-    {lbl:'Total Package',  val:fmt2(price),      sub:source+' booking',     acc:'#7C6FE0'},
-    {lbl:'Darlan Pay',     val:fmt2(darlanPay),   sub:`${hours}h × $${teamRate}/hr`, acc:'#A78BFA'},
-    {lbl:'Christian Pay',  val:fmt2(christianPay),sub:`${hours}h × $${teamRate}/hr`,acc:'#60A5FA'},
-    {lbl:'Petrol Cost',    val:fmt2(travelTotal), sub:`${km}km @ $${fuelPrice}/L`,    acc:'#F59E0B'},
-    {lbl:'Total Costs',    val:fmt2(totalCosts),  sub:pct(totalCosts,price)+' of price', acc:'#FB7185'},
-    {lbl:'Net Cashflow',   val:(cashflow>=0?'+':'-')+fmt2(cashflow), sub:margin.toFixed(1)+'% margin', acc:cashflow>=0?'#34D399':'#F87171'},
-    {lbl:'Profit / Hour',  val:fmt2(Math.abs(profitPerHr)), sub:hours+'h coverage',  acc:profitPerHr>=0?'#6EE7B7':'#F87171'},
+    {lbl:'Total Package',  val:fmt2(price),      sub:source+' booking',     acc:'#D4A017'},
+    {lbl:'Darlan Pay',     val:fmt2(darlanPay),   sub:`${hours}h × $${teamRate}/hr`, acc:'#7C97C9'},
+    {lbl:'Christian Pay',  val:fmt2(christianPay),sub:`${hours}h × $${teamRate}/hr`,acc:'#C96F4A'},
+    {lbl:'Petrol Cost',    val:fmt2(travelTotal), sub:`${km}km @ $${fuelPrice}/L`,    acc:'#E0B15E'},
+    {lbl:'Total Costs',    val:fmt2(totalCosts),  sub:pct(totalCosts,price)+' of price', acc:'#C48A9B'},
+    {lbl:'Net Cashflow',   val:(cashflow>=0?'+':'-')+fmt2(cashflow), sub:margin.toFixed(1)+'% margin', acc:cashflow>=0?'#8FA876':'#D96A4A'},
+    {lbl:'Profit / Hour',  val:fmt2(Math.abs(profitPerHr)), sub:hours+'h coverage',  acc:profitPerHr>=0?'#B5C99A':'#D96A4A'},
   ];
   document.getElementById('calcResults').innerHTML = kpis.map(k=>`
     <div class="calc-kpi" style="--kpi-accent:${k.acc}">
@@ -3311,16 +3154,16 @@ function calcUpdate() {
 
   // ── Breakdown table ──
   const rows = [
-    {item:'Package Total',     val:price,         cls:'#34D399', bold:true},
-    {item:'— GST (incl.)',     val:-gst,          cls:'#F59E0B'},
-    {item:'— Darlan Pay',      val:-darlanPay,    cls:'#A78BFA'},
-    {item:'— Christian Pay',   val:-christianPay, cls:'#60A5FA'},
-    freelaHrs>0 ? {item:`— Freelancer (${freelaHrs}h)`,val:-freelaPay,cls:'#FB7185'} : null,
-    {item:`— Photo Book ($${photobook})`,val:-photobook,cls:'#FB7185'},
-    salesCommOn ? {item:'— Sales Comm. Fee (3.5%)', val:-salesComm, cls:'#FB7185'} : null,
-    cselfApply ? {item:'— Cself Comm. Fee (15%)',val:-cselfFee,cls:'#FB7185'} : null,
-    {item:'— Petrol & Travel',val:-travelTotal,cls:'#F59E0B'},
-    {item:'━━ NET CASHFLOW',   val:cashflow,      cls:cashflow>=0?'#34D399':'#F87171', bold:true},
+    {item:'Package Total',     val:price,         cls:'#8FA876', bold:true},
+    {item:'— GST (incl.)',     val:-gst,          cls:'#E0B15E'},
+    {item:'— Darlan Pay',      val:-darlanPay,    cls:'#7C97C9'},
+    {item:'— Christian Pay',   val:-christianPay, cls:'#C96F4A'},
+    freelaHrs>0 ? {item:`— Freelancer (${freelaHrs}h)`,val:-freelaPay,cls:'#C48A9B'} : null,
+    {item:`— Photo Book ($${photobook})`,val:-photobook,cls:'#C48A9B'},
+    salesCommOn ? {item:'— Sales Comm. Fee (3.5%)', val:-salesComm, cls:'#C48A9B'} : null,
+    cselfApply ? {item:'— Cself Comm. Fee (15%)',val:-cselfFee,cls:'#C48A9B'} : null,
+    {item:'— Petrol & Travel',val:-travelTotal,cls:'#E0B15E'},
+    {item:'━━ NET CASHFLOW',   val:cashflow,      cls:cashflow>=0?'#8FA876':'#D96A4A', bold:true},
   ].filter(Boolean);
 
   document.getElementById('calcBreakdown').innerHTML = rows.map(r=>`<tr>
@@ -3383,22 +3226,22 @@ function renderCalendar() {
 
     if (evt) {
       if (evt.status === 'double') {
-        cellBg = 'rgba(248,113,113,.15)'; cellBorder = '1px solid rgba(248,113,113,.5)';
+        cellBg = 'rgba(217,106,74,.15)'; cellBorder = '1px solid rgba(217,106,74,.5)';
       } else {
-        cellBg = 'rgba(124,111,224,.12)'; cellBorder = '1px solid rgba(124,111,224,.4)';
+        cellBg = 'rgba(212,160,23,.12)'; cellBorder = '1px solid rgba(212,160,23,.4)';
       }
 
       content = evt.clients.map(c => {
         const hasPortal = c.portal && c.portal.startsWith('http');
         const name = c.name.length > 14 ? c.name.split(' ')[0] : c.name;
         if (hasPortal) {
-          return `<a href="${c.portal}" target="_blank" title="${c.name} — Click to open portal" style="display:block;font-size:8px;font-weight:700;color:${evt.status==='double'?'#F87171':'#A89CF5'};text-decoration:none;line-height:1.3;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;padding:1px 3px;border-radius:3px;background:${evt.status==='double'?'rgba(248,113,113,.15)':'rgba(124,111,224,.15)'}">↗ ${name}</a>`;
+          return `<a href="${c.portal}" target="_blank" title="${c.name} — Click to open portal" style="display:block;font-size:8px;font-weight:700;color:${evt.status==='double'?'#D96A4A':'#E8C460'};text-decoration:none;line-height:1.3;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;padding:1px 3px;border-radius:3px;background:${evt.status==='double'?'rgba(217,106,74,.15)':'rgba(212,160,23,.15)'}">↗ ${name}</a>`;
         }
-        return `<div style="font-size:8px;font-weight:700;color:${evt.status==='double'?'#F87171':'#A89CF5'};line-height:1.3;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:1px 3px" title="${c.name}">${name}</div>`;
+        return `<div style="font-size:8px;font-weight:700;color:${evt.status==='double'?'#D96A4A':'#E8C460'};line-height:1.3;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:1px 3px" title="${c.name}">${name}</div>`;
       }).join('');
 
       if (evt.status === 'double') {
-        content = `<div style="font-size:7px;font-weight:800;color:#F87171;letter-spacing:.04em;margin-bottom:2px">DOUBLE</div>` + content;
+        content = `<div style="font-size:7px;font-weight:800;color:#D96A4A;letter-spacing:.04em;margin-bottom:2px">DOUBLE</div>` + content;
       }
     }
 
@@ -3419,18 +3262,18 @@ function renderCalendar() {
       const daysAway = Math.round((dt-new Date())/(1000*60*60*24));
       return `<div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--b1)">
         <div style="min-width:110px;flex-shrink:0">
-          <div style="font-size:11px;font-weight:700;color:${e.status==='double'?'#F87171':'var(--tx)'}">${dateLabel}</div>
+          <div style="font-size:11px;font-weight:700;color:${e.status==='double'?'#D96A4A':'var(--tx)'}">${dateLabel}</div>
           <div style="font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:1px">${daysAway} days away</div>
         </div>
         <div style="flex:1">
           ${e.clients.map(c => {
             const hasPortal = c.portal && c.portal.startsWith('http');
             return hasPortal
-              ? `<a href="${c.portal}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:99px;background:rgba(124,111,224,.12);border:1px solid rgba(124,111,224,.25);color:#A89CF5;font-size:10px;font-weight:700;text-decoration:none;margin:2px">${c.name} <span style="font-size:8px">↗ Portal</span></a>`
+              ? `<a href="${c.portal}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:99px;background:rgba(212,160,23,.12);border:1px solid rgba(212,160,23,.25);color:#E8C460;font-size:10px;font-weight:700;text-decoration:none;margin:2px">${c.name} <span style="font-size:8px">↗ Portal</span></a>`
               : `<span style="display:inline-block;padding:3px 8px;border-radius:99px;background:var(--s2);border:1px solid var(--b1);color:var(--t2);font-size:10px;font-weight:700;margin:2px">${c.name}</span>`;
           }).join('')}
         </div>
-        ${e.status==='double'?`<span style="font-size:9px;font-weight:800;color:#F87171;padding:2px 7px;border-radius:99px;background:rgba(248,113,113,.15);border:1px solid rgba(248,113,113,.3);white-space:nowrap">⚡ DOUBLE</span>`:''}
+        ${e.status==='double'?`<span style="font-size:9px;font-weight:800;color:#D96A4A;padding:2px 7px;border-radius:99px;background:rgba(217,106,74,.15);border:1px solid rgba(217,106,74,.3);white-space:nowrap">⚡ DOUBLE</span>`:''}
       </div>`;
     }).join('') || '<div style="color:var(--t3);font-size:12px;padding:20px 0;text-align:center">No upcoming bookings</div>';
   }
@@ -3440,6 +3283,16 @@ function renderCalendar() {
 // BOOT
 // ════════════════════════════════════════════════════════════
 (function boot() {
+  // Generate repeated UI (month options + quick-range buttons) once
+  document.querySelectorAll('select[data-months]').forEach(sel => {
+    MONTHS.forEach((m,i) => {
+      const o = document.createElement('option');
+      if (sel.dataset.months === 'ym') { o.value = '2026-'+String(i+1).padStart(2,'0'); o.textContent = m+' 2026'; }
+      else { o.value = m; o.textContent = m; }
+      sel.appendChild(o);
+    });
+  });
+  document.querySelectorAll('[data-qr]').forEach(el => { el.outerHTML = qrBtnsHTML(el.dataset.qr); });
   setUpd();
   renderTabCharts('dash');
   calcUpdate();
@@ -3491,7 +3344,6 @@ function renderCalendar() {
   <button class="mob-nav-item" onclick="mbnNav('bookings');closeMobileDrawer()"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Bookings</button>
   <button class="mob-nav-item" onclick="mbnNav('revenue');closeMobileDrawer()"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Revenue</button>
   <button class="mob-nav-item" onclick="mbnNav('adcost');closeMobileDrawer()"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Ad Cost</button>
-  <button class="mob-nav-item" onclick="mbnNav('mktkpi');closeMobileDrawer()"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="m13 2-2 7h7l-9 13 2-8H4z"/></svg>Marketing KPIs</button>
   <div class="mob-nav-section">SETUP</div>
   <button class="mob-nav-item" onclick="mbnNav('suggestions');closeMobileDrawer()"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Suggestions</button>
   <button class="mob-nav-item" onclick="mbnNav('setup');closeMobileDrawer()"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>Deploy Setup</button>
@@ -3512,7 +3364,7 @@ function mbnNav(tab) {
   document.querySelectorAll('.mob-nav-item[data-tab]').forEach(b => {
     b.classList.toggle('active', b.dataset.tab === tab);
   });
-  const titles = {dash:'Dashboard',leads:'Leads',sources:'Sources',funnel:'Funnel',analytics:'Analytics',calendar:'Calendar',calc:'Payment Calc',bookings:'Bookings',revenue:'Revenue',adcost:'Ad Cost',mktkpi:'Marketing KPIs',suggestions:'Suggestions',setup:'Deploy Setup'};
+  const titles = {dash:'Dashboard',leads:'Leads',sources:'Sources',funnel:'Funnel',analytics:'Analytics',calendar:'Calendar',calc:'Payment Calc',bookings:'Bookings',revenue:'Revenue',adcost:'Marketing',suggestions:'Suggestions',setup:'Deploy Setup'};
   const el = document.getElementById('pgTitle');
   if (el) el.textContent = titles[tab] || tab;
   renderTabCharts(tab);
