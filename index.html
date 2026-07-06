@@ -212,9 +212,23 @@ tr:hover td{background:var(--s2)}
   .tb-bar select,.tb-bar input{font-size:11px;padding:4px 6px}
   /* Cards */
   .card{padding:12px}
-  /* Table: horizontal scroll */
+  /* Table: horizontal scroll + tighter columns for phones */
   .tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .tw table{min-width:640px}
+  .tw table{min-width:0}
+  th{padding:4px 4px;font-size:8px;letter-spacing:.02em}
+  td{padding:4px 4px;font-size:10px}
+  #tab-leads td{padding:3px 4px}
+  .cn{font-size:11px;line-height:1.2}
+  .ce{font-size:8px}
+  #tab-leads .sp,#tab-leads .srcp{font-size:8px!important;padding:1px 4px}
+  #tab-leads td button{padding:2px 5px!important;font-size:8px!important}
+  /* Payment Calculator: stack to one column, let inputs use the width */
+  #tab-calc > div{max-width:100%}
+  #tab-calc .calc-2col{grid-template-columns:1fr}
+  #tab-calc .calc-row{gap:8px}
+  #tab-calc .calc-row label{min-width:104px}
+  #tab-calc .calc-inp,#tab-calc .calc-inp-wrap,#tab-calc .calc-result-inline{max-width:none}
+  #tab-calc #calcResults{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))!important}
   /* Leads table select filters → wrap */
   #tab-leads .tb-bar{flex-wrap:wrap}
   /* Hamburger btn visible */
@@ -335,11 +349,14 @@ tr:hover td{background:var(--s2)}
 (function(){
   const PW = 'Honeycomb28';
   const KEY = 'hw_auth';
-  if(sessionStorage.getItem(KEY) === PW) document.getElementById('pwGate').style.display = 'none';
+  // Remember login across browser restarts (localStorage), with a safe fallback.
+  const store = { get(){ try{ return localStorage.getItem(KEY); }catch(e){ try{ return sessionStorage.getItem(KEY); }catch(_){ return null; } } },
+                  set(v){ try{ localStorage.setItem(KEY, v); }catch(e){ try{ sessionStorage.setItem(KEY, v); }catch(_){} } } };
+  if(store.get() === PW) document.getElementById('pwGate').style.display = 'none';
   window.checkPw = function(){
     const v = document.getElementById('pwInput').value;
     if(v === PW){
-      sessionStorage.setItem(KEY, PW);
+      store.set(PW);
       const g = document.getElementById('pwGate');
       g.style.transition = 'opacity .3s';
       g.style.opacity = '0';
@@ -405,6 +422,10 @@ tr:hover td{background:var(--s2)}
 
   <!-- DASHBOARD -->
   <div class="tab active" id="tab-dash">
+    <div class="card" style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div><div class="ct">Period</div><div class="cs" id="dashPeriodLabel">All time · filters dashboard</div></div>
+      <div data-qr="dash"></div>
+    </div>
     <div class="kpi-grid" id="kpiGrid"></div>
     <div class="r2">
       <div class="card"><div class="ch"><div><div class="ct">Lead Volume by Source</div><div class="cs" style="display:flex;align-items:center;gap:5px;flex-wrap:wrap"><svg width="11" height="11" style="flex-shrink:0"><use href="#i-meta"/></svg>Meta Ads · <svg width="11" height="11" style="flex-shrink:0"><use href="#i-google"/></svg>Google · Organic · Remarketing</div></div><div class="leg" id="srcLeg"></div></div><div class="cw"><canvas id="cSrcBar"></canvas></div></div>
@@ -451,20 +472,18 @@ tr:hover td{background:var(--s2)}
         </select>
       </div>
       <div style="display:flex;align-items:center;gap:8px">
-        <label style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--t3);font-family:'Syne',sans-serif;cursor:pointer;user-select:none"><input type="checkbox" id="colToggleVenue" checked onchange="toggleLeadCol('venue', this.checked)" style="cursor:pointer">Venue</label>
-        <label style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--t3);font-family:'Syne',sans-serif;cursor:pointer;user-select:none"><input type="checkbox" id="colToggleBudget" checked onchange="toggleLeadCol('budget', this.checked)" style="cursor:pointer">Budget</label>
         <button onclick="clearLeadFilters()" style="background:var(--s2);border:1px solid var(--b1);border-radius:var(--rs);color:var(--t3);font-size:10px;padding:5px 10px;cursor:pointer;font-family:'Syne',sans-serif">✕ Clear</button>
         <span class="lcnt" id="lcnt">0 leads</span>
       </div>
     </div>
     <div class="tw"><table><thead><tr>
+      <th class="sort-th" onclick="sortLeads('dateAvailable')" title="Sort by Date Availability" style="cursor:pointer;user-select:none">Avail. <span id="sort-dateAvailable" style="opacity:.5">↕</span></th>
       <th>Couple</th>
       <th class="sort-th" onclick="sortLeads('status')" title="Sort by Status. Follow-up = already in contact with the client, waiting on their decision" style="cursor:pointer;user-select:none">Status <span id="sort-status" style="opacity:.5">↕</span></th>
       <th class="sort-th" onclick="sortLeads('idle')" title="Days since lead was received with no progress (still Inquiry/Quoted/Follow-up/Call Booked)" style="cursor:pointer;user-select:none">Idle <span id="sort-idle" style="opacity:.5">↕</span></th>
       <th class="sort-th" onclick="sortLeads('source')" title="Sort by Source" style="cursor:pointer;user-select:none">Source <span id="sort-source" style="opacity:.5">↕</span></th>
       <th class="sort-th" onclick="sortLeads('callBooked')" title="Sort by Call" style="cursor:pointer;user-select:none">Call <span id="sort-callBooked" style="opacity:.5">↕</span></th>
       <th class="sort-th" onclick="sortLeads('date')" title="Sort by Wedding Date" style="cursor:pointer;user-select:none">Wedding Date <span id="sort-date" style="opacity:.5">↕</span></th>
-      <th class="sort-th" onclick="sortLeads('dateAvailable')" title="Sort by Date Availability" style="cursor:pointer;user-select:none">Date Avail. <span id="sort-dateAvailable" style="opacity:.5">↕</span></th><th class="col-venue">Venue</th><th class="col-budget">Budget</th>
       <th class="sort-th" onclick="sortLeads('created')" title="Sort by Created" style="cursor:pointer;user-select:none">Created <span id="sort-created" style="opacity:.5">↕</span></th>
     </tr></thead><tbody id="tBody"></tbody></table></div>
 
@@ -577,6 +596,14 @@ tr:hover td{background:var(--s2)}
       <div class="kpi-grid" id="cacKpis" style="margin-bottom:12px"></div>
       <div class="cw"><canvas id="cCAC"></canvas></div>
     </div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="ch">
+        <div><div class="ct">Calls Booked vs Weddings Booked from a Call</div><div class="cs">Couples who booked a Calendly call vs how many went on to sign — matched Calendly ↔ signed contracts</div></div>
+        <div class="leg" id="callConvKpi" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--t2)"></div>
+      </div>
+      <div class="kpi-grid" id="callConvKpis" style="margin-bottom:12px"></div>
+      <div class="cw tall"><canvas id="cCallConv"></canvas></div>
+    </div>
     <div class="req">
       <div class="card"><div class="ch"><div><div class="ct">Lead Volume Over Time</div><div class="cs" id="timelineSub">Monthly inquiries</div></div><div id="timelineGroupToggle" style="display:flex;gap:4px"></div></div><div class="cw"><canvas id="cTimeline"></canvas></div></div>
       <div class="card"><div class="ch"><div><div class="ct">Inquiries by Wedding Year</div><div class="cs">Which wedding years are new leads requesting</div></div></div><div class="cw"><canvas id="cYearInq"></canvas></div></div>
@@ -627,7 +654,7 @@ tr:hover td{background:var(--s2)}
       </div>
 
       <!-- SOURCE + PACKAGE -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <div class="calc-2col" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:12px">
         <div class="card" style="padding:16px">
           <div class="ct" style="margin-bottom:12px">Wedding Details</div>
           <div class="calc-row"><label>Source</label>
@@ -660,7 +687,7 @@ tr:hover td{background:var(--s2)}
       </div>
 
       <!-- COSTS -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <div class="calc-2col" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:12px">
         <div class="card" style="padding:16px">
           <div class="ct" style="margin-bottom:12px">Variable Costs</div>
           <div class="calc-row" style="flex-direction:column;align-items:flex-start;gap:8px">
@@ -749,111 +776,34 @@ tr:hover td{background:var(--s2)}
   <!-- BOOKINGS -->
   <div class="tab" id="tab-bookings">
 
-    <!-- ═══ PERIOD FILTER — affects all charts on this tab ═══ -->
-    <div class="card" style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
-      <div><div class="ct">Period</div><div class="cs" id="bkPeriodLabel">All time · filters all charts below</div></div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
-        <select class="fsel" id="bkYear" onchange="clearQuickRange('bk');renderBkAll()" style="font-size:10px;padding:4px 8px">
-          <option value="">All Years</option>
-          <option value="2024">2024</option>
-          <option value="2025">2025</option>
-          <option value="2026">2026</option>
-        </select>
-        <select class="fsel" id="bkMonth" data-months="short" onchange="clearQuickRange('bk');renderBkAll()" style="font-size:10px;padding:4px 8px"><option value="">All Months</option></select>
-        <div data-qr="bk"></div>
-      </div>
-    </div>
-
-    <!-- ═══ PIPELINE ANALYSIS SECTION ═══ -->
-    <div style="margin-bottom:16px">
-      <div style="font-size:13px;font-weight:800;margin-bottom:4px">Pipeline Analysis — Lead Conversion</div>
-      <div style="font-size:10px;color:var(--t3);font-family:'DM Mono',monospace">Leads from current pipeline · date conflicts from signed contracts sheet · conversion from bookings — respects period filter above</div>
-    </div>
-
-    <!-- KPI summary row -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:14px" id="pipelineKpis"></div>
-
-    <!-- Row 1: Leads vs Signed (month comparison) + Availability breakdown -->
-    <div class="req" style="margin-bottom:12px">
-      <div class="card">
-        <div class="ch">
-          <div><div class="ct">Contracts Signed per Month — 2026</div><div class="cs">Bookings closed vs leads available in pipeline</div></div>
-        </div>
-        <div class="cw tall"><canvas id="cSignedVsLeads"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="ch" style="flex-wrap:wrap;gap:8px">
-          <div>
-            <div class="ct">Date Conflicts — Current Pipeline</div>
-            <div class="cs">Filter by month the lead was received</div>
-          </div>
-          <select class="fsel" id="conflictMonthFilter" data-months="ym" onchange="renderPipelineAnalysis()" style="font-size:10px;padding:4px 8px" title="Filter by month the lead was received"><option value="">All months</option></select>
-        </div>
-        <div class="cw tall" style="position:relative">
-          <canvas id="cDateConflict"></canvas>
-        </div>
-        <!-- Conversion rate mini panel -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--b1)">
-          <div style="background:var(--s2);border-radius:var(--rs);padding:10px 12px;border-left:3px solid var(--pu)">
-            <div style="font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;font-weight:700;margin-bottom:4px">CONV. RATE (ALL LEADS)</div>
-            <div style="font-size:22px;font-weight:800;font-family:'DM Mono',monospace;color:var(--pu)" id="convRateAll">—</div>
-            <div style="font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px" id="convRateAllSub">— booked / — leads</div>
-          </div>
-          <div style="background:var(--s2);border-radius:var(--rs);padding:10px 12px;border-left:3px solid #8FA876">
-            <div style="font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;font-weight:700;margin-bottom:4px">CONV. RATE (NO CONFLICTS)</div>
-            <div style="font-size:22px;font-weight:800;font-family:'DM Mono',monospace;color:#8FA876" id="convRateClean">—</div>
-            <div style="font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px" id="convRateCleanSub">excl. date conflicts</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Row 2: Full stacked chart by wedding month -->
+    <!-- Upcoming weddings chart -->
     <div class="card" style="margin-bottom:12px">
       <div class="ch">
-        <div><div class="ct">Lead Pipeline — Availability by Wedding Month</div><div class="cs">Available · Unavailable (date conflict) · Double Booked · Already Ours</div></div>
-        <div class="leg" id="avLeg"></div>
+        <div><div class="ct">Upcoming Weddings</div><div class="cs" id="upcomingSub">Booked weddings ahead, by month</div></div>
+        <div class="leg" id="upcomingKpi" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--t2)"></div>
       </div>
-      <div class="cw tall"><canvas id="cWeddingMonthAvail"></canvas></div>
+      <div class="cw tall"><canvas id="cUpcoming"></canvas></div>
     </div>
 
-    <!-- Unavailable leads detail table -->
-    <div class="card" style="margin-bottom:14px">
-      <div class="ch" style="margin-bottom:10px">
-        <div><div class="ct">Leads with Date Conflicts</div><div class="cs">Leads we cannot book due to existing contracts — not a "loss" but a capacity issue</div></div>
-      </div>
-      <div class="tw">
-        <table><thead><tr>
-          <th>Lead</th><th>Wedding Date</th><th>Status</th><th>Conflict</th><th>Conflict With</th>
-        </tr></thead>
-        <tbody id="conflictBody"></tbody>
-        </table>
-      </div>
+    <!-- Next weddings list -->
+    <div class="card" style="margin-bottom:12px">
+      <div class="ch" style="margin-bottom:10px"><div><div class="ct">Next Weddings</div><div class="cs">Closest booked dates coming up</div></div></div>
+      <div id="upcomingList"></div>
     </div>
 
-    <div style="border-top:1px solid var(--b1);padding-top:14px;margin-bottom:14px">
-      <div style="font-size:13px;font-weight:800;margin-bottom:12px">Booking History</div>
-    </div>
-
-    <div class="req">
-      <div class="card"><div class="ch"><div><div class="ct">Monthly Bookings — Clients</div><div class="cs">Number of clients booked per month by year</div></div></div><div class="cw"><canvas id="cBkClients"></canvas></div></div>
-      <div class="card"><div class="ch"><div><div class="ct">Monthly Revenue — Bookings</div><div class="cs">Revenue generated per month by year</div></div></div><div class="cw"><canvas id="cBkRevenue"></canvas></div></div>
-    </div>
-    <div class="req">
-      <div class="card"><div class="ch"><div><div class="ct">Package Revenue Mix</div><div class="cs">Revenue by package type</div></div></div><div class="cw"><canvas id="cBkPkg"></canvas></div></div>
-      <div class="card"><div class="ch"><div><div class="ct">City Split</div><div class="cs">Melbourne vs Adelaide</div></div></div><div class="cw"><canvas id="cBkCity"></canvas></div></div>
-    </div>
-    <div class="card" style="margin-top:12px">
-      <div class="ch" style="cursor:pointer" onclick="toggleBkTable()">
-        <div><div class="ct">All Bookings <span id="bkToggleIcon" style="font-size:11px;color:var(--t3)">▸ Expand</span></div><div class="cs" id="bkTableSub">89 clients · sorted by date · click to expand</div></div>
+    <!-- Collapsible: Leads with date conflicts (hidden until expanded) -->
+    <div class="card">
+      <div class="ch" style="cursor:pointer" onclick="toggleConflicts()">
+        <div><div class="ct">Leads with Date Conflicts <span id="conflictToggleIcon" style="font-size:11px;color:var(--t3)">▸ Expand</span></div><div class="cs" id="conflictSub">Leads we can't book because the date is already taken — tap to expand</div></div>
       </div>
-      <div id="bkTableBody" style="display:none">
-        <div class="fg" style="padding:0 0 10px">
-          <select class="fsel" id="bkYr" onchange="renderBkTable()"><option value="">All Years</option><option>2024</option><option>2025</option><option>2026</option></select>
-          <select class="fsel" id="bkCt" onchange="renderBkTable()"><option value="">All Cities</option><option>Melbourne</option><option>Adelaide</option></select>
-          <select class="fsel" id="bkPk" onchange="renderBkTable()"><option value="">All Packages</option><option>FD PACKAGE</option><option>Acacia</option><option>Manuka</option><option>Eucalyptus</option><option>Photoshoot</option></select>
+      <div id="conflictWrap" style="display:none">
+        <div class="tw" style="margin-top:10px">
+          <table><thead><tr>
+            <th>Lead</th><th>Wedding Date</th><th>Status</th><th>Conflict</th><th>Conflict With</th>
+          </tr></thead>
+          <tbody id="conflictBody"></tbody>
+          </table>
         </div>
-        <div class="tw"><table><thead><tr><th>Date</th><th>Client</th><th>City</th><th>Package</th><th>Source</th><th>Price</th></tr></thead><tbody id="bkBody"></tbody></table></div>
       </div>
     </div>
   </div>
@@ -1068,7 +1018,7 @@ const SRC_C = {
   'Other':       {bg:'rgba(224,177,94,.65)', bd:'#E0B15E',cls:'sx'},
 };
 // ── Pre-form URL — update this to your actual questionnaire link ──
-const PRE_FORM_URL = 'https://forms.gle/SEU_FORMULARIO_AQUI';
+const PRE_FORM_URL = 'https://www.honeyweddings.au/precontractform';
 
 const STA_C = {
   'Inquiry':    {bg:'rgba(224,177,94,.55)', bd:'#E0B15E',cls:'s-inq'},
@@ -1086,7 +1036,8 @@ function avc(n) { let h=0; for(let c of n) h=(h*31+c.charCodeAt(0))%AVC.length; 
 // HELPERS
 // ════════════════════════════════════════════════════════════
 function cntBy(arr, k) { return arr.reduce((a,x)=>{ const v=x[k]||'?'; a[v]=(a[v]||0)+1; return a; },{}); }
-function getSrc() { const o=['Meta Ads','Google','Organic','Remarketing','Other'],c=cntBy(LEADS,'source'); return o.map(s=>({s,n:c[s]||0})).filter(x=>x.n>0); }
+function getSrc(leads) { leads = leads || LEADS; const o=['Meta Ads','Google','Organic','Remarketing','Other'],c=cntBy(leads,'source'); return o.map(s=>({s,n:c[s]||0})).filter(x=>x.n>0); }
+function dashLeads() { const days = QUICK_RANGE.dash; return days ? LEADS.filter(l=>inDaysWindow(l.created, days)) : LEADS; }
 const STALE_DAYS = 50;
 function effectiveStatus(l) {
   const s = l.status || 'New';
@@ -1167,7 +1118,7 @@ function callsInPeriod(fy, fm, days) {
 }
 
 // ── Quick-range (7/30/90/180 day) filter — shared across Funnel, Analytics, Bookings, Leads ──
-const QUICK_RANGE = { fn: 0, ana: 0, bk: 0, lead: 0 };
+const QUICK_RANGE = { fn: 0, ana: 0, bk: 0, lead: 0, dash: 0 };
 let timelineGroup = 'monthly'; // 'daily' | 'monthly' | 'annual'
 const QR_DAYS = [0, 7, 30, 90, 180];
 function qrBtnsHTML(prefix) {
@@ -1187,6 +1138,7 @@ function setQuickRange(prefix, days) {
   if (prefix === 'ana')  renderAnalyticsAll();
   if (prefix === 'bk')   renderBkAll();
   if (prefix === 'lead') renderTable();
+  if (prefix === 'dash') { renderKPIs(); renderSrcBar(); renderSrcDonut(); renderFunnelMini(); renderRecent(); renderTasks(); const lbl=document.getElementById('dashPeriodLabel'); if(lbl) lbl.textContent = periodLabel('','',days) + ' · filters dashboard'; }
 }
 function clearQuickRange(prefix) {
   if (!QUICK_RANGE[prefix]) return;
@@ -1380,14 +1332,15 @@ document.getElementById('gSearch').addEventListener('input', e => {
 // ── DASHBOARD ──
 // ════════════════════════════════════════════════════════════
 function renderKPIs() {
-  const tot=LEADS.length;
-  const meta=LEADS.filter(l=>l.source==='Meta Ads').length;
-  const goog=LEADS.filter(l=>l.source==='Google').length;
-  const org=LEADS.filter(l=>l.source==='Organic').length;
-  const fol=LEADS.filter(l=>effectiveStatus(l)==='Follow-up').length;
-  const cal=LEADS.filter(l=>effectiveStatus(l)==='Call Booked').length;
-  const bkd=LEADS.filter(l=>effectiveStatus(l)==='Booked').length;
-  const lost=LEADS.filter(l=>effectiveStatus(l)==='Lost').length;
+  const L=dashLeads();
+  const tot=L.length;
+  const meta=L.filter(l=>l.source==='Meta Ads').length;
+  const goog=L.filter(l=>l.source==='Google').length;
+  const org=L.filter(l=>l.source==='Organic').length;
+  const fol=L.filter(l=>effectiveStatus(l)==='Follow-up').length;
+  const cal=L.filter(l=>effectiveStatus(l)==='Call Booked').length;
+  const bkd=L.filter(l=>effectiveStatus(l)==='Booked').length;
+  const lost=L.filter(l=>effectiveStatus(l)==='Lost').length;
   const paidLeads2026=LEADS.filter(l=>l.created && l.created>='2026-01-01' && l.created<='2026-06-30' && (l.source==='Meta Ads'||l.source==='Google'));
   const paidSpend2026=Object.keys(META_SPEND_LIVE).reduce((s,m)=>s+META_SPEND_LIVE[m],0)+Object.keys(GOOGLE_SPEND_LIVE).reduce((s,m)=>s+GOOGLE_SPEND_LIVE[m],0);
   const costPerLead=paidSpend2026/(paidLeads2026.length||1);
@@ -1413,23 +1366,23 @@ function renderKPIs() {
 }
 
 function renderSrcBar() {
-  const d=getSrc();
-  mk('cSrcBar',{type:'bar',data:{labels:d.map(x=>x.s),datasets:[{data:d.map(x=>x.n),backgroundColor:d.map(x=>SRC_C[x.s]?.bg||SRC_C.Other.bg),borderColor:d.map(x=>SRC_C[x.s]?.bd||SRC_C.Other.bd),borderWidth:1.5,borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:c=>` ${c.raw} leads (${Math.round(c.raw/LEADS.length*100)}%)`}}},scales:{x:{grid:{color:gc()},ticks:{color:tc(),font:{size:10}}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),stepSize:1}}}}});
+  const L=dashLeads(); const d=getSrc(L); const tot=L.length||1;
+  mk('cSrcBar',{type:'bar',data:{labels:d.map(x=>x.s),datasets:[{data:d.map(x=>x.n),backgroundColor:d.map(x=>SRC_C[x.s]?.bg||SRC_C.Other.bg),borderColor:d.map(x=>SRC_C[x.s]?.bd||SRC_C.Other.bd),borderWidth:1.5,borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:c=>` ${c.raw} leads (${Math.round(c.raw/tot*100)}%)`}}},scales:{x:{grid:{color:gc()},ticks:{color:tc(),font:{size:10}}},y:{grid:{color:gc()},beginAtZero:true,ticks:{color:tc(),stepSize:1}}}}});
   document.getElementById('srcLeg').innerHTML=d.map(x=>`<div class="leg-i"><div class="leg-d" style="background:${SRC_C[x.s]?.bd||SRC_C.Other.bd}"></div>${x.s}: <strong>${x.n}</strong></div>`).join('');
 }
 
 function renderSrcDonut() {
-  const d=getSrc();
-  mk('cSrcDonut',{type:'doughnut',data:{labels:d.map(x=>x.s),datasets:[{data:d.map(x=>x.n),backgroundColor:d.map(x=>SRC_C[x.s]?.bg||SRC_C.Other.bg),borderColor:d.map(x=>SRC_C[x.s]?.bd||SRC_C.Other.bd),borderWidth:2,hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:false,cutout:'66%',plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10},padding:12,usePointStyle:true,color:tc()}},tooltip:{callbacks:{label:c=>` ${c.label}: ${c.raw} (${Math.round(c.raw/LEADS.length*100)}%)`}}}}});
+  const L=dashLeads(); const d=getSrc(L); const tot=L.length||1;
+  mk('cSrcDonut',{type:'doughnut',data:{labels:d.map(x=>x.s),datasets:[{data:d.map(x=>x.n),backgroundColor:d.map(x=>SRC_C[x.s]?.bg||SRC_C.Other.bg),borderColor:d.map(x=>SRC_C[x.s]?.bd||SRC_C.Other.bd),borderWidth:2,hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:false,cutout:'66%',plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10},padding:12,usePointStyle:true,color:tc()}},tooltip:{callbacks:{label:c=>` ${c.label}: ${c.raw} (${Math.round(c.raw/tot*100)}%)`}}}}});
 }
 
 function renderFunnelMini() {
-  const d=getSta().filter(x=>x.n>0);
+  const d=getSta(dashLeads()).filter(x=>x.n>0);
   mk('cFunnelMini',{type:'bar',data:{labels:d.map(x=>x.s),datasets:[{data:d.map(x=>x.n),backgroundColor:d.map(x=>STA_C[x.s]?.bg||'rgba(138,128,112,.5)'),borderColor:d.map(x=>STA_C[x.s]?.bd||'#8A8070'),borderWidth:1.5,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{tooltip:{callbacks:{label:c=>` ${c.raw} leads`}}},scales:{x:{grid:{color:gc()},ticks:{color:tc(),stepSize:1},beginAtZero:true},y:{grid:{display:false},ticks:{color:tc(),font:{size:10}}}}}});
 }
 
 function renderRecent() {
-  const sorted=[...LEADS].sort((a,b)=>b.created.localeCompare(a.created)).slice(0,6);
+  const sorted=[...dashLeads()].sort((a,b)=>b.created.localeCompare(a.created)).slice(0,6);
   document.getElementById('recentList').innerHTML=sorted.map(l=>{
     const ini=l.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
     const sc=STA_C[l.status]||STA_C.Inquiry;
@@ -1518,6 +1471,18 @@ function idleBadge(l) {
   else if (n >= 7) color = '#E0B15E';
   return `<span style="font-family:'DM Mono',monospace;font-size:10px;font-weight:700;color:${color}">${n}d${n>=14?' ⚠':''}</span>`;
 }
+// ── Pre-form sent tracking · GREEN = sent, RED = not sent ──
+// Populate PRE_FORM_SENT with the (lowercase) email of every lead that has
+// already received the standard pre-form email. Until that list is wired to
+// Gmail, we fall back to a status proxy: any lead moved past initial inquiry
+// (Quoted / Call Booked / Booked) is treated as "form already sent".
+const PRE_FORM_SENT = new Set([]);
+function preFormSent(l) {
+  if (l.preFormSent === true) return true;
+  if (l.email && PRE_FORM_SENT.has(l.email.toLowerCase())) return true;
+  const es = effectiveStatus(l);
+  return es === 'Quoted' || es === 'Call Booked' || es === 'Booked';
+}
 function renderTable(data) {
   const fs     = document.getElementById('fStatus')?.value || '';
   const fsr    = document.getElementById('fSource')?.value || '';
@@ -1586,8 +1551,14 @@ function renderTable(data) {
     if (l.budget) parts.push('Budget: ' + l.budget);
     if (l.notes) parts.push(l.notes);
     const tip = parts.join(' · ') || 'No additional details';
-    const idStr = JSON.stringify(l.id);
+    const idStr = JSON.stringify(l.id).replace(/"/g, '&quot;'); // HTML-attribute-safe (ids can be strings)
+    const pfSent = preFormSent(l);
+    const pfStyle = pfSent
+      ? "background:rgba(143,168,118,.16);border:1px solid #8FA876;color:#8FA876"
+      : "background:rgba(217,106,74,.14);border:1px solid #D96A4A;color:#D96A4A";
+    const pfTitle = pfSent ? 'Pré-form já enviado — reenviar' : 'Pré-form ainda não enviado — enviar';
     return `<tr>
+    <td>${dateAvailBadge(l)}</td>
     <td>
       <div class="ttip" style="display:inline-block">
         <div class="cn" style="cursor:default">${l.name}</div>
@@ -1595,8 +1566,7 @@ function renderTable(data) {
       </div>
       <div class="ce">${l.email}</div>
       <div style="display:flex;gap:4px;margin-top:4px;flex-wrap:wrap">
-        <button onclick="openEmailModal(${idStr})" style="background:rgba(212,160,23,.12);border:1px solid rgba(212,160,23,.3);border-radius:4px;padding:2px 8px;color:#E8C460;font-size:9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">✉ Reply</button>
-        <button onclick="sendPreForm(${idStr})" title="Envia pré-questionário e marca como Quoted" style="background:rgba(143,168,118,.1);border:1px solid rgba(143,168,118,.3);border-radius:4px;padding:2px 8px;color:#8FA876;font-size:9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600">📋 Pré-Form</button>
+        <button onclick="sendPreForm(${idStr})" title="${pfTitle}" style="${pfStyle};border-radius:4px;padding:2px 8px;font-size:9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700">📋 Pré-Form ${pfSent?'✓':'•'}</button>
       </div>
     </td>
     <td>${stPL(l)}</td>
@@ -1604,9 +1574,6 @@ function renderTable(data) {
     <td>${sp(l.source)}</td>
     <td>${callBadge(l)}</td>
     <td style="font-family:'DM Mono',monospace;font-size:10px">${fD(l.date)}</td>
-    <td>${dateAvailBadge(l)}</td>
-    <td class="col-venue" style="font-size:11px;color:var(--t2)">${l.venue||'—'}</td>
-    <td class="col-budget" style="font-size:10px;color:var(--t3);font-family:'DM Mono',monospace">${l.budget||'—'}</td>
     <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--t3)">${fDnum(l.created)}</td>
   </tr>`;
   }).join('');
@@ -1620,16 +1587,51 @@ let _emailDraft = '';
 function sendPreForm(leadId) {
   const l = LEADS.find(x => x.id === leadId);
   if (!l) return;
-  // Mark as Quoted
-  l.status = 'Quoted';
+  // Build Gmail compose with the standard booking-summary email — name (and venue/date if known) auto-filled
+  const firstName = l.name.split('&')[0].split(',')[0].trim().split(' ')[0];
+  const venue = (l.venue && l.venue !== 'TBC') ? l.venue : '[ceremony venue] for the ceremony and [reception venue] for the reception';
+  const wDate = l.date ? fD(l.date) : '[wedding date]';
+  const body = `Hi ${firstName},
+
+So lovely chatting with you today, really excited about your day! Here's a quick summary of everything we covered.
+
+${venue} on ${wDate}.
+
+On your partner being camera shy, don't worry at all. That's exactly what the engagement shoot is for. We'll do it about 2 months before the wedding so they get comfortable with the camera and with us, and by the time the big day comes they'll feel completely at ease.
+
+Here's what's included in your package at $4,500:
+- 10 hours of coverage
+- Two-person team, photographer + videographer working together all day (one directs, both capture, no stop-start)
+- A blend of posed portraiture and candid documentary style
+- 35mm film photography woven through the day
+- Engagement shoot beforehand
+- 30-page premium wedding album
+- Drone footage (weather permitting)
+- 10-minute highlight wedding film
+- 30 to 40 photo sneak peek within 2 days, full gallery within 2 weeks, video within 8 weeks
+- Online gallery live for 12 months
+
+On the deposit, the 25% booking fee is $1,125. You're welcome to split that into 4 fortnightly payments of approximately $270 if that's easier. Remaining balance of $3,375 is due 14 days before the wedding.
+
+Take your time to chat it through with your partner, and if you'd like another meeting before deciding just let me know, happy to do that!
+
+Whenever you're ready to go ahead, complete the Booking Form here: ${PRE_FORM_URL}
+
+Any questions just reply here! Can't wait to be part of your day
+
+Warmly,
+Darlan`;
+  const sub = encodeURIComponent("So lovely chatting today, here's everything to lock it in 🤍");
+  const to  = encodeURIComponent(l.email);
+  const url = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=${to}&su=${sub}&body=${encodeURIComponent(body)}`;
+  // Open Gmail FIRST (inside the click gesture) so the browser doesn't block it
+  const win = window.open(url, '_blank');
+  if (!win) { window.location.href = url; } // fallback if a popup blocker stops the new tab
+  // Then mark as sent (turns the button green) and move Inquiry/New → Quoted
+  l.preFormSent = true;
+  if (l.status === 'Inquiry' || l.status === 'New') l.status = 'Quoted';
   renderTable();
   renderKPIs();
-  // Open Gmail with pre-form template
-  const firstName = l.name.split('&')[0].split(' ')[0];
-  const body = `Hi ${firstName},\n\nThank you so much for your interest in Honey Weddings!\n\nTo put together the best package for you, could you please fill out our quick pre-questionnaire? It only takes 2 minutes and helps us personalise everything for your wedding day.\n\n📋 Pre-questionnaire: ${PRE_FORM_URL}\n\nOnce we receive it, I'll send through a tailored package and pricing for you.\n\nWarmly,\nDarlan\nHoney Weddings`;
-  const sub = encodeURIComponent(`Honey Weddings — Quick Questionnaire for ${l.name}`);
-  const to  = encodeURIComponent(l.email);
-  window.open(`https://mail.google.com/mail/?view=cm&to=${to}&su=${sub}&body=${encodeURIComponent(body)}`, '_blank');
 }
 
 function openEmailModal(leadId) {
@@ -1816,6 +1818,8 @@ function renderYear(fy, fm, days) {
 
   // Chart 1 — Inquiries by the wedding year leads are requesting
   const leads = leadsInPeriod(fy, fm, days);
+  const yiSub = document.getElementById('cYearInq')?.closest('.card')?.querySelector('.cs');
+  if (yiSub) yiSub.textContent = `${periodLabel(fy, fm, days)} · ${leads.length} leads received in period — wedding years they asked for`;
   const inqByYear = {};
   leads.forEach(l => { if (l.date) { const y = l.date.split('-')[0]; inqByYear[y] = (inqByYear[y]||0)+1; } });
   const inqYears = Object.keys(inqByYear).sort();
@@ -1887,6 +1891,8 @@ function renderContractsBySource(fy, fm, days) {
   if (days===undefined) days = QUICK_RANGE.ana;
 
   const bks = bookingsInPeriod(fy, fm, days);
+  const cbsSub = document.getElementById('cContractsBySource')?.closest('.card')?.querySelector('.cs');
+  if (cbsSub) cbsSub.textContent = `${periodLabel(fy, fm, days)} · ${bks.length} contracts — period filters by WEDDING date (signing date not tracked)`;
   const normSrc = s => { if (!s) return 'No source'; if (s.toUpperCase()==='META') return 'Meta Ads'; if (s==='Google') return 'Google Ads'; return s; };
   const srcColors = { 'Meta Ads':'#7C97C9','Google Ads':'#C96F4A','Referral':'#8FA876','Organic':'#B5C99A','No source':'#4B5563' };
 
@@ -1918,17 +1924,17 @@ function renderContractsBySource(fy, fm, days) {
     data: {
       labels: sorted.map(([s]) => s),
       datasets: [
-        { label: 'Contratos', data: sorted.map(([,d]) => d.count), backgroundColor: sorted.map(([s]) => (srcColors[s]||'#D4A017')+'BB'), borderColor: sorted.map(([s]) => srcColors[s]||'#D4A017'), borderWidth: 1, borderRadius: 6, borderSkipped: false, yAxisID: 'y' },
-        { label: 'Receita (÷100)', data: sorted.map(([,d]) => Math.round(d.rev/100)), backgroundColor: 'transparent', borderColor: '#E0B15E', borderWidth: 2, type: 'line', yAxisID: 'y2', pointBackgroundColor: '#E0B15E', pointRadius: 4 }
+        { label: 'Contracts', data: sorted.map(([,d]) => d.count), backgroundColor: sorted.map(([s]) => (srcColors[s]||'#D4A017')+'BB'), borderColor: sorted.map(([s]) => srcColors[s]||'#D4A017'), borderWidth: 1, borderRadius: 6, borderSkipped: false, yAxisID: 'y' },
+        { label: 'Revenue (÷100)', data: sorted.map(([,d]) => Math.round(d.rev/100)), backgroundColor: 'transparent', borderColor: '#E0B15E', borderWidth: 2, type: 'line', yAxisID: 'y2', pointBackgroundColor: '#E0B15E', pointRadius: 4 }
       ]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: true, position: 'bottom', labels: { font: { size: 9 }, padding: 10, usePointStyle: true, color: tc() } },
-        tooltip: { callbacks: { label: ctx => ctx.datasetIndex===0 ? `${ctx.raw} contratos` : `$${(ctx.raw*100).toLocaleString()} receita` } } },
+        tooltip: { callbacks: { label: ctx => ctx.datasetIndex===0 ? `${ctx.raw} contracts` : `$${(ctx.raw*100).toLocaleString()} revenue` } } },
       scales: {
         x: { grid: { color: gc() }, ticks: { color: tc() } },
-        y: { grid: { color: gc() }, beginAtZero: true, ticks: { color: tc(), stepSize: 1 }, title: { display: true, text: 'Contratos', color: tc(), font: { size: 9 } } },
+        y: { grid: { color: gc() }, beginAtZero: true, ticks: { color: tc(), stepSize: 1 }, title: { display: true, text: 'Contracts', color: tc(), font: { size: 9 } } },
         y2: { display: false, beginAtZero: true }
       }
     }
@@ -2034,12 +2040,45 @@ function renderAnalyticsAll() {
   const lbl = document.getElementById('anaPeriodLabel');
   if (lbl) lbl.textContent = periodLabel(fy, fm, days) + ' · filters every chart below';
   renderCAC(fy, fm, days);
+  renderCallConv();
   renderTimeline(fy, fm, days);
   renderYear(fy, fm, days);
   renderBookingSchedule();
   renderConversionRate(fy, fm, days);
   renderContractsBySource(fy, fm, days);
   renderAvgPrice(fy, fm, days);
+}
+// ── Calls booked vs weddings booked from a call ──
+// Source: Calendly call invitees (Jan–Jun 2026) matched to signed contracts by
+// email→booked-lead and full-name match. "Booked from call" is bucketed by the
+// month the couple booked their call. Recent months read lower because those
+// callers are often still in the pipeline (booking lags the call).
+const CALL_CONV = {
+  labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+  callers: [4, 16, 16, 12, 23, 16],
+  booked:  [0, 8, 9, 6, 6, 2]
+};
+function renderCallConv() {
+  const totCallers = CALL_CONV.callers.reduce((a,b)=>a+b,0);
+  const totBooked  = CALL_CONV.booked.reduce((a,b)=>a+b,0);
+  const rate = totCallers ? Math.round(totBooked/totCallers*100) : 0;
+  const kEl = document.getElementById('callConvKpi');
+  if (kEl) kEl.textContent = totBooked + '/' + totCallers + ' booked · ' + rate + '%';
+  const kpis = [
+    { v: String(totCallers), l: 'Couples Who Booked a Call', a: '#C96F4A', sub: 'Jan–Jun 2026' },
+    { v: String(totBooked),  l: 'Booked a Wedding After a Call', a: '#7C97C9', sub: 'matched to signed contracts' },
+    { v: rate + '%',         l: 'Call → Booking Rate', a: '#8FA876', sub: 'of couples who took a call' },
+  ];
+  const kg = document.getElementById('callConvKpis');
+  if (kg) kg.innerHTML = kpis.map(k => `<div class="card" style="padding:14px;border-left:3px solid ${k.a}"><div style="font-size:22px;font-weight:800;font-family:'DM Mono',monospace;color:${k.a}">${k.v}</div><div style="font-size:10px;color:var(--t2);margin-top:3px">${k.l}</div><div style="font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px">${k.sub}</div></div>`).join('');
+  mk('cCallConv', {
+    type: 'bar',
+    data: { labels: CALL_CONV.labels, datasets: [
+      { label: 'Calls Booked', data: CALL_CONV.callers, backgroundColor: 'rgba(201,111,74,.75)', borderColor: '#C96F4A', borderWidth: 1.5, borderRadius: 5, borderSkipped: false },
+      { label: 'Booked a Wedding (from call)', data: CALL_CONV.booked, backgroundColor: 'rgba(124,151,201,.85)', borderColor: '#7C97C9', borderWidth: 1.5, borderRadius: 5, borderSkipped: false }
+    ] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true, position: 'bottom', labels: { font: { size: 10 }, padding: 12, usePointStyle: true, color: tc() } }, tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${c.raw}` } } }, scales: { x: { grid: { color: gc() }, ticks: { color: tc(), font: { size: 10 } } }, y: { grid: { color: gc() }, beginAtZero: true, ticks: { color: tc(), stepSize: 2 } } } }
+  });
 }
 
 // ════════════════════════════════════════════════════════════
@@ -2668,17 +2707,61 @@ function renderBkCity(fy, fm, days) {
   mk('cBkCity',{type:'pie',data:{labels:['Melbourne','Adelaide'],datasets:[{data:[melb,adel],backgroundColor:['rgba(212,160,23,.7)','rgba(143,168,118,.65)'],borderColor:isDark?'#13151C':'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10},padding:10,usePointStyle:true,color:tc()}}}}});
 }
 function renderBkAll() {
-  const fy = document.getElementById('bkYear')?.value || '';
-  const fm = document.getElementById('bkMonth')?.value || '';
-  const days = QUICK_RANGE.bk;
-  const lbl = document.getElementById('bkPeriodLabel');
-  if (lbl) lbl.textContent = periodLabel(fy, fm, days) + ' · filters all charts below';
-  renderPipelineAnalysis(fy, fm, days);
-  renderBkClients(fy, fm, days);
-  renderBkRevenue(fy, fm, days);
-  renderBkPkg(fy, fm, days);
-  renderBkCity(fy, fm, days);
-  renderBkTable();
+  renderUpcoming();
+  renderConflictTable();
+}
+function renderUpcoming() {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const evts = (CAL_EVENTS || [])
+    .map(e => ({ d: new Date(e.date + 'T12:00:00'), ev: e }))
+    .filter(x => !isNaN(x.d.getTime()) && x.d >= today)
+    .sort((a,b) => a.d - b.d);
+  const cnt = e => (e.count || (e.clients ? e.clients.length : 1) || 1);
+  const byMonth = {};
+  evts.forEach(x => { const k = x.d.toISOString().slice(0,7); byMonth[k] = (byMonth[k]||0) + cnt(x.ev); });
+  const keys = Object.keys(byMonth).sort();
+  const nice = keys.map(k => { const [y,m] = k.split('-'); return MONTHS[+m-1] + " '" + y.slice(2); });
+  mk('cUpcoming', { type:'bar', data:{ labels:nice, datasets:[{ label:'Weddings', data:keys.map(k=>byMonth[k]), backgroundColor:'rgba(212,160,23,.7)', borderColor:'#D4A017', borderWidth:1.5, borderRadius:5, borderSkipped:false }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=>` ${c.raw} wedding${c.raw>1?'s':''}` } } }, scales:{ x:{ grid:{color:gc()}, ticks:{color:tc(),font:{size:10}} }, y:{ grid:{color:gc()}, beginAtZero:true, ticks:{color:tc(),stepSize:1} } } } });
+  const total = evts.reduce((s,x)=>s+cnt(x.ev),0);
+  const kpiEl = document.getElementById('upcomingKpi'); if (kpiEl) kpiEl.textContent = total + ' upcoming';
+  const sub = document.getElementById('upcomingSub'); if (sub) sub.textContent = 'Booked weddings ahead, by month · ' + total + ' total';
+  const listEl = document.getElementById('upcomingList');
+  if (listEl) listEl.innerHTML = evts.slice(0,12).map(x => {
+    const e = x.ev; const names = (e.clients||[]).map(c=>c.name).join(' & ') || 'Booked';
+    const dd = x.d.toLocaleDateString('en-AU',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+    const cities = [...new Set((e.clients||[]).map(c=>c.city).filter(Boolean))].join(', ');
+    const dbl = (e.clients||[]).length > 1;
+    return `<div class="ri"><div class="rav" style="background:${avc(names)}">${x.d.getDate()}</div><div class="ri-info"><div class="ri-name">${names}${dbl?' <span style="color:#D96A4A;font-size:9px;font-weight:800">⚡ DOUBLE</span>':''}</div><div class="ri-sub">${dd}${cities?' · '+cities:''}</div></div></div>`;
+  }).join('') || '<div style="color:var(--t3);font-size:12px;padding:10px">No upcoming weddings on the calendar</div>';
+}
+function toggleConflicts() {
+  const w = document.getElementById('conflictWrap');
+  const ic = document.getElementById('conflictToggleIcon');
+  const open = w.style.display !== 'none';
+  w.style.display = open ? 'none' : 'block';
+  if (ic) ic.textContent = open ? '▸ Expand' : '▾ Collapse';
+}
+function renderConflictTable() {
+  const conflicts = LEADS.filter(l => ['NOT YET','Double Booked'].includes(l.dateAvailable))
+    .filter(l => { const clients = (CAL_EVENTS||[]).find(e => e.date === l.date); return l.dateAvailable === 'Double Booked' || (clients && clients.clients.length); });
+  const el = document.getElementById('conflictBody');
+  if (el) el.innerHTML = conflicts.map(l => {
+    const bookedOn = (CAL_EVENTS || []).find(e => e.date === l.date);
+    const names = bookedOn ? bookedOn.clients.map(c=>c.name).join(', ') : 'Date taken';
+    const isDouble = l.dateAvailable === 'Double Booked';
+    return `<tr>
+      <td><div class="cn" style="font-size:11px">${l.name}</div><div class="ce">${l.email}</div></td>
+      <td style="font-family:'DM Mono',monospace;font-size:10px">${l.date ? l.date.split('-').reverse().join('/') : '—'}</td>
+      <td>${stPL(l)}</td>
+      <td>${isDouble
+        ? `<span class="sp" style="background:rgba(217,106,74,.18);color:#D96A4A;border:2px solid #D96A4A;font-size:9px;font-weight:800">⚡ DOUBLE BOOKED</span>`
+        : `<span class="sp" style="background:rgba(217,106,74,.1);color:#D96A4A;border:1px solid rgba(217,106,74,.35);font-size:9px">✕ Unavailable</span>`
+      }</td>
+      <td style="font-size:10px;color:var(--t2)">${names}</td>
+    </tr>`;
+  }).join('') || '<tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px;font-size:12px">No date conflicts 🎉</td></tr>';
+  const sub = document.getElementById('conflictSub');
+  if (sub) sub.textContent = conflicts.length + ' lead' + (conflicts.length===1?'':'s') + " blocked by an already-booked date · tap to expand";
 }
 function toggleBkTable() {
   const body = document.getElementById('bkTableBody');
@@ -3298,7 +3381,7 @@ const EXPLAIN = {
   cTimeline: 'How many new enquiries arrive over time — the demand trend.',
   cYearInq: 'The wedding years couples are asking about — shows how far ahead people are booking.',
   cYearBooked: 'Confirmed weddings on the calendar, grouped by when the wedding takes place.',
-  cContractsBySource: 'Signed contracts grouped by the channel that originally brought that client in.',
+  cContractsBySource: 'Signed contracts grouped by the channel that originally brought that client in. Note: the period filter uses the wedding date, not the signing date — a contract signed today for a 2027 wedding shows under 2027.',
   convKpis: 'Of the leads received in this period, the % that turned into a signed contract.',
   cAvgPrice: 'The average package value clients pay, month by month.',
   cSignedVsLeads: 'Contracts closed each month vs how many leads were available to close.',
