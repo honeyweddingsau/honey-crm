@@ -813,10 +813,22 @@ tr:hover td{background:var(--s2)}
   <!-- BOOKINGS -->
   <div class="tab" id="tab-bookings">
 
-    <!-- Upcoming weddings chart -->
+    <!-- Year + future-only filter -->
+    <div class="card" style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div><div class="ct">Wedding year</div><div class="cs" id="wkPeriodLabel">All years · every booked wedding on the calendar</div></div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <div class="qr-wrap" id="wkYearBtns"></div>
+        <button id="wkFutureBtn" class="qr-btn" onclick="toggleFutureOnly()" title="Hide weddings that already happened">📅 Upcoming only</button>
+      </div>
+    </div>
+
+    <!-- Year summary -->
+    <div class="kpi-grid" id="wkYearKpis" style="margin-bottom:12px"></div>
+
+    <!-- Weddings chart -->
     <div class="card" style="margin-bottom:12px">
       <div class="ch">
-        <div><div class="ct">Upcoming Weddings</div><div class="cs" id="upcomingSub">Booked weddings ahead, by month</div></div>
+        <div><div class="ct">Weddings by Month</div><div class="cs" id="upcomingSub">Booked weddings by month</div></div>
         <div class="leg" id="upcomingKpi" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--t2)"></div>
       </div>
       <div class="cw tall"><canvas id="cUpcoming"></canvas></div>
@@ -825,7 +837,7 @@ tr:hover td{background:var(--s2)}
 
     <!-- Next weddings list -->
     <div class="card" style="margin-bottom:12px">
-      <div class="ch" style="margin-bottom:10px"><div><div class="ct">Next Weddings</div><div class="cs">Closest booked dates coming up</div></div></div>
+      <div class="ch" style="margin-bottom:10px"><div><div class="ct">Wedding List</div><div class="cs" id="wkListSub">Closest booked dates coming up</div></div></div>
       <div id="upcomingList"></div>
     </div>
 
@@ -2774,29 +2786,65 @@ function renderBkAll() {
   renderUpcoming();
   renderConflictTable();
 }
+let WK_YEAR = '';        // '' = all years
+let WK_FUTURE_ONLY = true;  // hide weddings that already happened
+function setWkYear(y) { WK_YEAR = y; renderUpcoming(); }
+function toggleFutureOnly() { WK_FUTURE_ONLY = !WK_FUTURE_ONLY; renderUpcoming(); }
 function renderUpcoming() {
   const today = new Date(); today.setHours(0,0,0,0);
-  const evts = (CAL_EVENTS || [])
+  const all = (CAL_EVENTS || [])
     .map(e => ({ d: new Date(e.date + 'T12:00:00'), ev: e }))
-    .filter(x => !isNaN(x.d.getTime()) && x.d >= today)
+    .filter(x => !isNaN(x.d.getTime()))
     .sort((a,b) => a.d - b.d);
-  const cnt = e => (e.count || (e.clients ? e.clients.length : 1) || 1);
+  const cntF = e => (e.count || (e.clients ? e.clients.length : 1) || 1);
+
+  // Year buttons — built from every year on the calendar
+  const years = [...new Set(all.map(x => String(x.d.getFullYear())))].sort();
+  const btnWrap = document.getElementById('wkYearBtns');
+  if (btnWrap) btnWrap.innerHTML =
+    `<button class="qr-btn${WK_YEAR===''?' active':''}" onclick="setWkYear('')">All</button>` +
+    years.map(y => {
+      const n = all.filter(x => String(x.d.getFullYear())===y && (!WK_FUTURE_ONLY || x.d >= today)).reduce((s,x)=>s+cntF(x.ev),0);
+      return `<button class="qr-btn${WK_YEAR===y?' active':''}" onclick="setWkYear('${y}')">${y} <span style="opacity:.6">(${n})</span></button>`;
+    }).join('');
+  const fb = document.getElementById('wkFutureBtn');
+  if (fb) { fb.classList.toggle('active', WK_FUTURE_ONLY); fb.textContent = WK_FUTURE_ONLY ? '📅 Upcoming only' : '🗓 All dates (incl. past)'; }
+
+  const evts = all.filter(x => (!WK_YEAR || String(x.d.getFullYear())===WK_YEAR) && (!WK_FUTURE_ONLY || x.d >= today));
+
+  // Year summary KPIs
+  const total = evts.reduce((s,x)=>s+cntF(x.ev),0);
+  const doubles = evts.filter(x => cntF(x.ev) > 1).length;
+  const past = all.filter(x => (!WK_YEAR || String(x.d.getFullYear())===WK_YEAR) && x.d < today).reduce((s,x)=>s+cntF(x.ev),0);
+  const nextUp = all.find(x => x.d >= today && (!WK_YEAR || String(x.d.getFullYear())===WK_YEAR));
+  const scope = (WK_YEAR || 'All years') + (WK_FUTURE_ONLY ? ' · upcoming only' : ' · incl. past');
+  const kEl = document.getElementById('wkYearKpis');
+  if (kEl) kEl.innerHTML = [
+    {v:String(total), l:'Weddings shown', s:scope, a:'#D4A017', i:'💍'},
+    {v:String(past), l:'Already done', s:(WK_YEAR||'all years'), a:'#8A8070', i:'✓'},
+    {v:String(doubles), l:'Days with 2+ weddings', s:'need extra crew', a:doubles?'#D96A4A':'#8FA876', i:'⚡'},
+    {v:nextUp ? nextUp.d.toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'}) : '—', l:'Next wedding', s:nextUp ? (nextUp.ev.clients||[]).map(c=>c.name).join(' & ') : 'nothing booked ahead', a:'#8FA876', i:'📅'},
+  ].map(k => `<div class="kpi" style="--accent:${k.a}"><div class="kpi-ico" style="background:${k.a}18">${k.i}</div><div class="kpi-val" style="color:${k.a};font-size:${k.v.length>6?'17px':'26px'}">${k.v}</div><div class="kpi-lbl">${k.l}</div><div class="kpi-delta">${k.s}</div></div>`).join('');
+  const pl = document.getElementById('wkPeriodLabel');
+  if (pl) pl.textContent = (WK_YEAR ? WK_YEAR : 'All years') + ' · ' + (WK_FUTURE_ONLY ? 'showing only weddings still ahead' : 'showing every wedding, past included');
+  const cnt = cntF;
   const byMonth = {};
   evts.forEach(x => { const k = x.d.toISOString().slice(0,7); byMonth[k] = (byMonth[k]||0) + cnt(x.ev); });
   const keys = Object.keys(byMonth).sort();
   const nice = keys.map(k => { const [y,m] = k.split('-'); return MONTHS[+m-1] + " '" + y.slice(2); });
   mk('cUpcoming', { type:'bar', data:{ labels:nice, datasets:[{ label:'Weddings', data:keys.map(k=>byMonth[k]), backgroundColor:'rgba(212,160,23,.7)', borderColor:'#D4A017', borderWidth:1.5, borderRadius:5, borderSkipped:false }] }, options:{ responsive:true, maintainAspectRatio:false, onClick:(ev,els)=>{ if(els && els.length) selectUpcomingMonth(keys[els[0].index]); }, onHover:(ev,els)=>{ ev.native.target.style.cursor = els.length ? 'pointer' : 'default'; }, plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=>` ${c.raw} wedding${c.raw>1?'s':''} — click to list` } } }, scales:{ x:{ grid:{color:gc()}, ticks:{color:tc(),font:{size:10}} }, y:{ grid:{color:gc()}, beginAtZero:true, ticks:{color:tc(),stepSize:1} } } } });
-  const total = evts.reduce((s,x)=>s+cnt(x.ev),0);
-  const kpiEl = document.getElementById('upcomingKpi'); if (kpiEl) kpiEl.textContent = total + ' upcoming';
-  const sub = document.getElementById('upcomingSub'); if (sub) sub.textContent = 'Booked weddings ahead, by month · ' + total + ' total · click a bar to see who';
+  const kpiEl = document.getElementById('upcomingKpi'); if (kpiEl) kpiEl.textContent = total + ' wedding' + (total===1?'':'s');
+  const sub = document.getElementById('upcomingSub'); if (sub) sub.textContent = scope + ' · ' + total + ' total · click a bar to see who';
   const listEl = document.getElementById('upcomingList');
-  if (listEl) listEl.innerHTML = evts.slice(0,12).map(x => {
+  const listSub = document.getElementById('wkListSub');
+  if (listSub) listSub.textContent = scope + ' · showing up to 30';
+  if (listEl) listEl.innerHTML = evts.slice(0,30).map(x => {
     const e = x.ev; const names = (e.clients||[]).map(c=>c.name).join(' & ') || 'Booked';
     const dd = x.d.toLocaleDateString('en-AU',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
     const cities = [...new Set((e.clients||[]).map(c=>c.city).filter(Boolean))].join(', ');
     const dbl = (e.clients||[]).length > 1;
     return `<div class="ri"><div class="rav" style="background:${avc(names)}">${x.d.getDate()}</div><div class="ri-info"><div class="ri-name">${names}${dbl?' <span style="color:#D96A4A;font-size:9px;font-weight:800">⚡ DOUBLE</span>':''}</div><div class="ri-sub">${dd}${cities?' · '+cities:''}</div></div></div>`;
-  }).join('') || '<div style="color:var(--t3);font-size:12px;padding:10px">No upcoming weddings on the calendar</div>';
+  }).join('') || '<div style="color:var(--t3);font-size:12px;padding:10px">No weddings match this filter</div>';
 }
 function selectUpcomingMonth(k) {
   const el = document.getElementById('monthWeddings'); if (!el) return;
@@ -3580,7 +3628,7 @@ const EXPLAIN = {
   cAdROAS: 'ROAS = Return On Ad Spend: revenue ÷ ad spend. A ROAS of 3 means every $1 in ads brought back $3.',
   cAccCash: 'Money coming into the business (Stripe + bank) vs money going out, month by month.',
   cAccDonut: 'Where the business money went in FY2025-26, by cost category.',
-  cUpcoming: 'Confirmed weddings coming up, by month. Click a bar to list that month\'s couples — gold names link to their client portal.',
+  cUpcoming: 'Confirmed weddings by month. Use the year buttons above to count a whole year, and \"Upcoming only\" to drop weddings that already happened. Click a bar to list that month\'s couples — gold names link to their client portal.',
 };
 
 (function boot() {
