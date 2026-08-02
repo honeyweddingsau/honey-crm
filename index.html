@@ -824,6 +824,7 @@ tr:hover td{background:var(--s2)}
 
     <!-- Year summary -->
     <div class="kpi-grid" id="wkYearKpis" style="margin-bottom:12px"></div>
+    <div id="wkMissingWarn" style="display:none;font-size:11px;color:var(--am);background:rgba(224,177,94,.08);border:1px solid rgba(224,177,94,.25);border-radius:var(--rs);padding:9px 13px;margin-bottom:12px;line-height:1.6"></div>
 
     <!-- Weddings chart -->
     <div class="card" style="margin-bottom:12px">
@@ -2804,8 +2805,10 @@ function renderUpcoming() {
   if (btnWrap) btnWrap.innerHTML =
     `<button class="qr-btn${WK_YEAR===''?' active':''}" onclick="setWkYear('')">All</button>` +
     years.map(y => {
-      const n = all.filter(x => String(x.d.getFullYear())===y && (!WK_FUTURE_ONLY || x.d >= today)).reduce((s,x)=>s+cntF(x.ev),0);
-      return `<button class="qr-btn${WK_YEAR===y?' active':''}" onclick="setWkYear('${y}')">${y} <span style="opacity:.6">(${n})</span></button>`;
+      const tot = all.filter(x => String(x.d.getFullYear())===y).reduce((s,x)=>s+cntF(x.ev),0);
+      const ahead = all.filter(x => String(x.d.getFullYear())===y && x.d >= today).reduce((s,x)=>s+cntF(x.ev),0);
+      const shown = WK_FUTURE_ONLY ? ahead : tot;
+      return `<button class="qr-btn${WK_YEAR===y?' active':''}" onclick="setWkYear('${y}')" title="${tot} wedding${tot===1?'':'s'} in ${y} · ${ahead} still ahead">${y} <span style="opacity:.6">(${shown})</span></button>`;
     }).join('');
   const fb = document.getElementById('wkFutureBtn');
   if (fb) { fb.classList.toggle('active', WK_FUTURE_ONLY); fb.textContent = WK_FUTURE_ONLY ? '📅 Upcoming only' : '🗓 All dates (incl. past)'; }
@@ -2827,6 +2830,18 @@ function renderUpcoming() {
   ].map(k => `<div class="kpi" style="--accent:${k.a}"><div class="kpi-ico" style="background:${k.a}18">${k.i}</div><div class="kpi-val" style="color:${k.a};font-size:${k.v.length>6?'17px':'26px'}">${k.v}</div><div class="kpi-lbl">${k.l}</div><div class="kpi-delta">${k.s}</div></div>`).join('');
   const pl = document.getElementById('wkPeriodLabel');
   if (pl) pl.textContent = (WK_YEAR ? WK_YEAR : 'All years') + ' · ' + (WK_FUTURE_ONLY ? 'showing only weddings still ahead' : 'showing every wedding, past included');
+  // Contracts with no wedding date in column B never make it onto the calendar
+  const noDate = (typeof BOOKINGS !== 'undefined') ? BOOKINGS.filter(b => !b.wed) : [];
+  const warnEl = document.getElementById('wkMissingWarn');
+  if (warnEl) {
+    if (noDate.length) {
+      const byYr = {};
+      noDate.forEach(b => { const y = '20' + String(b.date).split('/')[2]; byYr[y] = (byYr[y]||0)+1; });
+      const detail = Object.entries(byYr).sort().map(([y,n]) => `${n} signed in ${y}`).join(' · ');
+      warnEl.innerHTML = `⚠️ <b>${noDate.length} signed contracts are missing from this view</b> — their wedding date (column B of the contracts sheet) is empty, so they can't be placed on a calendar. ${detail}. Fill column B in the sheet and they'll appear here.`;
+      warnEl.style.display = 'block';
+    } else warnEl.style.display = 'none';
+  }
   const cnt = cntF;
   const byMonth = {};
   evts.forEach(x => { const k = x.d.toISOString().slice(0,7); byMonth[k] = (byMonth[k]||0) + cnt(x.ev); });
