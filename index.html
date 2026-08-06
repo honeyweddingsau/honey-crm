@@ -679,7 +679,10 @@ tr:hover td{background:var(--s2)}
       <div class="kpi-grid" id="convKpis"></div>
     </div>
     <div class="card">
-      <div class="ch"><div><div class="ct">Average Client Price</div><div class="cs">Avg. package value per signed client, by month</div></div></div>
+      <div class="ch">
+        <div><div class="ct">Average Client Price</div><div class="cs" id="apSub">Avg. package value per signed client</div></div>
+        <div class="qr-wrap" id="apYearBtns"></div>
+      </div>
       <div class="kpi-grid" id="avgPriceKpis" style="margin-bottom:12px"></div>
       <div class="cw"><canvas id="cAvgPrice"></canvas></div>
     </div>
@@ -2070,16 +2073,32 @@ function renderConversionRate(fy, fm, days) {
       <div class="kpi-lbl">${k.lbl}</div>
     </div>`).join('');
 }
-function renderAvgPrice(fy, fm, days) {
-  if (days===undefined) days = QUICK_RANGE.ana;
-  const bookings = bookingsInPeriod(fy, fm, days);
+let AP_YEAR = '';   // '' = all years — own filter, independent of the period bar
+function setApYear(y) { AP_YEAR = y; renderAvgPrice(); }
+function renderAvgPrice() {
+  // Signing year of every contract on record
+  const sYear = b => { const p = String(b.date).split('/'); return p.length===3 ? '20'+p[2] : ''; };
+  const years = [...new Set(BOOKINGS.map(sYear).filter(Boolean))].sort();
+  const bw = document.getElementById('apYearBtns');
+  if (bw) bw.innerHTML =
+    `<button class="qr-btn${AP_YEAR===''?' active':''}" onclick="setApYear('')">All</button>` +
+    years.map(y => {
+      const n = BOOKINGS.filter(b => sYear(b)===y).length;
+      return `<button class="qr-btn${AP_YEAR===y?' active':''}" onclick="setApYear('${y}')" title="${n} contracts signed in ${y}">${y} <span style="opacity:.6">(${n})</span></button>`;
+    }).join('');
+
+  const bookings = BOOKINGS.filter(b => !AP_YEAR || sYear(b)===AP_YEAR);
+  const fy = AP_YEAR, fm = '', days = 0;
   const total = bookings.reduce((a,b)=>a+b.price,0);
   const avg = bookings.length ? Math.round(total/bookings.length) : 0;
   const kpis = [
-    { val: fmt(avg), lbl: 'Avg. client price — '+periodLabel(fy,fm,days), acc: '#D4A017', ico: '💰' },
-    { val: String(bookings.length), lbl: 'Clients (period)', acc: '#8FA876', ico: '🤝' },
-    { val: fmt(total), lbl: 'Total revenue (period)', acc: '#C96F4A', ico: '💵' },
+    { val: fmt(avg), lbl: 'Avg. client price — ' + (AP_YEAR || 'all years'), acc: '#D4A017', ico: '💰' },
+    { val: String(bookings.length), lbl: 'Contracts signed', acc: '#8FA876', ico: '🤝' },
+    { val: fmt(total), lbl: 'Total contract value', acc: '#C96F4A', ico: '💵' },
+    { val: bookings.length ? fmt(Math.max(...bookings.map(b=>b.price))) : '—', lbl: 'Biggest package', acc: '#7C97C9', ico: '🏆' },
   ];
+  const apSub = document.getElementById('apSub');
+  if (apSub) apSub.textContent = (AP_YEAR || 'All years') + ' · by contract signing date · ' + bookings.length + ' contracts';
   const kpiEl = document.getElementById('avgPriceKpis');
   if (kpiEl) kpiEl.innerHTML = kpis.map(k => `
     <div class="kpi" style="--accent:${k.acc}">
@@ -2088,33 +2107,24 @@ function renderAvgPrice(fy, fm, days) {
       <div class="kpi-lbl">${k.lbl}</div>
     </div>`).join('');
 
-  let labels, data;
-  if (days) {
-    const byDate = {};
-    bookings.forEach(b => { const d = bkDateObj(b.date); if (!d) return; const key = d.toISOString().slice(0,10); (byDate[key] = byDate[key]||[]).push(b.price); });
-    const sorted = Object.entries(byDate).sort(([a],[b2]) => a.localeCompare(b2));
-    labels = sorted.map(([d]) => d);
-    data = sorted.map(([,prices]) => Math.round(prices.reduce((a,p)=>a+p,0)/prices.length));
-  } else if (fy) {
+  let labels, data, counts;
+  if (AP_YEAR) {
     labels = MONTHS;
-    data = MONTHS.map(mo => {
-      const bk = bookings.filter(b => bkYM(b.date).mon === mo);
-      return bk.length ? Math.round(bk.reduce((a,b)=>a+b.price,0)/bk.length) : null;
-    });
+    const grp = MONTHS.map(mo => bookings.filter(b => bkYM(b.date).mon === mo));
+    data = grp.map(bk => bk.length ? Math.round(bk.reduce((a,b)=>a+b.price,0)/bk.length) : null);
+    counts = grp.map(bk => bk.length);
   } else {
-    const years = ['2024','2025','2026'];
     labels = years;
-    data = years.map(y => {
-      const bk = bookingsInPeriod(y, fm);
-      return bk.length ? Math.round(bk.reduce((a,b)=>a+b.price,0)/bk.length) : null;
-    });
+    const grp = years.map(y => BOOKINGS.filter(b => sYear(b)===y));
+    data = grp.map(bk => bk.length ? Math.round(bk.reduce((a,b)=>a+b.price,0)/bk.length) : null);
+    counts = grp.map(bk => bk.length);
   }
   mk('cAvgPrice', {
     type: 'bar',
     data: { labels, datasets: [{ label: 'Avg price', data, backgroundColor: 'rgba(212,160,23,.65)', borderColor: '#D4A017', borderWidth: 1.5, borderRadius: 6, borderSkipped: false }] },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { tooltip: { callbacks: { label: c => c.raw != null ? fmt(c.raw) : 'No clients' } } },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => c.raw != null ? fmt(c.raw) + ' avg · ' + counts[c.dataIndex] + ' contract' + (counts[c.dataIndex]===1?'':'s') : 'No contracts' } } },
       scales: {
         x: { grid: { color: gc() }, ticks: { color: tc() } },
         y: { grid: { color: gc() }, beginAtZero: true, ticks: { color: tc(), callback: v => fmt(v) } }
@@ -2136,7 +2146,7 @@ function renderAnalyticsAll() {
   renderBookingSchedule();
   renderConversionRate(fy, fm, days);
   renderContractsBySource(fy, fm, days);
-  renderAvgPrice(fy, fm, days);
+  renderAvgPrice();
 }
 // ── Calls booked vs weddings booked from a call ──
 // Source: Calendly call invitees (Jan–Jun 2026) matched to signed contracts by
@@ -3692,7 +3702,7 @@ const EXPLAIN = {
   cYearBooked: 'Confirmed weddings grouped by when the wedding takes place (column B of the contracts sheet — not the signing date).',
   cContractsBySource: 'Signed contracts grouped by the channel that originally brought that client in. The period filter uses the date the contract was signed.',
   convKpis: 'Of the leads received in this period, the % that turned into a signed contract.',
-  cAvgPrice: 'The average package value clients pay, month by month.',
+  cAvgPrice: 'The average package value clients pay. Pick a year with the buttons on the right to see it month by month — this filter is its own, separate from the period bar at the top of the tab. Grouped by the date the contract was signed.',
   cSignedVsLeads: 'Contracts closed each month vs how many leads were available to close.',
   cDateConflict: 'Leads we could not take because their wedding date was already booked by another client.',
   cWeddingMonthAvail: 'For each wedding month: how many leads we can still take vs dates already taken.',
